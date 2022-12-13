@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_10sdp"
+        android:background="@drawable/bg_view_shadow"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:src="@drawable/ic_profile"
+            app:civ_border_color="@color/theme_blue_14378E"
+            app:civ_border_width="@dimen/_1sdp"
+            app:tint="@color/black_393f42" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_regular"
+                android:maxLines="1"
+                android:text="Welcome Back"
+                android:textColor="@color/dark_gray_b3b3b3"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_bold"
+                android:maxLines="1"
+                android:text="Welcome Back"
+                android:textColor="@color/theme_blue_14378E"
+                android:textSize="@dimen/_18sdp"
+                />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:src="@drawable/ic_search" />
+
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:src="@drawable/ic_notification" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

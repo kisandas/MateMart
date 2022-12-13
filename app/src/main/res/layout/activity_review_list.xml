@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ReviewListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_view_shadow"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/black_393f42" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:fontFamily="@font/font_inter_bold"
+                android:maxLines="1"
+                android:text="Reviews"
+                android:textColor="@color/theme_blue_14378E"
+                android:textSize="@dimen/_18sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/sample"
+                app:riv_corner_radius="@dimen/_10sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:fontFamily="@font/font_inter_semibold"
+                    android:gravity="center"
+                    android:text="Wall light 8Watt round"
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_star_fill_yellow_big"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:text="4.5"
+                    android:textColor="@color/theme_blue_14378E"
+                    android:textSize="@dimen/_26sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:gravity="center"
+                    android:text="20 review"
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textSize="@dimen/_18sdp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_16sdp"
+            tools:listitem="@layout/item_review_list" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:src="@drawable/ic_add_floating"
+        android:layout_marginBottom="@dimen/_25sdp" />
+
+
+</RelativeLayout>

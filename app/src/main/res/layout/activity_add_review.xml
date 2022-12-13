@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AddReviewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_view_shadow"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/black_393f42" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:fontFamily="@font/font_inter_bold"
+                android:maxLines="1"
+                android:text="Write Review"
+                android:textColor="@color/theme_blue_14378E"
+                android:textSize="@dimen/_18sdp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="Phone No"
+            android:textColor="@color/theme_blue_14378E"
+            android:textFontWeight="800"
+            android:textSize="@dimen/_13sdp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:hint="Enter your Name"
+            android:text=""
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textColorHint="@color/hint_gray_c6c6c6"
+            android:textSize="@dimen/_16sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="What’s Your rate?"
+            android:textColor="@color/theme_blue_14378E"
+            android:textFontWeight="800"
+            android:textSize="@dimen/_13sdp" />
+
+        <com.matemart.utils.FlexibleRatingBar
+            android:layout_width="@dimen/_230sdp"
+            android:layout_height="@dimen/_36sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:stepSize="0.1"
+
+            app:colorOutlineOff="@color/yellow_ffc000"
+            app:colorOutlineOn="@color/yellow_ffc000"
+            app:strokeWidth="@dimen/_1sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="Give your Review here "
+            android:textColor="@color/theme_blue_14378E"
+            android:textFontWeight="800"
+            android:textSize="@dimen/_13sdp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/bg_round_corner_stroke_radius_color_4d4d4d_6"
+            android:gravity="start"
+            android:hint="Write here.."
+            android:maxHeight="@dimen/_160sdp"
+            android:minLines="5"
+            android:padding="@dimen/_8sdp"
+            android:text=""
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textColorHint="@color/dark_gray_b3b3b3"
+            android:textSize="@dimen/_14sdp" />
+
+        <TextView
+            android:id="@+id/btn_submit"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_36sdp"
+            android:background="@drawable/bg_btn_blue"
+            android:fontFamily="@font/font_inter_semibold"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_40sdp"
+            android:text="Submit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

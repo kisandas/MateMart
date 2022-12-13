@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginVertical="@dimen/_4sdp"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:src="@drawable/ic_recentsearch" />
+
+        <TextView
+            android:id="@+id/tv_category_name"
+            android:layout_width="0dp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_inter_regular"
+            android:text="Plumbing Acessories"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textSize="@dimen/_14sdp" />
+
+        <ImageView
+            android:src="@drawable/ic_leftuparrow"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            app:tint="@color/black_393f42" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/dark_gray_4d4d4d"/>
+</LinearLayout>

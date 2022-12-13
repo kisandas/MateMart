@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_8sdp"
+    android:layout_marginVertical="@dimen/_2sdp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_star_fill_yellow"
+        android:drawablePadding="@dimen/_3sdp"
+        android:fontFamily="@font/font_inter_medium"
+        android:text="3"
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textSize="@dimen/_14sdp" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_weight="0.7" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:fontFamily="@font/font_inter_medium"
+        android:gravity="end"
+        android:text="0344"
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textSize="@dimen/_12sdp" />
+
+</LinearLayout>

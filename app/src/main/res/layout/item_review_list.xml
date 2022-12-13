@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_16sdp"
+    android:layout_marginVertical="@dimen/_8sdp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:src="@drawable/ic_profile"
+            app:civ_border_color="@color/theme_blue_14378E"
+            app:civ_border_width="@dimen/_1sdp"
+            app:tint="@color/black_393f42" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_semibold"
+                android:maxLines="1"
+                android:text="Welcome Back"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textSize="@dimen/_16sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_regular"
+                android:maxLines="1"
+                android:text="12/12/2022"
+                android:textColor="@color/dark_gray_b3b3b3"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/bg_round_corner_radius_4"
+            android:backgroundTint="@color/green_418100"
+            android:drawableEnd="@drawable/ic_star_fill_white"
+            android:drawablePadding="@dimen/_4sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_17sdp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:fontFamily="@font/font_inter_regular"
+        android:text="₹1620"
+        android:textColor="@color/dark_gray_b3b3b3"
+        android:textSize="@dimen/_13sdp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:alpha="0.6"
+        android:background="@color/dark_gray_b3b3b3" />
+
+
+</LinearLayout>
