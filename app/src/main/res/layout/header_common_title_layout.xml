@@ -5,29 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/_10sdp"
         android:background="@drawable/bg_view_shadow"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/black_393f42" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_weight="0.8"
             android:fontFamily="@font/font_inter_bold"
             android:maxLines="1"
-            android:gravity="center"
-            android:text="My Orders"
+            android:text="Write Review"
             android:textColor="@color/theme_blue_14378E"
-            android:textSize="@dimen/_18sdp"
-            />
+            android:textSize="@dimen/_18sdp" />
+
 
     </LinearLayout>
-
-
 </LinearLayout>

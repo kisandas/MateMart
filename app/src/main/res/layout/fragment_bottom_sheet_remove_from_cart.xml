@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove_dialog"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@id/constraint_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_top_corner_radius_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_16sdp"
+            app:layout_constraintBottom_toTopOf="@id/btn_move_wishlist">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:scaleType="fitXY"
+                android:src="@drawable/sample"
+                app:riv_corner_radius="@dimen/_4sdp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_weight="0.65"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_4sdp"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:text="Modern looking light with extra bublb"
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textSize="@dimen/_16sdp" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:text="₹1000"
+                    android:textColor="@color/dark_gray_b3b3b3"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_remove"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:background="@drawable/bg_round_corner_stroke_radius_color_4d4d4d_6"
+            android:fontFamily="@font/font_inter_regular"
+            android:gravity="center"
+            android:text="Remove"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_move_wishlist"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_move_wishlist"
+            app:layout_constraintWidth_percent="0.32" />
+
+        <TextView
+            android:id="@+id/btn_move_wishlist"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:background="@drawable/bg_btn_blue"
+            android:fontFamily="@font/font_inter_semibold"
+            android:gravity="center"
+            android:text="Move to Wishlist"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.53" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

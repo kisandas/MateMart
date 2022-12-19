@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.MyOrderDetailActivity">
+
+    <include layout="@layout/header_common_title_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.loopeer.shadow.ShadowView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:elevation="10dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cornerRadius="4dp"
+                app:shadowMargin="@dimen/_8sdp"
+                app:shadowRadius="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_10sdp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.65"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_order_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_inter_bold"
+                            android:text="Order No #238562312"
+                            android:textColor="@color/theme_blue_14378E"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:id="@+id/tv_order_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_5sdp"
+                            android:fontFamily="@font/font_inter_medium"
+                            android:text="Modern looking light"
+                            android:textColor="@color/dark_gray_b3b3b3"
+                            android:textSize="@dimen/_13sdp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35">
+
+                        <TextView
+                            android:id="@+id/tv_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/bg_round_corner_radius_4"
+                            android:backgroundTint="@color/theme_blue_14378E"
+                            android:fontFamily="@font/font_inter_semibold"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_6sdp"
+                            android:text="Re-Order"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_15sdp" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </com.loopeer.shadow.ShadowView>
+
+            <com.loopeer.shadow.ShadowView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:elevation="10dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cornerRadius="4dp"
+                app:shadowMargin="@dimen/_8sdp"
+                app:shadowRadius="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_10sdp">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/sample"
+                        app:riv_corner_radius="@dimen/_4sdp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.65"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_bold"
+                            android:text="Modern looking light with extra bublb"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/font_inter_regular"
+                                android:text="₹1000"
+                                android:textColor="@color/theme_blue_14378E"
+                                android:textSize="@dimen/_15sdp" />
+
+                            <TextView
+                                android:id="@+id/tv_title_qty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_16sdp"
+                                android:layout_toStartOf="@id/tv_qty"
+                                android:fontFamily="@font/font_inter_medium"
+                                android:text="Qty:"
+                                android:textColor="@color/dark_gray_4d4d4d"
+                                android:textSize="@dimen/_13sdp" />
+
+                            <TextView
+                                android:id="@+id/tv_qty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:fontFamily="@font/font_inter_bold"
+                                android:text="2"
+                                android:textColor="@color/dark_gray_4d4d4d"
+                                android:textSize="@dimen/_14sdp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </com.loopeer.shadow.ShadowView>
+
+            <LinearLayout
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <ImageView
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp"
+                android:background="@color/gray_e3e3e3" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_frame_invoce" />
+
+                <TextView
+                    android:id="@+id/tv_invoice_downloads"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.8"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:text="Invoice Download"
+                    android:textColor="@color/theme_blue_14378E"
+                    android:textSize="@dimen/_15sdp" />
+                <ImageView
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_next" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8sdp"
+                android:background="@color/gray_e3e3e3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_regular"
+                android:text="Shipping Add"
+                android:textColor="@color/theme_blue_14378E"
+                android:textSize="@dimen/_15sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_bold"
+                android:text="Raghav Bhardoriya"
+                android:textColor="@color/theme_blue_14378E"
+                android:textSize="@dimen/_15sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:fontFamily="@font/font_inter_regular"
+                android:text="3/42, Parleshwar Society, Shahajee Raje Mrg,
+Vile Parle (east),400057"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_4sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:fontFamily="@font/font_inter_regular"
+                android:text="Phone no: 1234567891"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textSize="@dimen/_13sdp" />
+
+            <com.loopeer.shadow.ShadowView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:elevation="10dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cornerRadius="4dp"
+                app:shadowMargin="@dimen/_8sdp"
+                app:shadowRadius="@dimen/_10sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_4sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Order Details"
+                        android:textColor="@color/theme_blue_14378E"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_regular"
+                            android:text="Order Details"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_medium"
+                            android:text="200"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_regular"
+                            android:text="Order Details"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_medium"
+                            android:text="200"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_regular"
+                            android:text="Order Details"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_medium"
+                            android:text="200"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_regular"
+                            android:text="Order Details"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_medium"
+                            android:text="200"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_regular"
+                            android:text="Order Details"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_medium"
+                            android:text="200"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:alpha="0.6"
+                        android:background="@color/dark_gray_b3b3b3" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/_8sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_bold"
+                            android:text="Order Details"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:fontFamily="@font/font_inter_bold"
+                            android:text="200"
+                            android:textColor="@color/dark_gray_4d4d4d"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.loopeer.shadow.ShadowView>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+</LinearLayout>

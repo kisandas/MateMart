@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/_4sdp"
+    android:layout_marginHorizontal="@dimen/_8sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.loopeer.shadow.ShadowView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cornerRadius="4dp"
+        app:shadowMargin="@dimen/_8sdp"
+        app:shadowRadius="@dimen/_8sdp">
+        <LinearLayout
+            android:paddingVertical="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:layout_height="@dimen/_95sdp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.65"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_order_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:text="Order No #238562312"
+                    android:textColor="@color/theme_blue_14378E"
+                    android:textSize="@dimen/_15sdp" />
+
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Modern looking light"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:fontFamily="@font/font_inter_medium"
+                    android:textColor="@color/dark_gray_4d4d4d" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_inter_bold"
+                        android:text="₹1000"
+                        android:textColor="@color/theme_blue_14378E"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <TextView
+                        android:id="@+id/tv_title_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Qty:"
+                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:textSize="@dimen/_13sdp"
+                        android:fontFamily="@font/font_inter_medium"
+                        android:textColor="@color/dark_gray_4d4d4d" />
+
+                    <TextView
+                        android:id="@+id/tv_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textSize="@dimen/_14sdp"
+                        android:fontFamily="@font/font_inter_bold"
+                        android:textColor="@color/dark_gray_4d4d4d" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.35"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_round_corner_radius_4"
+                    android:backgroundTint="@color/green_alpha10_0e6600"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="Delivered"
+                    android:textColor="@color/green_text_0e6600"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:text="18/11/2022"
+                    android:textColor="@color/dark_gray_b3b3b3"
+                    android:textSize="@dimen/_12sdp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </com.loopeer.shadow.ShadowView>
+
+</LinearLayout>

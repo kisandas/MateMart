@@ -23,7 +23,7 @@ public class MyCartFragment extends Fragment {
         binding = FragmentMyCartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+
 
         return root;
     }
