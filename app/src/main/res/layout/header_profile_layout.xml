@@ -20,7 +20,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:src="@drawable/ic_profile"
-            app:civ_border_color="@color/theme_blue_14378E"
+            app:civ_border_color="@color/theme_blue_38B449"
             app:civ_border_width="@dimen/_1sdp"
             app:tint="@color/black_393f42" />
 
@@ -45,7 +45,7 @@
                 android:fontFamily="@font/font_inter_bold"
                 android:maxLines="1"
                 android:text="Welcome Back"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="@dimen/_18sdp"
                 />
         </LinearLayout>

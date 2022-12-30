@@ -33,17 +33,17 @@ public class LoginActivity extends AppCompatActivity {
         TabLayout.Tab tab0 = tabLayout.getTabAt(0);
         TabLayout.Tab tab1 = tabLayout.getTabAt(1);
 
-        tab0.setCustomView(createCustomTabView("If you are in", 18, R.color.theme_blue_14378E));
+        tab0.setCustomView(createCustomTabView("If you are in", 18, R.color.theme_blue_38B449));
         tab1.setCustomView(createCustomTabView("Create New", 16, R.color.dark_gray_b3b3b3));
 
-        setTabTextSize(tab0, 18, R.color.theme_blue_14378E, true);
+        setTabTextSize(tab0, 18, R.color.theme_blue_38B449, true);
         setTabTextSize(tab1, 16, R.color.dark_gray_b3b3b3, false);
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                setTabTextSize(tab, 18, R.color.theme_blue_14378E, true);
+                setTabTextSize(tab, 18, R.color.theme_blue_38B449, true);
             }
 
             @Override

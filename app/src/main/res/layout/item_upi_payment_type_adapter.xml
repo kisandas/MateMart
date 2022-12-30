@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <com.loopeer.shadow.ShadowView
+        android:id="@+id/sl_order_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:elevation="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cornerRadius="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shadowMargin="@dimen/_8sdp"
+        app:shadowRadius="@dimen/_10sdp">
+
+        <LinearLayout
+            android:id="@+id/ll_apply_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_2">
+
+            <ImageView
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_coupon" />
+
+            <TextView
+                android:id="@+id/tv_invoice_downloads"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_weight="0.1"
+                android:fontFamily="@font/font_inter_regular"
+                android:text="Apply Coupan"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textSize="@dimen/_15sdp" />
+
+            <RadioButton
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_next" />
+
+        </LinearLayout>
+    </com.loopeer.shadow.ShadowView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:src="@drawable/ic_profile"
-            app:civ_border_color="@color/theme_blue_14378E"
+            app:civ_border_color="@color/theme_blue_38B449"
             app:civ_border_width="@dimen/_1sdp"
             app:tint="@color/black_393f42" />
 

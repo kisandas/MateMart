@@ -34,7 +34,7 @@
             android:fontFamily="@font/font_inter_extra_bold"
             android:gravity="center"
             android:text="No Notification Yet!"
-            android:textColor="@color/theme_blue_14378E"
+            android:textColor="@color/theme_blue_38B449"
             android:textSize="@dimen/_24sdp" />
 
         <TextView

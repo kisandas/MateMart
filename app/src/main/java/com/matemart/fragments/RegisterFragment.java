@@ -67,9 +67,9 @@ public class RegisterFragment extends Fragment {
         int fifth_length = fourth_length + fifth.length();
 
         spannable.setSpan(new CustomTypefaceSpan(typeface_regular, ContextCompat.getColor(getContext(), R.color.dark_gray_b3b3b3)), 0, first_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new CustomTypefaceSpan(typeface_bold, ContextCompat.getColor(getContext(), R.color.theme_blue_14378E)), first_length, second_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new CustomTypefaceSpan(typeface_bold, ContextCompat.getColor(getContext(), R.color.theme_blue_38B449)), first_length, second_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(new CustomTypefaceSpan(typeface_regular, ContextCompat.getColor(getContext(), R.color.dark_gray_b3b3b3)), second_length, third_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannable.setSpan(new CustomTypefaceSpan(typeface_bold, ContextCompat.getColor(getContext(), R.color.theme_blue_14378E)), third_length, fifth_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new CustomTypefaceSpan(typeface_bold, ContextCompat.getColor(getContext(), R.color.theme_blue_38B449)), third_length, fifth_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannable.setSpan(new CustomTypefaceSpan(typeface_regular, ContextCompat.getColor(getContext(), R.color.dark_gray_b3b3b3)), fourth_length, fifth_length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 

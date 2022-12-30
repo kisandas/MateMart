@@ -36,7 +36,7 @@
                 android:layout_marginVertical="@dimen/_20sdp"
                 android:fontFamily="@font/font_inter_extra_bold"
                 android:text="OTP Verification"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="@dimen/_23sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -78,7 +78,7 @@
                 android:layout_marginVertical="@dimen/_20sdp"
                 android:fontFamily="@font/font_inter_extra_bold"
                 android:text="Enter your OTP code here"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="@dimen/_17sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_enter_otp"
                 app:otp_Font="@font/font_inter_bold"
                 app:otp_backgroundImage="@drawable/ic_bg_et_otp_unfill"
-                app:otp_cursorColor="@color/theme_blue_14378E"
+                app:otp_cursorColor="@color/theme_blue_38B449"
                 app:otp_filledBackgroundImage="@drawable/ic_bg_et_otp_active"
                 app:otp_filledTextSize="@dimen/_18sdp"
                 app:otp_highlightedBackgroundImage="@drawable/ic_bg_et_otp_active"
@@ -107,7 +107,7 @@
                 app:otp_itemWidth="@dimen/_45sdp"
                 app:otp_marginBetween="@dimen/_14sdp"
                 app:otp_showCursor="true"
-                app:otp_textColor="@color/theme_blue_14378E"
+                app:otp_textColor="@color/theme_blue_38B449"
                 app:otp_textSize="@dimen/_18sdp"
                 app:otp_underscoreCursor="false" />
 
@@ -151,7 +151,7 @@
                 android:fontFamily="@font/font_inter_bold"
                 android:gravity="center"
                 android:text="@string/resend_otp"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="@dimen/_14sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_not_recieve" />

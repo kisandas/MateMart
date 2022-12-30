@@ -17,4 +17,6 @@
     <string name="read_more">Read More</string>
     <string name="read_less">Read Less</string>
 
+    <string name="authority" translatable="false">com.matemart</string>
+
 </resources>

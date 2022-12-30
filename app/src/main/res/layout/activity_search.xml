@@ -31,7 +31,7 @@
             android:fontFamily="@font/font_inter_bold"
             android:maxLines="1"
             android:text="Recent Search"
-            android:textColor="@color/theme_blue_14378E"
+            android:textColor="@color/theme_blue_38B449"
             android:textSize="@dimen/_18sdp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -53,7 +53,7 @@
             android:fontFamily="@font/font_inter_bold"
             android:maxLines="1"
             android:text="Trending Searches"
-            android:textColor="@color/theme_blue_14378E"
+            android:textColor="@color/theme_blue_38B449"
             android:textSize="@dimen/_18sdp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -81,7 +81,7 @@
             android:fontFamily="@font/font_inter_extra_bold"
             android:gravity="center"
             android:text="What are you searching for?"
-            android:textColor="@color/theme_blue_14378E"
+            android:textColor="@color/theme_blue_38B449"
             android:textSize="@dimen/_24sdp" />
 
         <TextView

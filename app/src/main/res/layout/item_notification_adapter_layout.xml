@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_medium"
                         android:text="Modern looking light with extra bublb"
-                        android:textColor="@color/theme_blue_14378E"
+                        android:textColor="@color/theme_blue_38B449"
                         android:textSize="@dimen/_16sdp" />
 
 

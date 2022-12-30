@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/font_inter_medium"
                 android:text="Full Name"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
                 android:textSize="@dimen/_13sdp" />
 
@@ -60,7 +60,7 @@
                 android:fontFamily="@font/font_inter_medium"
                 android:text="Phone No"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
                 android:textSize="@dimen/_13sdp" />
 
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
                     android:drawableEnd="@drawable/ic_down_arrow"
-                    android:drawableTint="@color/theme_blue_14378E"
+                    android:drawableTint="@color/theme_blue_38B449"
                     android:fontFamily="@font/font_inter_medium"
                     android:text="+91"
                     android:textColor="@color/dark_gray_4d4d4d"
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_inter_semibold"
                 android:text="Guest user"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="600"
                 android:textSize="@dimen/_13sdp" />
         </LinearLayout>

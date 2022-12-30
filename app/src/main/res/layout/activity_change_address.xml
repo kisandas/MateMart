@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ChangeAddressActivity">
+
+    <TextView
+        android:id="@+id/tv_title_change_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/font_inter_bold"
+        android:text="Change Delivery Address"
+        android:textColor="@color/theme_blue_38B449"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_address_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_change_address" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_8sdp"
+        android:background="@color/gray_e3e3e3"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rc_address_list" />
+
+
+    <TextView
+        android:id="@+id/tv_title_add_new_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/font_inter_bold"
+        android:text="Add New Address"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textColor="@color/theme_blue_38B449"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:background="@drawable/bg_edit_text"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/font_inter_medium"
+        android:hint="Address (House no,Buliding,Street,Area)"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textColorHint="@color/hint_gray_c6c6c6"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_add_new_address" />
+
+
+    <EditText
+        android:id="@+id/et_locality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:background="@drawable/bg_edit_text"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/font_inter_medium"
+        android:hint="Locality"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textColorHint="@color/hint_gray_c6c6c6"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+    <EditText
+        android:id="@+id/et_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:background="@drawable/bg_edit_text"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintWidth_percent="0.42"
+        android:fontFamily="@font/font_inter_medium"
+        android:hint="City"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textColorHint="@color/hint_gray_c6c6c6"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_locality" />
+
+    <EditText
+        android:id="@+id/et_pincode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:background="@drawable/bg_edit_text"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintWidth_percent="0.42"
+        android:fontFamily="@font/font_inter_medium"
+        android:hint="Pincode"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text=""
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textColorHint="@color/hint_gray_c6c6c6"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_locality" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/font_inter_regular"
+        android:text="Make this my default address"
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_city" />
+
+    <TextView
+        android:id="@+id/btn_add_address"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:background="@drawable/bg_btn_blue"
+        android:fontFamily="@font/font_inter_semibold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_40sdp"
+        android:text="Add Address"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+</androidx.constraintlayout.widget.ConstraintLayout>

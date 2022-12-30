@@ -3,7 +3,7 @@
     android:shape="oval">
 
 
-    <solid android:color="@color/theme_blue_14378E" />
+    <solid android:color="@color/theme_blue_38B449" />
 
     <padding
         android:bottom="@dimen/_40sdp" />

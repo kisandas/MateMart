@@ -29,7 +29,7 @@
             android:fontFamily="@font/font_inter_bold"
             android:maxLines="1"
             android:text="Write Review"
-            android:textColor="@color/theme_blue_14378E"
+            android:textColor="@color/theme_blue_38B449"
             android:textSize="@dimen/_18sdp" />
 
 

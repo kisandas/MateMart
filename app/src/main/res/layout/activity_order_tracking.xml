@@ -50,7 +50,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:fontFamily="@font/font_inter_bold"
                         android:text="Order No #238562312"
-                        android:textColor="@color/theme_blue_14378E"
+                        android:textColor="@color/theme_blue_38B449"
                         android:textSize="@dimen/_15sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +98,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/font_inter_regular"
                                     android:text="₹1000"
-                                    android:textColor="@color/theme_blue_14378E"
+                                    android:textColor="@color/theme_blue_38B449"
                                     android:textSize="@dimen/_15sdp" />
 
                                 <TextView
@@ -142,7 +142,7 @@
                 android:layout_marginTop="@dimen/_16sdp"
                 android:fontFamily="@font/font_inter_regular"
                 android:text="Track Order"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shadowView" />

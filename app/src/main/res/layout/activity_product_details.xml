@@ -36,7 +36,7 @@
                 android:fontFamily="@font/font_inter_bold"
                 android:maxLines="1"
                 android:text="product name"
-                android:textColor="@color/theme_blue_14378E"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="@dimen/_18sdp" />
 
 
@@ -107,7 +107,7 @@
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:fontFamily="@font/font_inter_extra_bold"
                     android:text="₹1620"
-                    android:textColor="@color/theme_blue_14378E"
+                    android:textColor="@color/theme_blue_38B449"
                     android:textSize="@dimen/_16sdp" />
 
                 <TextView
@@ -190,7 +190,7 @@
                         android:fontFamily="@font/font_inter_bold"
                         android:gravity="center"
                         android:text="45"
-                        android:textColor="@color/theme_blue_14378E"
+                        android:textColor="@color/theme_blue_38B449"
                         android:textSize="@dimen/_14sdp" />
 
                     <ImageView
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_inter_bold"
                     android:text="Description"
-                    android:textColor="@color/theme_blue_14378E"
+                    android:textColor="@color/theme_blue_38B449"
                     android:textSize="@dimen/_16sdp" />
 
                 <TextView
@@ -246,7 +246,7 @@
                     android:layout_weight="0.5"
                     android:fontFamily="@font/font_inter_bold"
                     android:text="Rate &amp; Review"
-                    android:textColor="@color/theme_blue_14378E"
+                    android:textColor="@color/theme_blue_38B449"
                     android:textSize="@dimen/_16sdp" />
 
                 <TextView
@@ -257,7 +257,7 @@
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text="Write Review"
-                    android:textColor="@color/theme_blue_14378E"
+                    android:textColor="@color/theme_blue_38B449"
                     android:textSize="@dimen/_16sdp" />
 
             </LinearLayout>
@@ -342,7 +342,7 @@
                     android:layout_marginVertical="@dimen/_10sdp"
                     android:fontFamily="@font/font_inter_bold"
                     android:text="View all reviews"
-                    android:textColor="@color/theme_blue_14378E"
+                    android:textColor="@color/theme_blue_38B449"
                     android:textSize="@dimen/_14sdp" />
 
                 <View
@@ -366,7 +366,7 @@
                     android:layout_marginHorizontal="@dimen/_16sdp"
                     android:fontFamily="@font/font_inter_bold"
                     android:text="Similar Products"
-                    android:textColor="@color/theme_blue_14378E"
+                    android:textColor="@color/theme_blue_38B449"
                     android:textSize="@dimen/_16sdp" />
 
                 <androidx.recyclerview.widget.RecyclerView
