@@ -18,5 +18,6 @@
     <string name="read_less">Read Less</string>
 
     <string name="authority" translatable="false">com.matemart</string>
+    <string name="places_api_key" />
 
 </resources>

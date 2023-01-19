@@ -26,4 +26,25 @@
     <color name="green_text_0e6600">#0E6600</color>
     <color name="green_bg_26A5410">#26A541</color>
     <color name="gray_e3e3e3">#E3E3E3</color>
+
+    <color name="bg_filter">#ffffff</color>
+    <color name="seekBar_filter">#7c858e</color>
+    <color name="seekBar_highlight_filter">#ff5152</color>
+    <color name="seekBar_thumb_filter">#ff5152</color>
+    <color name="select_bg_filter">#ffffff</color>
+    <color name="textView_filter">#000000</color>
+    <color name="textView_filterSortBy_adapter">#636363</color>
+    <color name="textView_filter_adapter">#000000</color>
+    <color name="textView_select_filterSortBy_adapter">#ffffff</color>
+    <color name="textView_select_filter_adapter">#ff5152</color>
+    <color name="view_filter">#d7d7d7</color>
+    <color name="toolbar">#ff5152</color>
+    <color name="rec_filter">#F5FFF5</color>
+
+
+    <color name="colorAccent">#ff5152</color>
+    <color name="colorPrimary">#ff5152</color>
+    <color name="colorPrimaryDark">#ff5152</color>
+    <color name="progressbar_style">#ff5152</color>
+
 </resources>

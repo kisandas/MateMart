@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.matemart">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +17,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MateMart"
         tools:targetApi="31">
+        <activity
+            android:name=".ArchitecturalProffessionalDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ArchitechturalProfessionalListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PostYourRequirements"
+            android:exported="false" />
+        <activity
+            android:name=".SaveAddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddressListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WhishListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FilterProductActivity"
+            android:exported="false" />
         <activity
             android:name=".PreviewReceiptActivity"
             android:exported="false" />
@@ -82,6 +110,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/places_api_key" />
     </application>
 
 </manifest>

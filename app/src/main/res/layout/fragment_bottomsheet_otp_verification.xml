@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_mobile_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:fontFamily="@font/font_inter_regular"
+        android:gravity="center"
+        android:text="A 4 digit code has been sent
+to +91 9998887776. Please entrer it below
+to complete verification."
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <com.matemart.utils.OTPView
+        android:id="@+id/otp_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number|textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mobile_text"
+        app:otp_Font="@font/font_inter_bold"
+        app:otp_backgroundImage="@drawable/ic_bg_et_otp_unfill"
+        app:otp_cursorColor="@color/theme_blue_38B449"
+        app:otp_filledBackgroundImage="@drawable/ic_bg_et_otp_active"
+        app:otp_filledTextSize="@dimen/_18sdp"
+        app:otp_highlightedBackgroundImage="@drawable/ic_bg_et_otp_active"
+        app:otp_highlightedTextSize="@dimen/_18sdp"
+        app:otp_itemCount="4"
+        app:otp_itemHeight="@dimen/_45sdp"
+        app:otp_itemWidth="@dimen/_45sdp"
+        app:otp_marginBetween="@dimen/_14sdp"
+        app:otp_showCursor="true"
+        app:otp_textColor="@color/theme_blue_38B449"
+        app:otp_textSize="@dimen/_18sdp"
+        app:otp_underscoreCursor="false" />
+
+    <TextView
+        android:id="@+id/tv_not_recieve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:fontFamily="@font/font_inter_regular"
+        android:gravity="center"
+        android:text="Message not received? "
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otp_view" />
+
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:fontFamily="@font/font_inter_semibold"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="02:00 min"
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_not_recieve" />
+
+    <TextView
+        android:id="@+id/tv_resend_otp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:fontFamily="@font/font_inter_bold"
+        android:gravity="center"
+        android:text="@string/resend_otp"
+        android:textColor="@color/theme_blue_38B449"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_not_recieve" />
+
+    <TextView
+        android:id="@+id/btn_verify"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="@dimen/_30sdp"
+        android:background="@drawable/bg_btn_blue"
+        android:fontFamily="@font/font_inter_semibold"
+        android:gravity="center"
+        android:text="Confirm OTP"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_timer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity"
+    tools:showIn="@layout/activity_map">
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.skyfishjy.library.RippleBackground
+        android:id="@+id/ripple_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rb_color="#2355d2"
+        app:rb_duration="2000"
+        app:rb_radius="14dp"
+        app:rb_rippleAmount="4"
+        app:rb_scale="6">
+
+        <ImageView
+            android:id="@+id/ic_pin"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_pin"
+            android:translationY="-18dp"
+            android:visibility="invisible" />
+    </com.skyfishjy.library.RippleBackground>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/black_393f42" />
+
+        <com.mancj.materialsearchbar.MaterialSearchBar
+            android:id="@+id/searchBar"
+            style="@style/MaterialSearchBarLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="3dp"
+            android:outlineProvider="bounds"
+            app:mt_hint="@string/search_place"
+            app:mt_maxSuggestionsCount="8"
+            app:mt_navIconEnabled="false"
+            app:mt_placeholder="@string/search_place"
+            app:mt_placeholderColor="#b3b3b3"
+            app:mt_roundedSearchBarEnabled="false"
+            app:mt_speechMode="false" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_16sdp"
+        android:background="@drawable/bg_round_top_corner_radius_8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_bold"
+                android:text="Description"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:textColor="@color/theme_blue_38B449"
+                android:textSize="@dimen/_16sdp" />
+
+            <com.essam.simpleplacepicker.utils.CustomTextView
+                android:id="@+id/tv_display_marker_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:paddingStart="5dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="#4d4d4d"
+                android:textSize="16sp"
+                tools:text="No Address Found" />
+
+        </LinearLayout>
+
+
+        <com.essam.simpleplacepicker.utils.CustomButton
+            android:id="@+id/submit_location_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:background="@drawable/small_button_shape"
+            android:elevation="2dp"
+            android:backgroundTint="@color/theme_blue_38B449"
+            android:text="@string/confirm_location"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -22,7 +22,7 @@ public class MyProfileFragment extends Fragment {
         binding = FragmentMyProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+
 
         return root;
     }

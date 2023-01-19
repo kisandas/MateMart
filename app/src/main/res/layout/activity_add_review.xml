@@ -83,7 +83,6 @@
             android:layout_marginHorizontal="@dimen/_16sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:stepSize="0.1"
-
             app:colorOutlineOff="@color/yellow_ffc000"
             app:colorOutlineOn="@color/yellow_ffc000"
             app:strokeWidth="@dimen/_1sdp" />

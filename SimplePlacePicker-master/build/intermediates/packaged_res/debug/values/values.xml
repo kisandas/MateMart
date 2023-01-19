@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_393f42">#393F42</color>
+    <color name="colorAccent">#228BB3</color>
+    <color name="colorPrimary">#228BB3</color>
+    <color name="colorPrimaryDark">#228BB3</color>
+    <color name="theme_blue_38B449">#38B449</color>
+    <string name="address_found">address found</string>
+    <string name="app_name">SimplePlacePicker</string>
+    <string name="confirm_dest">Confirm destination</string>
+    <string name="confirm_location">Confirm Location</string>
+    <string name="confirm_pickup">Confirm pickup</string>
+    <string name="failed_select_location">failed to select location please try again</string>
+    <string name="no_address_found">No address found</string>
+    <string name="not_support_area">This area is not supported yet</string>
+    <string name="search_place">Search a place</string>
+    <string name="service_not_available">Service not available ..check network connection</string>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+</resources>

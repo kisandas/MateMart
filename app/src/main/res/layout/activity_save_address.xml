@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/header_common_title_layout" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="Contact Info"
+            android:textColor="@color/theme_blue_38B449"
+            android:textFontWeight="800"
+            android:textSize="@dimen/_13sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_medium"
+                android:text="First Name"
+                android:textColor="@color/theme_blue_38B449"
+                android:textFontWeight="800"
+                android:textSize="@dimen/_13sdp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/font_inter_medium"
+                android:hint="Name"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_medium"
+                android:text="Phone Number"
+                android:textColor="@color/theme_blue_38B449"
+                android:textFontWeight="800"
+                android:textSize="@dimen/_13sdp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/font_inter_medium"
+                android:hint="Name"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="@dimen/_13sdp" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:background="@color/gray_e3e3e3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="Add Info"
+            android:textColor="@color/theme_blue_38B449"
+            android:textFontWeight="800"
+            android:textSize="@dimen/_13sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/font_inter_medium"
+                android:hint="Name"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="@dimen/_13sdp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/font_inter_medium"
+                android:hint="Name"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="@dimen/_13sdp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/font_inter_medium"
+                android:hint="Name"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="@dimen/_13sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_edit_text"
+                    android:fontFamily="@font/font_inter_medium"
+                    android:hint="Name"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text=""
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textColorHint="@color/hint_gray_c6c6c6"
+                    android:textSize="@dimen/_13sdp" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_edit_text"
+                    android:fontFamily="@font/font_inter_medium"
+                    android:hint="Name"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:text=""
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textColorHint="@color/hint_gray_c6c6c6"
+                    android:textSize="@dimen/_13sdp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:background="@color/gray_e3e3e3" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="Type of Address"
+            android:textColor="@color/theme_blue_38B449"
+            android:textFontWeight="800"
+            android:textSize="@dimen/_13sdp" />
+
+        <RadioGroup
+            android:weightSum="0.9"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_weight="0.3"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:fontFamily="@font/font_inter_regular"
+                android:textSize="@dimen/_14sdp"
+                android:checked="true"
+                android:layout_width="0dp"
+                android:text="Home"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:layout_weight="0.3"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:fontFamily="@font/font_inter_regular"
+                android:textSize="@dimen/_14sdp"
+                android:text="Office"
+                android:layout_width="0dp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:layout_weight="0.3"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:fontFamily="@font/font_inter_regular"
+                android:textSize="@dimen/_14sdp"
+                android:layout_width="0dp"
+                android:text="Other"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:textSize="@dimen/_14sdp"
+            android:gravity="center_vertical"
+            android:checked="true"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:fontFamily="@font/font_inter_regular"
+            android:text="Make as default address"/>
+
+
+        <TextView
+            android:id="@+id/btn_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginHorizontal="@dimen/_40sdp"
+            android:layout_marginVertical="@dimen/_16sdp"
+            android:background="@drawable/bg_btn_blue"
+            android:fontFamily="@font/font_inter_semibold"
+            android:gravity="center"
+            android:text="Save Address"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+
+</ScrollView>
