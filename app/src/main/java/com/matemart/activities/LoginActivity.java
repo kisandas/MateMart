@@ -1,18 +1,40 @@
 package com.matemart.activities;
 
+import static com.matemart.api.Constants.BASE_URL;
+import static com.matemart.api.Constants.SEND_OTP;
+import static com.matemart.utils.Utils.ERROR_MESSAGE;
+import static com.matemart.utils.Utils.ERROR_TITLE;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
+import com.matemart.BuildConfig;
 import com.matemart.R;
 import com.matemart.adapter.LoginViewPagerAdapter;
+import com.matemart.utils.Toast.Toaster;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     ViewPager viewPager;
@@ -82,4 +104,6 @@ public class LoginActivity extends AppCompatActivity {
         tabTextView.setTextColor(ContextCompat.getColor(tabCustomView.getContext(), textColor));
         return tabCustomView;
     }
+
+
 }

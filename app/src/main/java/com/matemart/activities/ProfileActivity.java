@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        initializeView();
+//        initializeView();
 
 
 
@@ -104,50 +104,50 @@ public class ProfileActivity extends AppCompatActivity  {
         StrictMode.setVmPolicy(builder.build());
     }
 
-    private void initializeView() {
-        pref = new SharedPreference(this);
-
-
-        iv_profile_pic = findViewById(R.id.iv_profile_pic);
-        iv_editProfile = findViewById(R.id.iv_editProfile);
-        tv_name = findViewById(R.id.tv_name);
-
-        et_name = findViewById(R.id.et_name);
-        tv_category = findViewById(R.id.tv_category);
-        iv_countryFlag = findViewById(R.id.iv_countryFlag);
-        tv_select_country = findViewById(R.id.tv_select_country);
-        tv_select_state = findViewById(R.id.tv_select_state);
-
-        rc_socialMedia = findViewById(R.id.rc_socialMedia);
-
-        btn_save_profile = findViewById(R.id.btn_save_profile);
-        tv_version = findViewById(R.id.tv_version);
-
-        tv_select_language = findViewById(R.id.tv_select_language);
-
-        til_number = findViewById(R.id.til_number);
-        til_email = findViewById(R.id.til_email);
-        til_website = findViewById(R.id.til_website);
-        til_social = findViewById(R.id.til_social);
-
-        et_number = (MultiAutoCompleteTextView) findViewById(R.id.et_number);
-        et_email = (MultiAutoCompleteTextView) findViewById(R.id.et_email);
-        et_address = (MultiAutoCompleteTextView) findViewById(R.id.et_address);
-        et_website = (MultiAutoCompleteTextView) findViewById(R.id.et_website);
-        tv_social_text = (MultiAutoCompleteTextView) findViewById(R.id.tv_social_text);
-
-
-
-
-        ColorDrawable cd = new ColorDrawable(Color.parseColor("#F3F3F3"));
-        tv_social_text.setDropDownBackgroundDrawable(cd);
-        et_email.setDropDownBackgroundDrawable(cd);
-        et_number.setDropDownBackgroundDrawable(cd);
-        et_website.setDropDownBackgroundDrawable(cd);
-        et_address.setDropDownBackgroundDrawable(cd);
-
-
-    }
+//    private void initializeView() {
+//        pref = new SharedPreference(this);
+//
+//
+//        iv_profile_pic = findViewById(R.id.iv_profile_pic);
+//        iv_editProfile = findViewById(R.id.iv_editProfile);
+//        tv_name = findViewById(R.id.tv_name);
+//
+//        et_name = findViewById(R.id.et_name);
+//        tv_category = findViewById(R.id.tv_category);
+//        iv_countryFlag = findViewById(R.id.iv_countryFlag);
+//        tv_select_country = findViewById(R.id.tv_select_country);
+//        tv_select_state = findViewById(R.id.tv_select_state);
+//
+//        rc_socialMedia = findViewById(R.id.rc_socialMedia);
+//
+//        btn_save_profile = findViewById(R.id.btn_save_profile);
+//        tv_version = findViewById(R.id.tv_version);
+//
+//        tv_select_language = findViewById(R.id.tv_select_language);
+//
+//        til_number = findViewById(R.id.til_number);
+//        til_email = findViewById(R.id.til_email);
+//        til_website = findViewById(R.id.til_website);
+//        til_social = findViewById(R.id.til_social);
+//
+//        et_number = (MultiAutoCompleteTextView) findViewById(R.id.et_number);
+//        et_email = (MultiAutoCompleteTextView) findViewById(R.id.et_email);
+//        et_address = (MultiAutoCompleteTextView) findViewById(R.id.et_address);
+//        et_website = (MultiAutoCompleteTextView) findViewById(R.id.et_website);
+//        tv_social_text = (MultiAutoCompleteTextView) findViewById(R.id.tv_social_text);
+//
+//
+//
+//
+//        ColorDrawable cd = new ColorDrawable(Color.parseColor("#F3F3F3"));
+//        tv_social_text.setDropDownBackgroundDrawable(cd);
+//        et_email.setDropDownBackgroundDrawable(cd);
+//        et_number.setDropDownBackgroundDrawable(cd);
+//        et_website.setDropDownBackgroundDrawable(cd);
+//        et_address.setDropDownBackgroundDrawable(cd);
+//
+//
+//    }
 
 
 

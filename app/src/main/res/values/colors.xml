@@ -47,4 +47,17 @@
     <color name="colorPrimaryDark">#ff5152</color>
     <color name="progressbar_style">#ff5152</color>
 
+    <color name="hint_text_color">#8391A1</color>
+    <color name="dark_gray">#333333</color>
+
+
+    <color name="toast_title_color">#1E232C</color>
+    <color name="toast_message_color">#4F4F4F</color>
+    <color name="toast_success_stroke_color">#B7F1D2</color>
+    <color name="toast_success_background_color">#EFFDF6</color>
+    <color name="toast_error_stroke_color">#F0A9A7</color>
+    <color name="toast_error_background_color">#FCF3F2</color>
+    <color name="toast_warning_stroke_color">#F7D366</color>
+    <color name="toast_warning_background_color">#FFFBED</color>
+
 </resources>

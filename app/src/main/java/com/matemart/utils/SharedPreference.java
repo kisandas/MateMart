@@ -88,4 +88,6 @@ public class SharedPreference {
         context.startActivity(intent);
 
     }
+
+    public static String  KEY_LOGIN_TOKEN = "key_otp_token";
 }

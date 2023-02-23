@@ -40,6 +40,7 @@
                     android:layout_height="@dimen/_24sdp" />
 
                 <TextView
+                    android:id="@+id/tvCountryCode"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.2"
@@ -57,6 +58,7 @@
                     android:background="#E8ECF4" />
 
                 <EditText
+                    android:id="@+id/etNumber"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_weight="0.8"

@@ -26,6 +26,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Utils {
+
+    public static String ERROR_MESSAGE = "Oops!! Something went wrong. Please try again after some time!";
+    public static String ERROR_TITLE = "Something went wrong!";
+
     public static void showBadge(Context context, BottomNavigationView
             bottomNavigationView, @IdRes int itemId, String value) {
 
