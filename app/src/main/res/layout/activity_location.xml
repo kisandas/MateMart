@@ -31,13 +31,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-
     <TextView
-        android:id="@+id/title_name"
+        android:id="@+id/title_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font_inter_medium"
-        android:text="City"
+        android:text="State"
         android:layout_marginTop="@dimen/_24sdp"
         android:textColor="@color/theme_blue_38B449"
         android:textFontWeight="800"
@@ -47,7 +46,41 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_account_login" />
 
 
-    <EditText
+    <AutoCompleteTextView
+        android:id="@+id/et_state"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:fontFamily="@font/font_inter_medium"
+        android:hint="Enter your State"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginVertical="@dimen/_6sdp"
+        android:text=""
+        android:background="@drawable/bg_edit_text"
+        android:textColor="@color/dark_gray_4d4d4d"
+        android:textColorHint="@color/hint_gray_c6c6c6"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_state" />
+
+
+    <TextView
+        android:id="@+id/title_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font_inter_medium"
+        android:text="City"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textColor="@color/theme_blue_38B449"
+        android:textFontWeight="800"
+        android:textSize="@dimen/_13sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_state" />
+
+
+    <AutoCompleteTextView
         android:id="@+id/et_city"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
@@ -81,7 +114,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_city" />
 
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/et_pincode"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"

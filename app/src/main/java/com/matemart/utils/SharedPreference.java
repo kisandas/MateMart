@@ -90,4 +90,8 @@ public class SharedPreference {
     }
 
     public static String  KEY_LOGIN_TOKEN = "key_otp_token";
+    public static String  KEY_STATE = "key_state";
+    public static String  KEY_CITY = "key_country";
+    public static String  KEY_PINCODE = "key_pincode";
+    public static String  KEY_CCID = "key_ccid";
 }

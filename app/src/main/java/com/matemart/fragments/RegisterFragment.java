@@ -171,7 +171,6 @@ public class RegisterFragment extends Fragment {
                             int statusCode = response.optInt("statuscode");
                             String message = response.getString("message");
 
-
                             if (statusCode==11) {
                                String token =response.optJSONObject("data").optString("token");
                                 pref.setString(KEY_LOGIN_TOKEN, token);

@@ -3,7 +3,11 @@ package com.matemart.activities;
 import static com.matemart.api.Constants.BASE_URL;
 import static com.matemart.api.Constants.SEND_OTP;
 import static com.matemart.api.Constants.VERIFY_OTP;
+import static com.matemart.utils.SharedPreference.KEY_CCID;
+import static com.matemart.utils.SharedPreference.KEY_CITY;
 import static com.matemart.utils.SharedPreference.KEY_LOGIN_TOKEN;
+import static com.matemart.utils.SharedPreference.KEY_PINCODE;
+import static com.matemart.utils.SharedPreference.KEY_STATE;
 import static com.matemart.utils.Utils.ERROR_MESSAGE;
 import static com.matemart.utils.Utils.ERROR_TITLE;
 
@@ -91,6 +95,24 @@ TextView btn_verify;
                             String message = response.getString("message");
                             if (statusCode==11) {
 
+                                JSONObject objData = response.optJSONObject("data");
+                                String state = objData.optString("state");
+                                String city = objData.optString("city");
+                                String pincode = objData.optString("pincode");
+                                String ccid = objData.optString("ccid");
+                                if(!state.isEmpty() && !state.equalsIgnoreCase("null")) {
+                                    pref.setString(KEY_STATE, state);
+                                }
+                                if(!city.isEmpty() && !city.equalsIgnoreCase("null")) {
+                                    pref.setString(KEY_CITY, city);
+                                }
+                                if(!pincode.isEmpty() && !pincode.equalsIgnoreCase("null")) {
+                                    pref.setString(KEY_PINCODE, pincode);
+                                }
+                                if(!ccid.isEmpty() && !ccid.equalsIgnoreCase("null")) {
+                                    pref.setString(KEY_CCID, ccid);
+                                }
+
                                 new Toaster.Builder(OTPActivity.this)
                                         .setTitle("Success")
                                         .setDescription(message)
@@ -98,7 +120,8 @@ TextView btn_verify;
                                         .setStatus(Toaster.Status.SUCCESS)
                                         .show();
 
-                                startActivity(new Intent(OTPActivity.this, MainActivity.class));
+                                startActivity(new Intent(OTPActivity.this, LocationActivity.class));
+                                finish();
 
 
                             } else {
