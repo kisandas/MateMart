@@ -1,16 +1,12 @@
-package com.matemart.activities;
+package com.matemart.activities
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.matemart.R
 
-import android.os.Bundle;
-
-import com.matemart.R;
-
-public class CategoryListActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_list);
+class CategoryListActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_category_list)
     }
 }

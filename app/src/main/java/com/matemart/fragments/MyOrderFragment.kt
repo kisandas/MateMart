@@ -1,34 +1,25 @@
-package com.matemart.fragments;
+package com.matemart.fragments
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.matemart.databinding.FragmentMyOrderBinding
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.matemart.databinding.FragmentMyOrderBinding;
-
-public class MyOrderFragment extends Fragment {
-
-    private FragmentMyOrderBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        binding = FragmentMyOrderBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-
-        return root;
+class MyOrderFragment : Fragment() {
+    private var binding: FragmentMyOrderBinding? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        binding =
+            FragmentMyOrderBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

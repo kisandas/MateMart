@@ -1,306 +1,266 @@
-package com.matemart.activities;
+package com.matemart.activities
 
-import static com.matemart.api.Constants.BASE_URL;
-import static com.matemart.api.Constants.CHECK_PINCODE;
-import static com.matemart.api.Constants.VERIFY_OTP;
-import static com.matemart.api.Constants.statList;
-import static com.matemart.utils.SharedPreference.KEY_CCID;
-import static com.matemart.utils.SharedPreference.KEY_CITY;
-import static com.matemart.utils.SharedPreference.KEY_LOGIN_TOKEN;
-import static com.matemart.utils.SharedPreference.KEY_PINCODE;
-import static com.matemart.utils.SharedPreference.KEY_STATE;
-import static com.matemart.utils.Utils.ERROR_MESSAGE;
-import static com.matemart.utils.Utils.ERROR_TITLE;
+import android.content.Intent
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.matemart.interfaces.DismissBottomSheet
+import com.matemart.utils.SharedPreference
+import com.matemart.fragments.StateSelectionBottomSheetFragment
+import com.matemart.fragments.CitySelectionBottomSheetFragment
+import com.matemart.activities.HomeActivity
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
+import com.android.volley.toolbox.JsonObjectRequest
+import com.matemart.utils.Toast.Toaster
+import com.android.volley.VolleyError
+import kotlin.Throws
+import com.android.volley.AuthFailureError
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import com.matemart.adapter.LoginViewPagerAdapter
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.android.volley.Response
+import com.matemart.R
+import com.matemart.utils.OTPView
+import com.matemart.activities.LocationActivity
+import com.matemart.api.Constants
+import com.matemart.api.Constants.statList
+import com.matemart.utils.Utils
+import org.json.JSONException
+import org.json.JSONObject
+import java.lang.Exception
+import java.util.ArrayList
+import java.util.HashMap
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.matemart.MainActivity;
-import com.matemart.R;
-import com.matemart.utils.SharedPreference;
-import com.matemart.utils.Toast.Toaster;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-public class LocationActivity extends AppCompatActivity {
-    TextView btn_save;
-    AutoCompleteTextView et_state;
-    AutoCompleteTextView et_city;
-    AutoCompleteTextView et_pincode;
-    SharedPreference pref;
-
-    ArrayAdapter<String> adapter_city;
-    ArrayAdapter<String> adapter_state;
-    ArrayList<String> stateList = new ArrayList<>();
-    boolean isStateSelected = false;
-    boolean isCountrySelected = false;
-    boolean isPINCODE_VERIFIED = false;
-    boolean isDataLoaded = false;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
-        pref = new SharedPreference(this);
-        btn_save = findViewById(R.id.btn_save);
-        et_state = findViewById(R.id.et_state);
-        et_city = findViewById(R.id.et_city);
-        et_pincode = findViewById(R.id.et_pincode);
-
-
-        if (pref.getString(KEY_STATE).isEmpty() && !pref.getString(KEY_STATE).equals("null")) {
-            et_state.setText(pref.getString(KEY_STATE));
+class LocationActivity : AppCompatActivity(), DismissBottomSheet {
+    var btn_save: TextView? = null
+    var et_state: TextView? = null
+    var et_city: TextView? = null
+    var et_pincode: EditText? = null
+    var pref: SharedPreference? = null
+    var adapter_city: ArrayAdapter<String>? = null
+    var stateList = ArrayList<String>()
+    var isStateSelected = false
+    var isPINCODE_VERIFIED = false
+    var isDataLoaded = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_location)
+        pref = SharedPreference(this)
+        btn_save = findViewById(R.id.btn_save)
+        et_state = findViewById(R.id.et_state)
+        et_city = findViewById(R.id.et_city)
+        et_pincode = findViewById(R.id.et_pincode)
+        if (pref!!.getString(SharedPreference.KEY_STATE).isEmpty() && pref!!.getString(
+                SharedPreference.KEY_STATE
+            ) != "null"
+        ) {
+            et_state?.setText(pref!!.getString(SharedPreference.KEY_STATE))
         }
-
-        if (pref.getString(KEY_CITY).isEmpty() && !pref.getString(KEY_CITY).equals("null")) {
-            et_city.setText(pref.getString(KEY_CITY));
+        if (pref!!.getString(SharedPreference.KEY_CITY).isEmpty() && pref!!.getString(
+                SharedPreference.KEY_CITY
+            ) != "null"
+        ) {
+            et_city?.setText(pref!!.getString(SharedPreference.KEY_CITY))
         }
-
-        if (pref.getString(KEY_PINCODE).isEmpty() && !pref.getString(KEY_PINCODE).equals("null")) {
-            et_pincode.setText(pref.getString(KEY_PINCODE));
+        if (pref!!.getString(SharedPreference.KEY_PINCODE).isEmpty() && pref!!.getString(
+                SharedPreference.KEY_PINCODE
+            ) != "null"
+        ) {
+            et_pincode?.setText(pref!!.getString(SharedPreference.KEY_PINCODE))
         }
-
-        if(pref.getString(KEY_STATE).isEmpty() && !pref.getString(KEY_STATE).equals("null") &&
-                pref.getString(KEY_CITY).isEmpty() && !pref.getString(KEY_CITY).equals("null") &&
-                pref.getString(KEY_PINCODE).isEmpty() && !pref.getString(KEY_PINCODE).equals("null")){
-
-            isDataLoaded = true;
+        if (pref!!.getString(SharedPreference.KEY_STATE).isEmpty() && pref!!.getString(
+                SharedPreference.KEY_STATE
+            ) != "null" &&
+            pref!!.getString(SharedPreference.KEY_CITY).isEmpty() && pref!!.getString(
+                SharedPreference.KEY_CITY
+            ) != "null" &&
+            pref!!.getString(SharedPreference.KEY_PINCODE).isEmpty() && pref!!.getString(
+                SharedPreference.KEY_PINCODE
+            ) != "null"
+        ) {
+            isDataLoaded = true
         }
-
-        initializeView();
-
+        initializeView()
     }
 
-    public void initializeView(){
-        for (int i = 0; i < statList.size(); i++) {
-            stateList.add(statList.get(i).getState());
+    var cddState: StateSelectionBottomSheetFragment? = null
+    var cddCity: CitySelectionBottomSheetFragment? = null
+    fun initializeView() {
+        for (i in Constants.statList.indices) {
+            stateList.add(Constants.statList[i].state)
+        }
+        et_pincode!!.isEnabled = false
+        cddState = StateSelectionBottomSheetFragment("state", 40,  this, stateList)
+        et_state!!.setOnClickListener { cddState!!.show(supportFragmentManager, "TAG1") }
+        et_city!!.setOnClickListener {
+            if (isStateSelected) {
+                var cityList: ArrayList<String> = ArrayList()
+                cityList = statList[statePosition].cityList
+                cddCity = CitySelectionBottomSheetFragment(
+                    "city",
+                    40,
+                    this@LocationActivity,
+                    cityList
+                )
+                cddCity!!.show(supportFragmentManager, "TAG2")
+            }
         }
 
 
-        adapter_state = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, stateList);
-
-
-        et_state.setThreshold(1);
-        et_state.setAdapter(adapter_state);
-
-
-        et_state.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+//
+//        et_state.setThreshold(1);
+//        et_state.setAdapter(adapter_state);
+        et_state!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                Log.e("checkText", "onTextChanged: $charSequence")
             }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("checkText", "onTextChanged: " + charSequence.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.e("checkText", "afterTextChanged: " + editable.toString());
+            override fun afterTextChanged(editable: Editable) {
+                Log.e("checkText", "afterTextChanged: $editable")
                 if (stateList.contains(editable.toString())) {
-                    isStateSelected = true;
-                    getPositionFromStateListAndSetAdapterForCity(editable.toString());
                 } else {
-                    isStateSelected = false;
+                    isStateSelected = false
                 }
             }
-        });
-
-        et_city.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+        })
+        et_pincode!!.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                isPINCODE_VERIFIED = false
             }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!isStateSelected) {
-                    et_state.requestFocus();
-                    Toast.makeText(LocationActivity.this, "Please Select State First", Toast.LENGTH_SHORT).show();
+            override fun afterTextChanged(editable: Editable) {
+                if (et_city!!.text.toString().isEmpty()) {
+                    et_city!!.requestFocus()
+                    Toast.makeText(this@LocationActivity, "Please Enter City", Toast.LENGTH_SHORT)
+                        .show()
+                    return
+                }
+                if (editable.toString().length == 6) {
+                    VerifyPINCODE(et_city!!.text.toString(), editable.toString())
                 }
             }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+        })
+        btn_save!!.setOnClickListener(View.OnClickListener {
+            if (et_state!!.text.toString().trim { it <= ' ' }.isEmpty()) {
+                Toast.makeText(
+                    this@LocationActivity,
+                    "Please Enter State First",
+                    Toast.LENGTH_SHORT
+                ).show()
+                et_state!!.requestFocus()
+                return@OnClickListener
             }
-        });
-
-        et_city.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (!isStateSelected) {
-                    et_city.setText("");
-                    Toast.makeText(LocationActivity.this, "Please Select State First", Toast.LENGTH_SHORT).show();
-                }
+            if (et_city!!.text.toString().trim { it <= ' ' }.isEmpty()) {
+                Toast.makeText(this@LocationActivity, "Please Enter City First", Toast.LENGTH_SHORT)
+                    .show()
+                et_city!!.requestFocus()
+                return@OnClickListener
             }
-        });
-
-        et_pincode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            if (!isPINCODE_VERIFIED) {
+                Toast.makeText(
+                    this@LocationActivity,
+                    "Please Enter Valid PinCode",
+                    Toast.LENGTH_SHORT
+                ).show()
+                et_pincode!!.requestFocus()
+                return@OnClickListener
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                isPINCODE_VERIFIED = false;
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (et_city.getText().toString().isEmpty()) {
-                    et_city.requestFocus();
-                    Toast.makeText(LocationActivity.this, "Please Enter City", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (editable.toString().length() == 6) {
-                    VerifyPINCODE(et_city.getText().toString(), editable.toString());
-                }
-            }
-        });
-
-
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (et_state.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(LocationActivity.this, "Please Enter State First", Toast.LENGTH_SHORT).show();
-                    et_state.requestFocus();
-                    return;
-                }
-
-                if (et_city.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(LocationActivity.this, "Please Enter City First", Toast.LENGTH_SHORT).show();
-                    et_city.requestFocus();
-                    return;
-                }
-
-                if (!isPINCODE_VERIFIED) {
-                    Toast.makeText(LocationActivity.this, "Please Enter Valid PinCode", Toast.LENGTH_SHORT).show();
-                    et_pincode.requestFocus();
-                    return;
-                }
-                startActivity(new Intent(LocationActivity.this, HomeActivity.class));
-                finish();
-            }
-        });
+            startActivity(Intent(this@LocationActivity, HomeActivity::class.java))
+            finish()
+        })
     }
 
-    public void getPositionFromStateListAndSetAdapterForCity(String state) {
-        int position = stateList.indexOf(state);
-        adapter_city = new ArrayAdapter<String>
-                (LocationActivity.this, android.R.layout.select_dialog_item, statList.get(position).getCityList());
-        et_city.setThreshold(1);
-        et_city.setAdapter(adapter_city);
+    fun getPositionFromStateListAndSetAdapterForCity(state: String): Int {
+        return stateList.indexOf(state)
     }
 
-    public void VerifyPINCODE(String CITY, String PINCODE) {
-
-        JSONObject jsonObject = new JSONObject();
+    fun VerifyPINCODE(CITY: String?, PINCODE: String?) {
+        val jsonObject = JSONObject()
         try {
-
-            jsonObject.put("city", CITY);
-            jsonObject.put("pincode", PINCODE);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            jsonObject.put("city", CITY)
+            jsonObject.put("pincode", PINCODE)
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, BASE_URL + CHECK_PINCODE, jsonObject, new com.android.volley.Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-
-                            int statusCode = response.optInt("statuscode");
-                            String message = response.getString("message");
-                            if (statusCode == 11) {
-                                isPINCODE_VERIFIED = true;
-                                new Toaster.Builder(LocationActivity.this)
-                                        .setTitle("Success")
-                                        .setDescription(message)
-                                        .setDuration(5000)
-                                        .setStatus(Toaster.Status.SUCCESS)
-                                        .show();
+        val queue = Volley.newRequestQueue(this)
+        val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(
+            Method.POST,
+            Constants.BASE_URL + Constants.CHECK_PINCODE,
+            jsonObject,
+            Response.Listener { response ->
+                try {
+                    val statusCode = response.optInt("statuscode")
+                    val message = response.getString("message")
+                    if (statusCode == 11) {
+                        isPINCODE_VERIFIED = true
+                        Toaster.Builder(this@LocationActivity)
+                            .setTitle("Success")
+                            .setDescription(message)
+                            .setDuration(5000)
+                            .setStatus(Toaster.Status.SUCCESS)
+                            .show()
 
 //                                startActivity(new Intent(LocationActivity.this, HomeActivity.class));
-
-                            } else {
-                                new Toaster.Builder(LocationActivity.this)
-                                        .setTitle("Error")
-                                        .setDescription(message)
-                                        .setDuration(5000)
-                                        .setStatus(Toaster.Status.ERROR)
-                                        .show();
-
-                            }
-                        } catch (Exception e) {
-                            new Toaster.Builder(LocationActivity.this)
-                                    .setTitle(ERROR_TITLE)
-                                    .setDescription(ERROR_MESSAGE)
-                                    .setDuration(5000)
-                                    .setStatus(Toaster.Status.ERROR)
-                                    .show();
-
-                            e.printStackTrace();
-                        }
-
-
+                    } else {
+                        Toaster.Builder(this@LocationActivity)
+                            .setTitle("Error")
+                            .setDescription(message)
+                            .setDuration(5000)
+                            .setStatus(Toaster.Status.ERROR)
+                            .show()
                     }
-                }, new com.android.volley.Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-
-                        new Toaster.Builder(LocationActivity.this)
-                                .setTitle("Error")
-                                .setDescription(ERROR_MESSAGE)
-                                .setDuration(5000)
-                                .setStatus(Toaster.Status.ERROR)
-                                .show();
-
-                    }
-
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<String, String>();
-//                header.put(HEADER_APP_PLATFORM, HEADER_ANDROID);
+                } catch (e: Exception) {
+                    Toaster.Builder(this@LocationActivity)
+                        .setTitle(Utils.ERROR_TITLE)
+                        .setDescription(Utils.ERROR_MESSAGE)
+                        .setDuration(5000)
+                        .setStatus(Toaster.Status.ERROR)
+                        .show()
+                    e.printStackTrace()
+                }
+            },
+            Response.ErrorListener { error ->
+                error.printStackTrace()
+                Toaster.Builder(this@LocationActivity)
+                    .setTitle("Error")
+                    .setDescription(Utils.ERROR_MESSAGE)
+                    .setDuration(5000)
+                    .setStatus(Toaster.Status.ERROR)
+                    .show()
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                //                header.put(HEADER_APP_PLATFORM, HEADER_ANDROID);
 //                header.put(HEADER_APP_VERSION, BuildConfig.VERSION_NAME);
-                return header;
+                return HashMap()
             }
+        }
+        queue.add(jsonObjectRequest)
+    }
 
-        };
+    var statePosition = -1
 
-        queue.add(jsonObjectRequest);
+    override fun DismissDialog(position: Int, state: String?, type: String?) {
+        if (type.equals("state", ignoreCase = true)) {
+            et_state!!.text = state
+            isStateSelected = true
+            statePosition = getPositionFromStateListAndSetAdapterForCity(state!!)
+        } else if (type.equals("city", ignoreCase = true)) {
+            et_city!!.text = state
+            et_pincode!!.isEnabled = true
+        }
     }
 }

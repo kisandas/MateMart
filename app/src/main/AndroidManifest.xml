@@ -18,6 +18,15 @@
         android:theme="@style/Theme.MateMart"
         tools:targetApi="31">
         <activity
+            android:name=".ContactUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PolicyDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LabouresListActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ArchitecturalProfessionalDetailsActivity"
             android:exported="false" />
         <activity

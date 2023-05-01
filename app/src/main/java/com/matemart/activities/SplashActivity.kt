@@ -1,130 +1,88 @@
-package com.matemart.activities;
+package com.matemart.activities
 
-import static com.matemart.api.Constants.BASE_URL;
-import static com.matemart.api.Constants.GET_STATE;
-import static com.matemart.api.Constants.VERIFY_OTP;
-import static com.matemart.api.Constants.statList;
-import static com.matemart.utils.SharedPreference.KEY_CCID;
-import static com.matemart.utils.SharedPreference.KEY_CITY;
-import static com.matemart.utils.SharedPreference.KEY_LOGIN_TOKEN;
-import static com.matemart.utils.SharedPreference.KEY_PINCODE;
-import static com.matemart.utils.SharedPreference.KEY_STATE;
-import static com.matemart.utils.Utils.ERROR_MESSAGE;
-import static com.matemart.utils.Utils.ERROR_TITLE;
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.devs.readmoreoption.ReadMoreOption
+import androidx.core.content.ContextCompat
+import com.android.volley.Request
+import com.google.android.material.textfield.TextInputEditText
+import com.makeramen.roundedimageview.RoundedImageView
+import com.matemart.utils.SharedPreference
+import com.matemart.fragments.ChoosePictureBottomSheetFragment
+import com.google.android.material.textfield.TextInputLayout
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
+import com.android.volley.toolbox.StringRequest
+import com.matemart.model.StateAndCityModel
+import com.matemart.activities.LoginActivity
+import com.matemart.utils.Toast.Toaster
+import com.android.volley.VolleyError
+import com.matemart.R
+import com.matemart.api.Constants
+import com.matemart.fragments.LoginFragment
+import com.matemart.fragments.RegisterFragment
+import com.matemart.interfaces.DismissBottomSheet
+import org.json.JSONException
+import org.json.JSONObject
+import java.util.ArrayList
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.matemart.MainActivity;
-import com.matemart.R;
-import com.matemart.model.StateAndCityModel;
-import com.matemart.utils.Toast.Toaster;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-public class SplashActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
-        VerifyOTP();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-            }
-        },2000);
+class SplashActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+        state
+        //        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+////                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+//            }
+//        },2000);
     }
 
-
-    public void VerifyOTP() {
-
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-
-        StringRequest mStringRequest = new StringRequest(Request.Method.GET, BASE_URL + GET_STATE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String strresponse) {
-                JSONObject response = null;
-                try {
-                    response = new JSONObject(strresponse);
-
-                    int statusCode = response.optInt("statuscode");
-                    String message = response.optString("message");
-                    if (statusCode==11) {
-
-                        JSONObject objData = response.optJSONObject("data");
-                        JSONObject objState = objData.optJSONObject("states");
-                        Iterator keys = objState.keys();
-                        while (keys.hasNext()){
-                            String key = String.valueOf(keys.next());
-                            Log.e("checkKEY", "State: "+key );
-                            JSONArray arrCity = objState.optJSONArray(key);
-
-                            ArrayList<String> cityList = new ArrayList<>();
-                            for (int i = 0; i <arrCity.length() ; i++) {
-                                String ans = arrCity.optString(i);
-                                cityList.add(ans);
-                                Log.e("checkKEY", "onResponse: city "+ans );
+    val state: Unit
+        get() {
+            val queue = Volley.newRequestQueue(this)
+            val mStringRequest = StringRequest(
+                Request.Method.GET,
+                Constants.BASE_URL + Constants.GET_STATE,
+                { strresponse ->
+                    var response: JSONObject? = null
+                    try {
+                        response = JSONObject(strresponse)
+                        val statusCode = response.optInt("statuscode")
+                        val message = response.optString("message")
+                        if (statusCode == 11) {
+                            val objData = response.optJSONObject("data")
+                            val objState = objData.optJSONObject("states")
+                            val keys: Iterator<*> = objState.keys()
+                            while (keys.hasNext()) {
+                                val key = keys.next().toString()
+                                Log.e("checkKEY", "State: $key")
+                                val arrCity = objState.optJSONArray(key)
+                                val cityList = ArrayList<String>()
+                                for (i in 0 until arrCity.length()) {
+                                    val ans = arrCity.optString(i)
+                                    cityList.add(ans)
+                                    Log.e("checkKEY", "onResponse: city $ans")
+                                }
+                                Constants.statList.add(StateAndCityModel(key, cityList))
                             }
-                            statList.add(new StateAndCityModel(key,cityList));
-                        }
-
-
-                        startActivity(new Intent(SplashActivity.this, OTPActivity.class));
-                        finish();
-
-
-                    } else {
-                        new Toaster.Builder(SplashActivity.this)
+                            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                            finish()
+                        } else {
+                            Toaster.Builder(this@SplashActivity)
                                 .setTitle("Error")
                                 .setDescription(message)
                                 .setDuration(5000)
                                 .setStatus(Toaster.Status.ERROR)
-                                .show();
-
+                                .show()
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-            }
-        });
-
-        queue.add(mStringRequest);
-
-
-    }
+                }) { }
+            queue.add(mStringRequest)
+        }
 }

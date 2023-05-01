@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_account_login" />
 
 
-    <AutoCompleteTextView
+    <TextView
         android:id="@+id/et_state"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
@@ -56,6 +56,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginVertical="@dimen/_6sdp"
         android:text=""
+android:gravity="center_vertical"
         android:background="@drawable/bg_edit_text"
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"
@@ -80,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_state" />
 
 
-    <AutoCompleteTextView
+    <TextView
         android:id="@+id/et_city"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
@@ -90,6 +91,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginVertical="@dimen/_6sdp"
         android:text=""
+        android:gravity="center_vertical"
         android:background="@drawable/bg_edit_text"
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"
@@ -114,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_city" />
 
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/et_pincode"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
@@ -124,6 +126,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginVertical="@dimen/_6sdp"
         android:text=""
+        android:gravity="center_vertical"
         android:background="@drawable/bg_edit_text"
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"

@@ -61,12 +61,13 @@
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/drawable/underscore.xml" value="0.1305" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout-w936dp/header_common_title_layout.xml" value="0.153125" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_add_review.xml" value="0.22" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_address_list.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_architectural_proffessional_details.xml" value="0.16540084388185655" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_category_list.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_change_address.xml" value="0.22" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_coupon.xml" value="0.18" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_home.xml" value="0.18" />
-        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_location.xml" value="0.17" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_location.xml" value="0.21" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_login.xml" value="0.1712962962962963" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_main2.xml" value="0.20416666666666666" />
@@ -76,11 +77,14 @@
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_otpactivity.xml" value="0.14930555555555555" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_preview_receipt.xml" value="0.2" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_product_details.xml" value="0.18" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_profile.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_review_list.xml" value="0.16" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_search.xml" value="0.18" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_searchroduct_from_category.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/activity_sub_category_list.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_bottom_sheet_city_selection.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_bottom_sheet_remove_from_cart.xml" value="0.2" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_bottom_sheet_state_selection.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_bottom_sheet_upload_receipt.xml" value="0.2" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_cart_non_empty_layout.xml" value="0.13" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_dashboard.xml" value="0.153125" />
@@ -88,7 +92,7 @@
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_login.xml" value="0.22" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_my_cart.xml" value="0.18" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_my_order.xml" value="0.15" />
-        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_my_profile.xml" value="0.164967562557924" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_my_profile.xml" value="0.2" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_notifications.xml" value="0.153125" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/fragment_register.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/header_common_title_layout.xml" value="0.1675929884566054" />
@@ -103,6 +107,7 @@
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_order_tracking_status_adapter.xml" value="0.25" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_product_adapter.xml" value="0.22" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_rating_bar_layout.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_rc_state_city.xml" value="0.1675213675213675" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_recent_search.xml" value="0.25" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_review_list.xml" value="0.21" />
         <entry key="..\:/Users/KING/Downloads/MateMart/MateMart/app/src/main/res/layout/item_upi_payment_type_adapter.xml" value="0.21" />

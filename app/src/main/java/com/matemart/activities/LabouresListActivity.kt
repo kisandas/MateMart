@@ -1,12 +1,12 @@
 package com.matemart.activities
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.matemart.R
 
-class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
+class LabouresListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_architectural_proffessional_details)
+        setContentView(R.layout.activity_laboures_list)
     }
 }
