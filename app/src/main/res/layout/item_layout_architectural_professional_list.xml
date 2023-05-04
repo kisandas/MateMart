@@ -25,6 +25,7 @@
             android:paddingVertical="@dimen/_10sdp">
 
             <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
                 android:layout_width="@dimen/_65sdp"
                 android:layout_height="@dimen/_65sdp"
                 android:scaleType="fitXY"

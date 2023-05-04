@@ -81,13 +81,12 @@ public class SharedPreference {
     public void logoutProfile(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = prefs.edit();
-
-
         Intent intent = new Intent(context, SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
-
     }
+
+
 
     public static String  KEY_LOGIN_TOKEN = "key_otp_token";
     public static String  KEY_STATE = "key_state";

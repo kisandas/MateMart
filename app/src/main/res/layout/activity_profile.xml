@@ -86,6 +86,7 @@
                         android:textSize="@dimen/_13sdp" />
 
                     <EditText
+                        android:id="@+id/edtFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_6sdp"
@@ -117,6 +118,7 @@
                         android:textSize="@dimen/_13sdp" />
 
                     <EditText
+                        android:id="@+id/edtLastName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_6sdp"
@@ -148,6 +150,7 @@
                         android:textSize="@dimen/_13sdp" />
 
                     <EditText
+                        android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginTop="@dimen/_6sdp"
@@ -246,6 +249,7 @@
                                 android:layout_height="@dimen/_24sdp" />
 
                             <TextView
+                                android:id="@+id/tvCountryCode"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawableEnd="@drawable/ic_down_arrow"
@@ -263,6 +267,7 @@
                                 android:background="#E8ECF4" />
 
                             <EditText
+                                android:id="@+id/edtPhone"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="0.8"
@@ -279,6 +284,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/sendOtp"
                             android:gravity="end|center_vertical"
                             android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"

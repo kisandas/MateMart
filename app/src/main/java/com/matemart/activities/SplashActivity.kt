@@ -4,35 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.devs.readmoreoption.ReadMoreOption
-import androidx.core.content.ContextCompat
 import com.android.volley.Request
-import com.google.android.material.textfield.TextInputEditText
-import com.makeramen.roundedimageview.RoundedImageView
-import com.matemart.utils.SharedPreference
-import com.matemart.fragments.ChoosePictureBottomSheetFragment
-import com.google.android.material.textfield.TextInputLayout
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
 import com.android.volley.toolbox.StringRequest
-import com.matemart.model.StateAndCityModel
-import com.matemart.activities.LoginActivity
-import com.matemart.utils.Toast.Toaster
-import com.android.volley.VolleyError
+import com.android.volley.toolbox.Volley
 import com.matemart.R
 import com.matemart.api.Constants
-import com.matemart.fragments.LoginFragment
-import com.matemart.fragments.RegisterFragment
-import com.matemart.interfaces.DismissBottomSheet
+import com.matemart.model.StateAndCityModel
+import com.matemart.utils.Toast.Toaster
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.ArrayList
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        state
+        if (true) {
+
+            startActivity(Intent(this, ProfileActivity::class.java))
+            finish()
+        }
+//        state
+
+
         //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {

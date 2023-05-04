@@ -7,6 +7,7 @@
     tools:context=".activities.ArchitecturalProfessionalDetailsActivity">
 
     <include
+        android:id="@+id/include5"
         layout="@layout/header_common_title_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
