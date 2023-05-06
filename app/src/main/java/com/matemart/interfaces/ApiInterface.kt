@@ -2,6 +2,7 @@ package com.matemart.interfaces
 
 import com.google.gson.JsonObject
 import com.matemart.model.*
+import com.matemart.model.login.UserResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -42,8 +43,8 @@ interface ApiInterface {
     fun sendOtp(@Body jsonObject: JsonObject): Call<ResSendOtp>?
 
     @POST("change-number-verify-otp")
-    fun changeNumberVerifyOtp(@Body jsonObject: JsonObject): Call<Void>?
+    fun changeNumberVerifyOtp(@Body jsonObject: JsonObject): Call<UserResponse>?
 
     @POST("change-number")
-    fun changeNumber(@Body jsonObject: JsonObject): Call<Void>?
+    fun changeNumber(@Body jsonObject: JsonObject): Call<ResSendOtp>?
 }

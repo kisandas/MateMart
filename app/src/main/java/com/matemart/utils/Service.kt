@@ -37,16 +37,16 @@ object Service {
     fun getUnAuthorised(context: Context?): Interceptor {
         return Interceptor { chain ->
             val original = chain.request()
-            val token = SharedPreference(context!!).getString(SharedPreference.KEY_LOGIN_TOKEN)
+            val token = SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN)
             val request = original.newBuilder()
-                .header("Authorization", "Bearer "+SharedPreference(context).getString(SharedPreference.KEY_LOGIN_TOKEN))
-                .method(original.method(), original.body())
+                .header("Authorization", "Bearer "+SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN))
+                .method(original.method, original.body)
                 .build()
             val response = chain.proceed(request)
-            Log.d("MyApp", "Code : " + response.code())
-            if (response.code() == 401) {
+            Log.d("MyApp", "Code : " + response.code)
+            if (response.code == 401) {
                 if (context != null) {
-                    SharedPreference(context).logoutProfile(context)
+                    SharedPrefHelper.getInstance(MyApplication()).logoutProfile(context)
                 }
                 return@Interceptor response
             }
@@ -59,13 +59,13 @@ object Service {
             val original = chain.request()
             val request = original.newBuilder()
                 .header("Authorization", "Bearer" + token!!)
-                .method(original.method(), original.body())
+                .method(original.method, original.body)
                 .build()
             val response = chain.proceed(request)
-            Log.d("MyApp", "Code : " + response.code())
-            if (response.code() == 401) {
+            Log.d("MyApp", "Code : " + response.code)
+            if (response.code == 401) {
                 if (context != null) {
-                    SharedPreference(context).logoutProfile(context)
+                    SharedPrefHelper.getInstance(MyApplication()).logoutProfile(context)
                 }
                 return@Interceptor response
             }

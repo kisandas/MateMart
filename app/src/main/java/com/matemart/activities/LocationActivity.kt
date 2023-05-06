@@ -12,32 +12,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.matemart.interfaces.DismissBottomSheet
-import com.matemart.utils.SharedPreference
 import com.matemart.fragments.StateSelectionBottomSheetFragment
 import com.matemart.fragments.CitySelectionBottomSheetFragment
-import com.matemart.activities.HomeActivity
-import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.android.volley.toolbox.JsonObjectRequest
 import com.matemart.utils.Toast.Toaster
-import com.android.volley.VolleyError
 import kotlin.Throws
 import com.android.volley.AuthFailureError
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
-import com.matemart.adapter.LoginViewPagerAdapter
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import com.android.volley.Response
+import com.google.gson.JsonObject
 import com.matemart.R
-import com.matemart.utils.OTPView
-import com.matemart.activities.LocationActivity
 import com.matemart.api.Constants
+import com.matemart.api.Constants.CHECK_PINCODE
 import com.matemart.api.Constants.statList
+import com.matemart.interfaces.ApiInterface
+import com.matemart.model.ResGetProfileDetails
+import com.matemart.utils.MyApplication
+import com.matemart.utils.Service
+import com.matemart.utils.SharedPrefHelper
 import com.matemart.utils.Utils
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
 import java.lang.Exception
 import java.util.ArrayList
 import java.util.HashMap
@@ -47,7 +44,7 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
     var et_state: TextView? = null
     var et_city: TextView? = null
     var et_pincode: EditText? = null
-    var pref: SharedPreference? = null
+    var pref: SharedPrefHelper? = null
     var adapter_city: ArrayAdapter<String>? = null
     var stateList = ArrayList<String>()
     var isStateSelected = false
@@ -56,40 +53,28 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
-        pref = SharedPreference(this)
+        pref = SharedPrefHelper.getInstance(MyApplication())
         btn_save = findViewById(R.id.btn_save)
         et_state = findViewById(R.id.et_state)
         et_city = findViewById(R.id.et_city)
         et_pincode = findViewById(R.id.et_pincode)
-        if (pref!!.getString(SharedPreference.KEY_STATE).isEmpty() && pref!!.getString(
-                SharedPreference.KEY_STATE
-            ) != "null"
-        ) {
-            et_state?.setText(pref!!.getString(SharedPreference.KEY_STATE))
+
+        if (!pref!!.read(SharedPrefHelper.KEY_STATE).isNullOrEmpty()) {
+            et_state?.setText(pref!!.read(SharedPrefHelper.KEY_STATE))
         }
-        if (pref!!.getString(SharedPreference.KEY_CITY).isEmpty() && pref!!.getString(
-                SharedPreference.KEY_CITY
-            ) != "null"
-        ) {
-            et_city?.setText(pref!!.getString(SharedPreference.KEY_CITY))
+        if (!pref!!.read(SharedPrefHelper.KEY_CITY).isNullOrEmpty()) {
+            et_city?.setText(pref!!.read(SharedPrefHelper.KEY_CITY))
         }
-        if (pref!!.getString(SharedPreference.KEY_PINCODE).isEmpty() && pref!!.getString(
-                SharedPreference.KEY_PINCODE
-            ) != "null"
-        ) {
-            et_pincode?.setText(pref!!.getString(SharedPreference.KEY_PINCODE))
+        if (!pref!!.read(SharedPrefHelper.KEY_PINCODE).isNullOrEmpty() ) {
+            et_pincode?.setText(pref!!.read(SharedPrefHelper.KEY_PINCODE))
         }
-        if (pref!!.getString(SharedPreference.KEY_STATE).isEmpty() && pref!!.getString(
-                SharedPreference.KEY_STATE
-            ) != "null" &&
-            pref!!.getString(SharedPreference.KEY_CITY).isEmpty() && pref!!.getString(
-                SharedPreference.KEY_CITY
-            ) != "null" &&
-            pref!!.getString(SharedPreference.KEY_PINCODE).isEmpty() && pref!!.getString(
-                SharedPreference.KEY_PINCODE
-            ) != "null"
+
+        if (!pref!!.read(SharedPrefHelper.KEY_STATE).isNullOrEmpty() &&
+           !pref!!.read(SharedPrefHelper.KEY_CITY).isNullOrEmpty() &&
+            !pref!!.read(SharedPrefHelper.KEY_PINCODE).isNullOrEmpty()
         ) {
             isDataLoaded = true
+            isPINCODE_VERIFIED = true
         }
         initializeView()
     }
@@ -101,7 +86,7 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
             stateList.add(Constants.statList[i].state)
         }
         et_pincode!!.isEnabled = false
-        cddState = StateSelectionBottomSheetFragment("state", 40,  this, stateList)
+        cddState = StateSelectionBottomSheetFragment("state", 40, this, stateList)
         et_state!!.setOnClickListener { cddState!!.show(supportFragmentManager, "TAG1") }
         et_city!!.setOnClickListener {
             if (isStateSelected) {
@@ -178,8 +163,77 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
                 et_pincode!!.requestFocus()
                 return@OnClickListener
             }
-            startActivity(Intent(this@LocationActivity, HomeActivity::class.java))
-            finish()
+
+            if(isDataLoaded){
+                startActivity(Intent(this@LocationActivity, HomeActivity::class.java))
+                finish()
+            }else{
+                updateProfile(
+                    et_state!!.text.toString(),
+                    et_city!!.text.toString(),
+                    et_pincode!!.text.toString()
+                )
+            }
+
+
+
+
+        })
+    }
+
+
+    fun updateProfile(state: String, city: String, pincode: String) {
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("state", state)
+        jsonObject.addProperty("city", city)
+        jsonObject.addProperty("pincode", pincode)
+
+
+        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
+        var call: Call<ResGetProfileDetails> = apiInterface.updateUserProfile(jsonObject)!!
+
+        call.enqueue(object : Callback<ResGetProfileDetails> {
+            override fun onResponse(
+                call: Call<ResGetProfileDetails>,
+                response: retrofit2.Response<ResGetProfileDetails>
+            ) {
+                if (response.isSuccessful) {
+
+                    state.let {
+                        if (it.isNotEmpty() && !it.equals("null", ignoreCase = true)) {
+                            pref!!.write(SharedPrefHelper.KEY_STATE, it)
+                        }
+                    }
+
+                    city.let {
+                        if (it.isNotEmpty() && !it.equals("null", ignoreCase = true)) {
+                            pref!!.write(SharedPrefHelper.KEY_CITY, it)
+                        }
+                    }
+
+                    pincode.let {
+                        if (it.isNotEmpty() && !it.equals("null", ignoreCase = true)) {
+                            pref!!.write(SharedPrefHelper.KEY_PINCODE, it)
+                        }
+                    }
+
+                    startActivity(Intent(this@LocationActivity, HomeActivity::class.java))
+                    finish()
+
+                } else {
+                    Toast.makeText(
+                        this@LocationActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResGetProfileDetails>, t: Throwable) {
+                Toast.makeText(this@LocationActivity, "Something went wrong", Toast.LENGTH_LONG)
+                    .show()
+            }
+
         })
     }
 
@@ -198,7 +252,7 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
         val queue = Volley.newRequestQueue(this)
         val jsonObjectRequest: JsonObjectRequest = object : JsonObjectRequest(
             Method.POST,
-            Constants.BASE_URL + Constants.CHECK_PINCODE,
+            Constants.BASE_URL + CHECK_PINCODE,
             jsonObject,
             Response.Listener { response ->
                 try {

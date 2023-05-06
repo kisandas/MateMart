@@ -5,18 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.matemart.interfaces.DismissBottomSheet
-import com.matemart.utils.SharedPreference
-import com.matemart.fragments.StateSelectionBottomSheetFragment
-import com.matemart.fragments.CitySelectionBottomSheetFragment
-import com.matemart.activities.HomeActivity
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.Volley
-import com.android.volley.toolbox.JsonObjectRequest
-import com.matemart.utils.Toast.Toaster
-import com.android.volley.VolleyError
-import kotlin.Throws
-import com.android.volley.AuthFailureError
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.matemart.adapter.LoginViewPagerAdapter
@@ -24,28 +12,49 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.matemart.R
-import com.matemart.utils.OTPView
-import com.matemart.activities.LocationActivity
+import com.matemart.databinding.ActivityLoginBinding
+import com.matemart.databinding.FragmentLoginBinding
+import com.matemart.utils.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginActivity : AppCompatActivity() {
-    var viewPager: ViewPager? = null
-    var tabLayout: TabLayout? = null
+@AndroidEntryPoint
+class LoginActivity : BaseActivity() {
+
     var adapter: LoginViewPagerAdapter? = null
+
+    private lateinit var binding: ActivityLoginBinding
+    override fun observeViewModel() {
+
+    }
+
+    override fun initViewBinding() {
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
+
+    override fun getRootView(): View {
+        return binding.root
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        viewPager = findViewById<View>(R.id.view_pager_login) as ViewPager
+        initViewBinding()
+        observeViewModel()
+//        setContentView(binding.root)
+//        setContentView(R.layout.activity_login)
+
         adapter = LoginViewPagerAdapter(supportFragmentManager)
-        viewPager!!.adapter = adapter
-        tabLayout = findViewById(R.id.tabs)
-        tabLayout?.setupWithViewPager(viewPager)
-        val tab0 = tabLayout?.getTabAt(0)
-        val tab1 = tabLayout?.getTabAt(1)
+        binding.viewPagerLogin.adapter = adapter
+
+        binding.tabs.setupWithViewPager(binding.viewPagerLogin)
+        val tab0 = binding.tabs.getTabAt(0)
+        val tab1 = binding.tabs.getTabAt(1)
         tab0!!.customView = createCustomTabView("If you are in", 18, R.color.theme_blue_38B449)
         tab1!!.customView = createCustomTabView("Create New", 16, R.color.dark_gray_b3b3b3)
         setTabTextSize(tab0, 18, R.color.theme_blue_38B449, true)
         setTabTextSize(tab1, 16, R.color.dark_gray_b3b3b3, false)
-        tabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
+        binding.tabs.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 setTabTextSize(tab, 18, R.color.theme_blue_38B449, true)
             }

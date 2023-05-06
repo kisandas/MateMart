@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -8,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.matemart"
-        minSdk 21
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -17,10 +19,18 @@ android {
     }
 
     buildTypes {
+
+        debug {
+            versionNameSuffix ".dev"
+            debuggable true
+
+        }
         release {
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -60,6 +70,20 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
 
+
+    //Hilt
+    implementation 'com.google.dagger:hilt-android:2.43.2'
+    kapt 'com.google.dagger:hilt-compiler:2.43.2'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //Client
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.1'
+    //OkHttp Interceptor
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.1"
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.1'
 
     //rx java
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'

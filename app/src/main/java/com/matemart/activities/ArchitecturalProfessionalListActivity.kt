@@ -10,7 +10,6 @@ import com.matemart.interfaces.ApiInterface
 import com.matemart.model.Architect
 import com.matemart.model.ResGetArchitectList
 import com.matemart.utils.Service
-import com.matemart.utils.SharedPreference
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,10 +21,7 @@ class ArchitecturalProfessionalListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityArchitechturalProfessionalListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        SharedPreference(this).setString(
-            SharedPreference.KEY_LOGIN_TOKEN,
-            "KzkxNTU1NTU1NTU1NToyMDIzMDUwMTIwMTEzOFZtVGpvbWpLbG9xbHVjSUlCZVhn"
-        )
+
         binding.include5.ivBack.setOnClickListener() {
             finish()
         }

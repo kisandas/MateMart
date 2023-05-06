@@ -25,11 +25,14 @@ import com.matemart.model.ResSendOtp
 import com.matemart.model.ResUploadProfileImage
 import com.matemart.model.UserProfile
 import com.matemart.utils.Service
-import com.matemart.utils.SharedPreference
+import com.matemart.R
+import com.matemart.api.Constants
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,7 +64,6 @@ class ProfileActivity : AppCompatActivity() {
     var rc_socialMedia: RecyclerView? = null
     var btn_save_profile: TextView? = null
     var tv_version: TextView? = null
-    var pref: SharedPreference? = null
     var cdd: ChoosePictureBottomSheetFragment? = null
     var isProfileDPUpdate = false
     var isDataUpdate = false
@@ -73,8 +75,8 @@ class ProfileActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityProfileBinding
 
-    private final var change: String = "Change"
-    private final var sendtOtp: String = "send OTP"
+    private var change: String = "Change"
+    private var sendtOtp: String = "send OTP"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +87,8 @@ class ProfileActivity : AppCompatActivity() {
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
 
+        binding.header.title.text = "Profile"
+
         binding.btnReset.setOnClickListener { setDefaultData(userProfile) }
         binding.sendOtp.text = "Change"
         binding.edtPhone.isEnabled = false
@@ -92,8 +96,8 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.btnUpdate.setOnClickListener { updateProfile() }
 
-        binding!!.ivEditProfile.setOnClickListener(object : View.OnClickListener {
-            public override fun onClick(view: View) {
+        binding.ivEditProfile.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
                 ImagePicker.with(this@ProfileActivity)
                     .crop(1f, 1f) //Crop image(Optional), Check Customization for more option
                     .compress(1024) //Final image size will be less than 1 MB(Optional)
@@ -106,18 +110,91 @@ class ProfileActivity : AppCompatActivity() {
         })
 
 
-        binding.sendOtp.setOnClickListener() {
+        binding.header.ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.sendOtp.setOnClickListener {
             if (binding.sendOtp.text.equals(change)) {
                 binding.edtPhone.isEnabled = true
                 binding.sendOtp.text = sendtOtp
             } else {
                 if (binding.edtPhone.text.length != 10) {
-                    binding.edtPhone.setError("Please enter valid number")
+                    binding.edtPhone.error = "Please enter valid number"
                     return@setOnClickListener
                 }
-                SendOtp()
+                changeNumber()
             }
         }
+    }
+
+
+
+    private fun changeNumber() {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty(
+            "mo_no",
+            binding.tvCountryCode.text.toString()+binding.edtPhone.text.toString()
+        )
+        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
+        var call: Call<ResSendOtp>? = apiInterface.changeNumber(jsonObject)
+        call!!.enqueue(object : Callback<ResSendOtp> {
+            override fun onResponse(call: Call<ResSendOtp>, response: Response<ResSendOtp>) {
+
+                if (response.isSuccessful) {
+
+                    var verifyOtpBottomSheet: VerifyOtpBottomSheet? =
+                        response.body()!!.data!!.token?.let {
+                            VerifyOtpBottomSheet(
+                                binding.tvCountryCode.text.toString() + binding.edtPhone.text.toString(),
+                                it, object : VerifyOtpBottomSheet.Update {
+                                    override fun onUpdate() {
+                                        getUserProfile()
+                                        binding.edtPhone.isEnabled = false
+                                        binding.sendOtp.text = change
+                                    }
+
+                                })
+                        }!!
+                    if (verifyOtpBottomSheet != null) {
+                        verifyOtpBottomSheet.show(supportFragmentManager, "verifyOtp")
+                    }
+
+                } else if ( Constants.getErrorMessage(
+                        this@ProfileActivity,
+                        response.errorBody()
+                    ).equals("The mobile number is linked to another account.")
+                ) {
+                    Toast.makeText(
+                        this@ProfileActivity,
+                        "The mobile number is linked to another account.",
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+
+
+
+                } else {
+
+                    Toast.makeText(
+                        this@ProfileActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResSendOtp>, t: Throwable) {
+                Toast.makeText(
+                    this@ProfileActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
     }
 
 
@@ -130,7 +207,7 @@ class ProfileActivity : AppCompatActivity() {
         )
         jsonObject.addProperty("uname", userProfile.uname)
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
-        var call: Call<ResSendOtp>? = apiInterface.sendOtp(jsonObject)
+        var call: Call<ResSendOtp>? = apiInterface.changeNumber(jsonObject)
         call!!.enqueue(object : Callback<ResSendOtp> {
             override fun onResponse(call: Call<ResSendOtp>, response: Response<ResSendOtp>) {
 
@@ -179,7 +256,7 @@ class ProfileActivity : AppCompatActivity() {
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val file: Uri? = data!!.getData()
+            val file: Uri? = data!!.data
             Glide.with(this@ProfileActivity)
                 .load(file).into(binding.ivProfilePic)
             imageUri = file
@@ -189,7 +266,7 @@ class ProfileActivity : AppCompatActivity() {
 
     fun uploadProfileImage(imageUri: Uri) {
         val imageFile = File(imageUri.path)
-        val requestFile = RequestBody.create(MediaType.parse("image/*"), imageFile)
+        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
 
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
         var image: MultipartBody.Part =
@@ -289,6 +366,12 @@ class ProfileActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.data?.let { setDefaultData(it) }
+                    Toast.makeText(
+                        this@ProfileActivity,
+                        "Data Updated SuccessFully",
+                        Toast.LENGTH_LONG
+                    ).show()
+
 
                 } else {
                     Toast.makeText(
@@ -296,6 +379,7 @@ class ProfileActivity : AppCompatActivity() {
                         "Something went wrong",
                         Toast.LENGTH_LONG
                     ).show()
+
                 }
             }
 
@@ -319,6 +403,7 @@ class ProfileActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.data?.let { setDefaultData(it) }
+
 
                 } else {
                     Toast.makeText(
@@ -354,10 +439,11 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
             binding.edtLastName.setText(lastname)
+            binding.edtPhone.setText(userProfile.mo_no)
             binding.edtEmail.setText(userProfile.email)
             Glide.with(this@ProfileActivity)
                 .load(userProfile.profile_image).into(binding.ivProfilePic)
-            binding.tvName.setText(userProfile.uname)
+            binding.tvName.text = userProfile.uname
         }
     }
 
@@ -382,7 +468,4 @@ class ProfileActivity : AppCompatActivity() {
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }

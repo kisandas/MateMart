@@ -5,25 +5,34 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.matemart.R
-import com.matemart.api.Constants
+import com.android.volley.toolbox.StringRequest
+import com.matemart.MainActivity
 import com.matemart.model.StateAndCityModel
 import com.matemart.utils.Toast.Toaster
+import com.matemart.R
+import com.matemart.api.Constants
+import com.matemart.utils.MyApplication
+import com.matemart.utils.SharedPrefHelper
+import com.matemart.utils.SharedPrefHelper.Companion.KEY_ACCESS_TOKEN
+import com.matemart.utils.SharedPrefHelper.Companion.KEY_CCID
 import org.json.JSONException
 import org.json.JSONObject
 
 class SplashActivity : AppCompatActivity() {
+
+    var pref: SharedPrefHelper? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        if (true) {
-
-            startActivity(Intent(this, ProfileActivity::class.java))
-            finish()
-        }
-//        state
+        pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
+//        if (true) {
+//
+//            startActivity(Intent(this, ProfileActivity::class.java))
+//            finish()
+//        }
+        state
 
 
         //        new Handler().postDelayed(new Runnable() {
@@ -39,7 +48,7 @@ class SplashActivity : AppCompatActivity() {
             val queue = Volley.newRequestQueue(this)
             val mStringRequest = StringRequest(
                 Request.Method.GET,
-                Constants.BASE_URL + Constants.GET_STATE,
+                Constants.BASE_URL + "get-states",
                 { strresponse ->
                     var response: JSONObject? = null
                     try {
@@ -62,8 +71,22 @@ class SplashActivity : AppCompatActivity() {
                                 }
                                 Constants.statList.add(StateAndCityModel(key, cityList))
                             }
-                            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                            finish()
+
+
+                            Log.e("checkAccessToken", ": "+pref?.read(KEY_ACCESS_TOKEN) )
+                            if (!pref?.read(KEY_CCID).isNullOrEmpty()) {
+                                startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                                finish()
+                            } else {
+                                startActivity(
+                                    Intent(
+                                        this@SplashActivity,
+                                        LoginActivity::class.java
+                                    )
+                                )
+                                finish()
+                            }
+
                         } else {
                             Toaster.Builder(this@SplashActivity)
                                 .setTitle("Error")
