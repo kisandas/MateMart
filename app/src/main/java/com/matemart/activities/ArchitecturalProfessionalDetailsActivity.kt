@@ -3,6 +3,7 @@ package com.matemart.activities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
 import com.matemart.databinding.ActivityArchitecturalProffessionalDetailsBinding
 import com.matemart.interfaces.ApiInterface
@@ -21,14 +22,13 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityArchitecturalProffessionalDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.include5.ivBack.setOnClickListener() {
+        binding.header.ivBack.setOnClickListener() {
             finish()
         }
 
-        binding.include5.title.text = "Architecture Professional"
+        binding.header.title.text = "Architecture Professional"
 
         getSingleArchitectDetails()
-        getArchitectDetails()
 
         /* *********************
 
@@ -37,9 +37,9 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
 
         ***********************/
 
-        /*   binding.viewDetails.setOnClickListener(){
-               getArchitectDetails()
-           }       */
+        binding.btnViewDetails.setOnClickListener() {
+            getArchitectDetails()
+        }
 
     }
 
@@ -56,7 +56,10 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
                 response: Response<ResGetSingleArchitect>
             ) {
                 if (response.isSuccessful) {
-
+                    Toast.makeText(
+                        this@ArchitecturalProfessionalDetailsActivity,
+                        response.body()?.data.toString(), Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     Toast.makeText(
                         this@ArchitecturalProfessionalDetailsActivity,
@@ -108,7 +111,10 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
                 response: Response<ResGetArchitectDetails>
             ) {
                 if (response.isSuccessful) {
-
+                    Glide.with(this@ArchitecturalProfessionalDetailsActivity)
+                        .load(response.body()?.data?.profile_image).into(binding.roundedImageView)
+                    binding.tvProductName.text = response.body()?.data?.name
+                    binding.tvAbout.text = response.body()?.data?.about
                 } else {
                     Toast.makeText(
                         this@ArchitecturalProfessionalDetailsActivity,

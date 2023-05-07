@@ -5,17 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.toolbox.Volley
 import com.android.volley.toolbox.StringRequest
-import com.matemart.MainActivity
-import com.matemart.model.StateAndCityModel
-import com.matemart.utils.Toast.Toaster
+import com.android.volley.toolbox.Volley
 import com.matemart.R
 import com.matemart.api.Constants
+import com.matemart.model.StateAndCityModel
 import com.matemart.utils.MyApplication
 import com.matemart.utils.SharedPrefHelper
 import com.matemart.utils.SharedPrefHelper.Companion.KEY_ACCESS_TOKEN
 import com.matemart.utils.SharedPrefHelper.Companion.KEY_CCID
+import com.matemart.utils.Toast.Toaster
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -27,12 +26,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
-//        if (true) {
-//
-//            startActivity(Intent(this, ProfileActivity::class.java))
-//            finish()
-//        }
-        state
+        if (true) {
+
+            startActivity(Intent(this, LabouresListActivity::class.java))
+            finish()
+        }
+//        state
 
 
         //        new Handler().postDelayed(new Runnable() {
@@ -73,7 +72,7 @@ class SplashActivity : AppCompatActivity() {
                             }
 
 
-                            Log.e("checkAccessToken", ": "+pref?.read(KEY_ACCESS_TOKEN) )
+                            Log.e("checkAccessToken", ": " + pref?.read(KEY_ACCESS_TOKEN))
                             if (!pref?.read(KEY_CCID).isNullOrEmpty()) {
                                 startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                                 finish()
