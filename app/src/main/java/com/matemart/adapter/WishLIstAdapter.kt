@@ -50,6 +50,10 @@ class WishLIstAdapter(
             holder.binding.rlBgAlpha.visibility = View.VISIBLE
         }
 
+        holder.binding.ivRemoveWhishlist.setOnClickListener(){
+            onClick.onDelete(list.get(position))
+        }
+
 
     }
 
