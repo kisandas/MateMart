@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
         if (true) {
 
-            startActivity(Intent(this, LabouresListActivity::class.java))
+            startActivity(Intent(this, WishListActivity::class.java))
             finish()
         }
 //        state

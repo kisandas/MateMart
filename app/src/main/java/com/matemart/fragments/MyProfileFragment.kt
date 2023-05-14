@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matemart.activities.WhishListActivity
+import com.matemart.activities.WishListActivity
 import com.matemart.activities.AddressListActivity
 import com.matemart.activities.ProfileActivity
 import com.matemart.activities.PostYourRequirements
@@ -35,7 +35,7 @@ class MyProfileFragment : Fragment() {
             startActivity(
                 Intent(
                     context,
-                    WhishListActivity::class.java
+                    WishListActivity::class.java
                 )
             )
         }

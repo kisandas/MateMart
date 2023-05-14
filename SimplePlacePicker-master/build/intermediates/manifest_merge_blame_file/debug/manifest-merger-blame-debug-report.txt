@@ -2,48 +2,45 @@
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 3    package="com.essam.simpleplacepicker" >
 4
-5    <uses-sdk
-6        android:minSdkVersion="21"
-6-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml
-7        android:targetSdkVersion="33" />
-7-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml
-8
-9    <uses-permission android:name="android.permission.INTERNET" /> <!-- Required to show current location -->
-9-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:4:5-67
-9-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:4:22-64
-10    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-10-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:5:5-81
-10-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:5:22-78
-11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-11-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:6:5-79
-11-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:6:22-76
-12
-13    <application
-13-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:8:5-22:19
-14        android:allowBackup="true"
-14-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:9:9-35
-15        android:icon="@mipmap/ic_launcher"
-15-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:10:9-43
-16        android:label="@string/app_name"
-16-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:11:9-41
-17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:12:9-54
-18        android:supportsRtl="true" >
-18-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:13:9-35
-19        <activity
-19-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:15:9-17:20
-20            android:name="com.essam.simpleplacepicker.MapActivity"
-20-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:15:19-46
-21            android:windowSoftInputMode="adjustPan" >
-21-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:16:13-52
-22        </activity>
-23
-24        <service
-24-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:19:9-21:40
-25            android:name="com.essam.simpleplacepicker.utils.FetchAddressIntentService"
-25-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:20:13-60
-26            android:exported="false" />
-26-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:21:13-37
-27    </application>
-28
-29</manifest>
+5    <uses-sdk android:minSdkVersion="21" />
+5-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml
+6
+7    <uses-permission android:name="android.permission.INTERNET" /> <!-- Required to show current location -->
+7-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:3:5-67
+7-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:3:22-64
+8    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+8-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:4:5-81
+8-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:4:22-78
+9    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+9-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:5:5-79
+9-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:5:22-76
+10
+11    <application
+11-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:7:5-21:19
+12        android:allowBackup="true"
+12-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:8:9-35
+13        android:icon="@mipmap/ic_launcher"
+13-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:9:9-43
+14        android:label="@string/app_name"
+14-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:10:9-41
+15        android:roundIcon="@mipmap/ic_launcher_round"
+15-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:11:9-54
+16        android:supportsRtl="true" >
+16-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:12:9-35
+17        <activity
+17-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:14:9-16:20
+18            android:name="com.essam.simpleplacepicker.MapActivity"
+18-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:14:19-46
+19            android:windowSoftInputMode="adjustPan" >
+19-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:15:13-52
+20        </activity>
+21
+22        <service
+22-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:18:9-20:40
+23            android:name="com.essam.simpleplacepicker.utils.FetchAddressIntentService"
+23-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:19:13-60
+24            android:exported="false" />
+24-->/Users/user/Projects/kisandas/MateMart/SimplePlacePicker-master/src/main/AndroidManifest.xml:20:13-37
+25    </application>
+26
+27</manifest>

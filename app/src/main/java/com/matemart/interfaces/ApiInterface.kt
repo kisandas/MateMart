@@ -11,7 +11,7 @@ interface ApiInterface {
 
 
     @GET("get-wishlist")
-    fun getWishList(): Call<JsonObject>?
+    fun getWishList(): Call<ResWishList>?
 
     @GET("laboures-filter")
     fun getLabourFilter(): Call<ResGetLabourFilter>?
@@ -47,4 +47,7 @@ interface ApiInterface {
 
     @POST("change-number")
     fun changeNumber(@Body jsonObject: JsonObject): Call<ResSendOtp>?
+
+    @POST("add-remove-wishlist")
+    fun updateWishList(@Body jsonObject: JsonObject): Call<JsonObject>
 }
