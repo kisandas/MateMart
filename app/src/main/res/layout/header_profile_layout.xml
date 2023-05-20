@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/ivProfile"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"
@@ -31,6 +31,7 @@
             android:layout_weight="0.8">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_inter_regular"
@@ -52,12 +53,14 @@
 
 
         <ImageView
+            android:id="@+id/ivSearch"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:src="@drawable/ic_search" />
 
         <ImageView
+            android:id="@+id/ivNotification"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_marginHorizontal="@dimen/_8sdp"

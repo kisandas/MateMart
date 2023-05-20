@@ -3,10 +3,13 @@ package com.matemart.activities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.matemart.adapter.ProductItemAdapter
 import com.matemart.adapter.WishLIstAdapter
 import com.matemart.databinding.ActivityWhishListBinding
 import com.matemart.interfaces.ApiInterface
+import com.matemart.interfaces.WishListUpdateListner
 import com.matemart.model.ResWishList
+import com.matemart.model.ViewListModel
 import com.matemart.model.WishList
 import com.matemart.repository.UpdateWishList
 import com.matemart.utils.Service
@@ -14,12 +17,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class WishListActivity : AppCompatActivity() {
+class WishListActivity : AppCompatActivity(), WishListUpdateListner {
 
     lateinit var binding: ActivityWhishListBinding;
-    var list: MutableList<WishList> = arrayListOf()
+    var list: ArrayList<ViewListModel> = arrayListOf()
 
-    lateinit var adapter: WishLIstAdapter;
+    lateinit var adapter: ProductItemAdapter;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,28 +32,7 @@ class WishListActivity : AppCompatActivity() {
         binding.include3.ivBack.setOnClickListener() {
             onBackPressed()
         }
-        adapter = WishLIstAdapter(this@WishListActivity, list, object : WishLIstAdapter.OnClick {
-            override fun onDelete(wishList: WishList) {
-                wishList.p_id?.let {
-                    UpdateWishList(this@WishListActivity, object : UpdateWishList.Event {
-                        override fun OnUpdate() {
-                            getWishList()
-                        }
-
-                        override fun OnFail() {
-                            Toast.makeText(
-                                this@WishListActivity,
-                                "Something went wrong",
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
-                        }
-
-                    }).updateWishList(it, 0)
-                }
-            }
-
-        })
+        adapter = ProductItemAdapter(list,this@WishListActivity,this)
         binding.list.adapter = adapter
         getWishList()
 
@@ -84,6 +66,11 @@ class WishListActivity : AppCompatActivity() {
             }
 
         })
+
+    }
+
+    override fun onUpdate() {
+        getWishList()
 
     }
 

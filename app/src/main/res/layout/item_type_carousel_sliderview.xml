@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.matemart.utils.ImageSlider
+        android:id="@+id/image_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iss_auto_cycle="true"
+        app:iss_delay="10"
+        app:iss_period="2000"
+        app:iss_selected_dot="@drawable/bg_round_corner_dot_selected"
+        app:iss_unselected_dot="@drawable/bg_round_corner_dot_unselected" />
+
+</RelativeLayout>

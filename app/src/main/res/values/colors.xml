@@ -10,7 +10,8 @@
     <color name="dark_gray_4d4d4d">#4D4D4D</color>
     <color name="hint_gray_c6c6c6">#C6C6C6</color>
     <color name="dark_gray_b3b3b3">#B3B3B3</color>
-    <color name="theme_blue_38B449">#38B449</color>
+    <color name="dark_gray_ebebeb">#EBEBEB</color>
+    <color name="theme_blue_38B449">#0C5354</color>
     <color name="light_blue_F8FAFF">#F8FAFF</color>
     <color name="theme_blue_alpha10_38B449">#1038B449</color>
     <color name="gray_171717">#171717</color>

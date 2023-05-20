@@ -8,6 +8,7 @@
     app:cardElevation="@dimen/_4sdp">
 
     <RelativeLayout
+        android:id="@+id/rlMainProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -21,8 +22,9 @@
             android:id="@+id/iv_remove_whishlist"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
             android:src="@drawable/ic_remove_whish_list" />
 
         <ImageView
@@ -43,12 +45,12 @@
             android:paddingHorizontal="@dimen/_4sdp">
 
             <TextView
-                android:id="@+id/productName"
+                android:id="@+id/tvProductName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.75"
+                android:layout_weight="0.78"
                 android:fontFamily="@font/font_inter_regular"
-                android:maxLines="3"
+                android:lines="2"
                 android:text="Slim panal light 6Watt round"
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textSize="@dimen/_11sdp" />
@@ -104,9 +106,9 @@
             android:textColor="@color/dark_gray_b3b3b3"
             android:textSize="@dimen/_13sdp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_78sdp"
             android:layout_below="@id/ll_product_name"
             android:layout_alignParentEnd="true"
             android:layout_marginVertical="@dimen/_5sdp"
@@ -116,12 +118,16 @@
 
             <ImageView
                 android:id="@+id/iv_minus"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/tv_count"
                 android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/_22sdp"
                 android:src="@drawable/ic_remove_cart" />
 
             <TextView
                 android:id="@+id/tv_count"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/iv_plus"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_marginVertical="@dimen/_5sdp"
@@ -133,10 +139,12 @@
 
             <ImageView
                 android:id="@+id/iv_plus"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
                 android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/_22sdp"
                 android:src="@drawable/ic_add_cart" />
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </RelativeLayout>
@@ -162,6 +170,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvOutOfStock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -176,6 +185,7 @@
             android:textSize="@dimen/_16sdp" />
 
         <TextView
+            android:id="@+id/viewSimilarProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

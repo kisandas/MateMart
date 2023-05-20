@@ -24,21 +24,22 @@
             app:tint="@color/black_393f42" />
 
 
-        <AutoCompleteTextView
+        <MultiAutoCompleteTextView
+            android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
             android:background="@color/gray_f4f4f4"
-            android:paddingVertical="@dimen/_10sdp"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:maxLines="1"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/_10sdp"
-            android:textColor="@color/dark_gray_4d4d4d"
-            android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/font_inter_regular"
+            android:hint="Search here.."
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:textColor="@color/dark_gray_4d4d4d"
             android:textColorHint="@color/dark_gray_b3b3b3"
-            android:hint="Search here.." />
+            android:textSize="@dimen/_14sdp" />
 
 
         <ImageView

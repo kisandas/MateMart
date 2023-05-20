@@ -6,5 +6,5 @@ class ResWishList : Serializable {
 
     var statuscode: Int? = null
     var message: String? = null
-    var data: List<WishList>? = null
+    var data: ArrayList<ViewListModel>? = null
 }

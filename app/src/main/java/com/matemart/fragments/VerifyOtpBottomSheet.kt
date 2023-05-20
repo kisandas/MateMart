@@ -38,6 +38,7 @@ public class VerifyOtpBottomSheet(var mobileNumber: String, var token: String, v
             BottomsheetVerifyOtpBinding.inflate(LayoutInflater.from(context))
 
         dialog.setContentView(bottomsheetVerifyOtpBinding.root)
+        dialog.setCancelable(false)
 
         pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
 

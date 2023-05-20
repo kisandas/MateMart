@@ -26,12 +26,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
-        if (true) {
-
-            startActivity(Intent(this, WishListActivity::class.java))
-            finish()
-        }
-//        state
+//        if (true) {
+//
+//            startActivity(Intent(this, LabouresListActivity::class.java))
+//            finish()
+//        }
+        state
 
 
         //        new Handler().postDelayed(new Runnable() {

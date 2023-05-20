@@ -40,6 +40,8 @@ object Service {
             val token = SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN)
             val request = original.newBuilder()
                 .header("Authorization", "Bearer "+SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN))
+                .header("matemart-app-platform", "Android")
+                .header("matemart-app-version", "1.0.1")
                 .method(original.method, original.body)
                 .build()
             val response = chain.proceed(request)
@@ -58,7 +60,9 @@ object Service {
         return Interceptor { chain ->
             val original = chain.request()
             val request = original.newBuilder()
-                .header("Authorization", "Bearer" + token!!)
+                .header("Authorization", "Bearer" + SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN))
+                .header("matemart-app-platform", "Android")
+                .header("matemart-app-version", "1.0.1")
                 .method(original.method, original.body)
                 .build()
             val response = chain.proceed(request)
@@ -77,11 +81,11 @@ object Service {
 
 
     fun <S> createService(serviceClass: Class<S>?, context: Context?): S {
-        if (BuildConfig.DEBUG) {
-            var logging: HttpLoggingInterceptor = HttpLoggingInterceptor();
-            logging.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BODY);
-            httpClient.addInterceptor(logging);
-        }
+//        if (BuildConfig.DEBUG) {
+//            var logging: HttpLoggingInterceptor = HttpLoggingInterceptor();
+//            logging.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BODY);
+//            httpClient.addInterceptor(logging);
+//        }
         val baseUrl = BASE_URL
         val builder = Retrofit.Builder()
             .baseUrl(baseUrl)

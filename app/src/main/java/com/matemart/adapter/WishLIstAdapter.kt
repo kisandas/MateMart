@@ -38,7 +38,7 @@ class WishLIstAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.binding.ivMinus.visibility = View.GONE
         holder.binding.tvCount.visibility = View.GONE
-        holder.binding.productName.text = list.get(position).p_name
+        holder.binding.tvProductName.text = list.get(position).p_name
         holder.binding.tvRating.text = list.get(position).average_rating.toString()
         holder.binding.tvTextLeftStock.text =
             "Only " + list.get(position).total_quantity.toString() + " in stock"

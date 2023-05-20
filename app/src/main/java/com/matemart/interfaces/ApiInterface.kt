@@ -1,5 +1,6 @@
 package com.matemart.interfaces
 
+import com.example.example.*
 import com.google.gson.JsonObject
 import com.matemart.model.*
 import com.matemart.model.login.UserResponse
@@ -9,6 +10,9 @@ import retrofit2.http.*
 
 interface ApiInterface {
 
+
+    @GET("home-screen")
+    fun getHomeDataList(): Call<ResHomeList>?
 
     @GET("get-wishlist")
     fun getWishList(): Call<ResWishList>?
@@ -50,4 +54,31 @@ interface ApiInterface {
 
     @POST("add-remove-wishlist")
     fun updateWishList(@Body jsonObject: JsonObject): Call<JsonObject>
+
+    @POST("cart")
+    fun addIntoCart(@Body jsonObject: JsonObject): Call<AddCartResponse>?
+
+
+    @POST("remove-cart")
+    fun removeFromCart(@Body jsonObject: JsonObject): Call<RemoveCartResponse>?
+
+    @GET("category")
+    fun getAllCategory(): Call<ResponseCategory>?
+
+    @POST("sub-category")
+    fun getSubCategory(@Body jsonObject: JsonObject): Call<ResponseCategory>?
+
+   @POST("view-all-products")
+    fun getViewAllProducts(@Body jsonObject: JsonObject): Call<ResponseProductList>?
+ @POST("subcategory-products")
+    fun getProductsFromSubCategory(@Body jsonObject: JsonObject): Call<ResponseProductList>?
+
+    @POST("search")
+    fun getSearch(@Body jsonObject: JsonObject): Call<ResponseSearch>?
+
+
+
+    @POST("recently-search")
+    fun getRecentSearch(@Body jsonObject: JsonObject): Call<ResponseRecentSearch>?
+
 }

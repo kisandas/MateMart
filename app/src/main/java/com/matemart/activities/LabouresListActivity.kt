@@ -30,10 +30,10 @@ class LabouresListActivity : AppCompatActivity(), DismissBottomSheet {
         super.onCreate(savedInstanceState)
         binding = ActivityLabouresListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        SharedPrefHelper.getInstance(MyApplication.getInstance()).write(
-            SharedPrefHelper.KEY_ACCESS_TOKEN,
-            "KzkxNTU1NTU1NTU1NToyMDIzMDUwMTIwMTEzOFZtVGpvbWpLbG9xbHVjSUlCZVhn"
-        )
+//        SharedPrefHelper.getInstance(MyApplication.getInstance()).write(
+//            SharedPrefHelper.KEY_ACCESS_TOKEN,
+//            "KzkxNTU1NTU1NTU1NToyMDIzMDUwMTIwMTEzOFZtVGpvbWpLbG9xbHVjSUlCZVhn"
+//        )
 
         binding.headerlay.ivBack.setOnClickListener() {
             finish()
