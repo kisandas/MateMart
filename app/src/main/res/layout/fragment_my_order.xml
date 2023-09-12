@@ -40,13 +40,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/llEmptView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:src="@drawable/img_empty_order" />
@@ -59,7 +60,7 @@
             android:gravity="center"
             android:text="There is no current order"
             android:textColor="@color/theme_blue_38B449"
-            android:textSize="@dimen/_24sdp" />
+            android:textSize="22sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,12 +71,14 @@
             android:gravity="center"
             android:text="You don’t have any active order Please make sure you have switch on your availability to receive order"
             android:textColor="@color/dark_gray_4d4d4d"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvOrderData"
         android:visibility="gone"
+        android:nestedScrollingEnabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

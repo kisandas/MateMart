@@ -7,7 +7,7 @@
     <com.loopeer.shadow.ShadowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="16dp"
         android:elevation="10dp"
         android:foreground="?attr/selectableItemBackground"
         app:cornerRadius="4dp"
@@ -21,13 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_10sdp">
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/image"
-                android:layout_width="@dimen/_65sdp"
-                android:layout_height="@dimen/_65sdp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/sample"
                 app:riv_corner_radius="@dimen/_4sdp" />
@@ -35,27 +35,26 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_weight="0.65"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_product_name"
+                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_4sdp"
                     android:fontFamily="@font/font_inter_semibold"
-                    android:text="Modern looking light with extra bublb"
+                    android:text=""
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_price"
+                    android:id="@+id/tvFirmName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_inter_regular"
-                    android:text="₹1000"
+                    android:text=""
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textSize="@dimen/_12sdp" />
 

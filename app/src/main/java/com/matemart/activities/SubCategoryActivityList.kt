@@ -1,6 +1,7 @@
 package com.matemart.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -44,8 +45,9 @@ class SubCategoryActivityList : AppCompatActivity() {
 
     var list: ArrayList<CategoryModel> = arrayListOf()
     private fun getSubCategory(c_id : Int) {
-        var jsonObject: JsonObject = JsonObject()
+        var jsonObject = JsonObject()
         jsonObject.addProperty("c_id", c_id)
+        Log.e("mmmmmm", "getSubCategory: "+jsonObject.toString() )
 
 
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@SubCategoryActivityList)

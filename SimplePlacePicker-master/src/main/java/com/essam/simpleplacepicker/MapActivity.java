@@ -88,7 +88,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LatLng currentMarkerPosition;
 
     //receiving
-    private String mApiKey = "" ;
+    private String mApiKey = "AIzaSyBDVtM9UN7tg5TJ4BOYK6bNGYVEWC0k_l4" ;
     private String[] mSupportedArea = new String[]{};
     private String mCountry = "";
     private String mLanguage = "en";

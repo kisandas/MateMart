@@ -1,0 +1,22 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <item android:right="4dp" android:top="4dp" android:left="4dp" android:bottom="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFFFFF" /> <!-- Set the desired color for the checkbox -->
+                </shape>
+            </item>
+            <item android:drawable="@drawable/bg_round_corner_with_stroke_blue_radius_6" />
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:right="4dp" android:top="4dp" android:left="4dp" android:bottom="4dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#FFFFFF" /> <!-- Set the desired background color for unchecked state -->
+                </shape>
+            </item>
+            <item android:drawable="@drawable/bg_round_corner_stroke_radius_color_4d4d4d_6" />
+        </layer-list>
+    </item>
+</selector>

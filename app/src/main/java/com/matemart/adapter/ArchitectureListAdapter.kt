@@ -38,8 +38,8 @@ class ArchitectureListAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.binding.tvProductName.text = list.get(position).firm_name
-        holder.binding.tvPrice.text = list.get(position).name
+        holder.binding.tvName.text = list.get(position).name
+        holder.binding.tvFirmName.text = list.get(position).firm_name
         Glide.with(context).load(list.get(position).profile_image).into(holder.binding.image)
         holder.binding.root.setOnClickListener { item.onClick(list.get(position)) }
     }

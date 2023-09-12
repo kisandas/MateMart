@@ -4,21 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.loopeer.shadow.ShadowView
+    <androidx.cardview.widget.CardView
         android:id="@+id/sl_order_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginVertical="@dimen/_10sdp"
-        android:elevation="10dp"
-        android:foreground="?attr/selectableItemBackground"
-        app:cornerRadius="4dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shadowMargin="@dimen/_8sdp"
-        app:shadowRadius="@dimen/_10sdp">
+      >
 
         <LinearLayout
             android:id="@+id/ll_apply_coupon"
@@ -47,11 +45,13 @@
                 android:textSize="@dimen/_15sdp" />
 
             <RadioButton
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_next" />
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:layout_width="@dimen/_37sdp"
+                android:layout_height="@dimen/_37sdp"
+            />
 
         </LinearLayout>
-    </com.loopeer.shadow.ShadowView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

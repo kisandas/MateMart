@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 object Service {
 
-    var BASE_URL = "https://www.matemart.org/api/"
+    var  BASE_URL = "https://www.matemart.org/api/"
 
     fun getHttpClient(context: Context?): OkHttpClient.Builder {
         return OkHttpClient.Builder().addInterceptor(client)
@@ -41,7 +41,7 @@ object Service {
             val request = original.newBuilder()
                 .header("Authorization", "Bearer "+SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN))
                 .header("matemart-app-platform", "Android")
-                .header("matemart-app-version", "1.0.1")
+                .header("matemart-app-version", "1.0")
                 .method(original.method, original.body)
                 .build()
             val response = chain.proceed(request)

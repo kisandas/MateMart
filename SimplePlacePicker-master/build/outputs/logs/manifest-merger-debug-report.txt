@@ -1,61 +1,61 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
 	package
-		INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
-		INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:1-23:12
+		INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:11-69
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:3:5-67
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:3:5-67
 	android:name
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:3:22-64
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:3:22-64
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:4:5-81
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:4:5-81
 	android:name
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:4:22-78
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:4:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:5:5-79
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:5:5-79
 	android:name
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:5:22-76
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:5:22-76
 application
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:7:5-21:19
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:7:5-21:19
 	android:supportsRtl
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:12:9-35
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:12:9-35
 	android:label
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:10:9-41
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:10:9-41
 	android:roundIcon
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:11:9-54
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:11:9-54
 	android:icon
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:9:9-43
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:9:9-43
 	android:allowBackup
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:8:9-35
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:8:9-35
 activity#com.essam.simpleplacepicker.MapActivity
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:9-16:20
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:9-16:20
 	android:windowSoftInputMode
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:15:13-52
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:15:13-52
 	android:name
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:19-46
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:19-46
 service#com.essam.simpleplacepicker.utils.FetchAddressIntentService
-ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:18:9-20:40
+ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:18:9-20:40
 	android:exported
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:20:13-37
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:20:13-37
 	android:name
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:19:13-60
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:19:13-60
 uses-sdk
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-		INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-		ADDED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
-		INJECTED from D:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		ADDED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml
+		INJECTED from E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml

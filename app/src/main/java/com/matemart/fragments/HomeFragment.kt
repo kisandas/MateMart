@@ -16,7 +16,9 @@ import com.matemart.adapter.MainStoreAdapter
 import com.matemart.databinding.FragmentHomeBinding
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.*
+import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
+import com.matemart.utils.SharedPrefHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,6 +106,9 @@ class HomeFragment : Fragment() {
                         Glide.with(requireContext()).load(it.profile_image)
                             .into(binding?.header?.ivProfile as ImageView)
                         binding?.header?.tvName?.text = it.uname
+
+                        SharedPrefHelper.getInstance(MyApplication.getInstance())
+                            .write(SharedPrefHelper.USER_NAME, it.uname.toString()).toString()
                     }
 
 

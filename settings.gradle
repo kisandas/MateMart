@@ -19,3 +19,5 @@ dependencyResolutionManagement {
 rootProject.name = "MateMart"
 include ':app'
 include ':SimplePlacePicker-master'
+//include ':imagepicker2'
+//include ':picker'

@@ -95,6 +95,13 @@ class LoginFragment : BaseFragment() {
                 .write(SharedPrefHelper.KEY_LOGIN_TOKEN, it)
         }
 
+        Log.e("checkToken", "onResponse: ${response.toString()}")
+
+        response.data?.uId?.let {
+            SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .write(SharedPrefHelper.USER_ID, it)
+        }
+
         SharedPrefHelper.getInstance(MyApplication.getInstance())
             .write(SharedPrefHelper.KEY_LOGIN_NUMBER, binding.tvCountryCode.text.toString() + binding.etNumber.text.toString())
 

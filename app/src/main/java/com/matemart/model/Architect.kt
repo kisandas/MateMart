@@ -8,3 +8,5 @@ class Architect : java.io.Serializable {
     var firm_name: String? = null
 
 }
+
+

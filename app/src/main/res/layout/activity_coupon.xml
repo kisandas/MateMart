@@ -68,14 +68,15 @@
                 android:background="@drawable/bg_round_corner_right_blue_radius_4"
                 android:padding="@dimen/_8sdp"
                 android:src="@drawable/ic_next"
-                android:tint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.5" />
+                app:layout_constraintWidth_percent="0.5"
+                app:tint="@color/white" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcCouponActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_24sdp"
@@ -125,18 +126,19 @@
                     android:textSize="@dimen/_16sdp" />
 
                 <TextView
+                    android:id="@+id/couponAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_inter_extra_bold"
                     android:maxLines="1"
-                    android:text="₹100"
+                    android:text="0"
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textSize="@dimen/_16sdp" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_status"
+                android:id="@+id/btnApply"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
@@ -146,7 +148,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_6sdp"
-                android:text="Re-Order"
+                android:text="Apply"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="parent"

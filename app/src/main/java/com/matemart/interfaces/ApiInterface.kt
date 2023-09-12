@@ -41,7 +41,7 @@ interface ApiInterface {
     fun updateProfileImage(@Part image: MultipartBody.Part): Call<ResUploadProfileImage>?
 
     @POST("details-architect")
-    fun getArchitectDetails(@Body jsonObject: JsonObject): Call<ResGetArchitectDetails>?
+    fun getArchitectDetails(@Body jsonObject: JsonObject): Call<ResGetArchitectContact>?
 
     @POST("send-otp")
     fun sendOtp(@Body jsonObject: JsonObject): Call<ResSendOtp>?
@@ -68,17 +68,52 @@ interface ApiInterface {
     @POST("sub-category")
     fun getSubCategory(@Body jsonObject: JsonObject): Call<ResponseCategory>?
 
-   @POST("view-all-products")
+    @POST("view-all-products")
     fun getViewAllProducts(@Body jsonObject: JsonObject): Call<ResponseProductList>?
- @POST("subcategory-products")
+
+    @POST("subcategory-products")
     fun getProductsFromSubCategory(@Body jsonObject: JsonObject): Call<ResponseProductList>?
 
     @POST("search")
     fun getSearch(@Body jsonObject: JsonObject): Call<ResponseSearch>?
 
 
-
     @POST("recently-search")
     fun getRecentSearch(@Body jsonObject: JsonObject): Call<ResponseRecentSearch>?
 
+    @GET("get-cart")
+    fun getCartData(): Call<CartResponseModel>?
+
+
+    @GET("coupon")
+    fun getCouponData(): Call<AllCouponResponse>?
+
+    @GET("address")
+    fun getAddressList(): Call<AddressListResponse>?
+
+    @GET("app-update-data")
+    fun getAppUpdateData(): Call<AppDataResponse>?
+
+    @POST("product-details")
+    fun getProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?
+
+
+    @POST("razorpay-url")
+    fun getRazorPayPaymentURL(@Body jsonObject: JsonObject): Call<RazorPayURLResponse>?
+
+    @POST("review")
+    fun getAllReview(@Body jsonObject: JsonObject): Call<ResReviewModel>?
+
+    @POST("order-create")
+    fun createOrder(@Body jsonObject: JsonObject): Call<AllOrderResponseResponse>?
+
+    @GET("order")
+    fun getAllOrderData(): Call<AllOrderResponseResponse>?
+
+    @POST("user-logout")
+    fun logoutUser(): Call<LogoutResponse>?
+
+    @Multipart
+    @POST("image-upload")
+    fun uploadReceipt(@Part image: MultipartBody.Part): Call<ImageUploadResponseModel>?
 }

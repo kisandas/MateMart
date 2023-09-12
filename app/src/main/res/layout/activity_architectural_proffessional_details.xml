@@ -15,19 +15,20 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="85dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/roundedImageView"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:id="@+id/image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/sample"
@@ -35,140 +36,45 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="8dp" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout5"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvFirmName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_95sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                android:minHeight="@dimen/_70sdp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/roundedImageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/roundedImageView"
-                app:layout_constraintTop_toTopOf="@+id/roundedImageView">
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_inter_semibold"
+                android:text="cscssc"
+                android:textColor="@color/theme_blue_38B449"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image" />
 
-                <TextView
-                    android:id="@+id/tv_product_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_inter_semibold"
-                    android:text="Modern looking light with extra bublb"
-                    android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_15sdp" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_5sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvTitleName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="2dp"
-                        android:fontFamily="@font/font_inter_regular"
-                        android:text="Address: "
-                        android:textColor="@color/theme_blue_38B449"
-                        android:textSize="@dimen/_13sdp" />
-
-                    <TextView
-                        android:id="@+id/tvAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/font_inter_regular"
-                        android:text="₹1000 \n jssjk"
-                        android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="@dimen/_13sdp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout6"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/font_inter_semibold"
+                android:text=""
+                android:textColor="@color/theme_blue_38B449"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+                app:layout_constraintTop_toBottomOf="@+id/image" />
 
-                <TextView
-                    android:id="@+id/tvTitlePhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Phone:"
-                    android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_13sdp" />
-
-                <TextView
-                    android:id="@+id/tvPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="₹1000"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_13sdp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
-
-                <TextView
-                    android:id="@+id/tvTitleEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Email:"
-                    android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_13sdp" />
-
-                <TextView
-                    android:id="@+id/tvEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="₹1000"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_13sdp" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvTitleAbout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/font_inter_semibold"
                 android:text="About us"
                 android:textColor="@color/theme_blue_38B449"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+                app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
 
             <TextView
@@ -178,9 +84,9 @@
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginVertical="@dimen/_6sdp"
                 android:fontFamily="@font/font_inter_regular"
-                android:text="₹1000"
+                android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitleAbout" />
@@ -188,21 +94,21 @@
 
             <TextView
                 android:id="@+id/btn_viewDetails"
-                android:layout_width="@dimen/_180sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
+                android:layout_margin="40dp"
                 android:layout_marginVertical="@dimen/_16sdp"
                 android:background="@drawable/bg_btn_blue"
-                android:fontFamily="@font/font_inter_semibold"
+                android:fontFamily="@font/font_inter_medium"
                 android:gravity="center"
-                android:paddingHorizontal="@dimen/_40sdp"
-                android:text="View Details"
+                android:text="Contact Architect"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAbout" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

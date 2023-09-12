@@ -2,16 +2,17 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.matemart"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -43,7 +44,8 @@ android {
 }
 
 dependencies {
-
+//    implementation 'info.androidhive:imagefilters:1.0.7'
+//    implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -53,6 +55,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation project(path: ':SimplePlacePicker-master')
+    implementation 'androidx.camera:camera-view:1.2.3'
+    implementation 'androidx.camera:camera-lifecycle:1.2.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -63,7 +67,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
     implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+//    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
@@ -101,6 +105,17 @@ dependencies {
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'com.squareup.picasso:picasso:2.8'
-//    implementation 'com.github.akvelon.android-image-picker:imagepicker:1.0.1'
 
+    implementation 'org.jsoup:jsoup:1.11.1'
+
+//    firebase
+
+    implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx")
+//    implementation 'me.jessyan:insgallery:0.7.0'
+
+//    implementation 'me.jessyan:insgallery:0.7.0'
+
+//    implementation 'com.github.yalantis:ucrop:2.2.6'
+//    implementation 'com.github.yalantis:ucrop:2.2.6'
 }

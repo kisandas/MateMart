@@ -1,5 +1,6 @@
 package com.matemart.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +9,12 @@ import com.google.gson.JsonObject
 import com.matemart.databinding.ActivityArchitecturalProffessionalDetailsBinding
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.Architect
+import com.matemart.model.ResGetArchitectContact
 import com.matemart.model.ResGetArchitectDetails
 import com.matemart.model.ResGetSingleArchitect
+import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
+import com.matemart.utils.SharedPrefHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +22,7 @@ import retrofit2.Response
 class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityArchitecturalProffessionalDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityArchitecturalProffessionalDetailsBinding.inflate(layoutInflater)
@@ -26,27 +31,24 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+        var architect: Architect = intent.getSerializableExtra("data") as Architect
+
         binding.header.title.text = "Architecture Professional"
 
-        getSingleArchitectDetails()
-
-        /* *********************
-
-        BUTTON CLICK
-
-
-        ***********************/
+        architect.pro_id?.let { getSingleArchitectDetails(it) }
 
         binding.btnViewDetails.setOnClickListener() {
-            getArchitectDetails()
+          startActivity(Intent(this@ArchitecturalProfessionalDetailsActivity,ContactForm::class.java).putExtra("pro_id",architect.pro_id)
+              .putExtra("type","Architect"))
+
         }
 
     }
 
-    private fun getSingleArchitectDetails() {
-        var architect: Architect = intent.getSerializableExtra("data") as Architect
+    private fun getSingleArchitectDetails(pro_id:Int) {
+
         var jsonObject: JsonObject = JsonObject()
-        jsonObject.addProperty("pro_id", architect.pro_id)
+        jsonObject.addProperty("pro_id", pro_id)
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
         var call: Call<ResGetSingleArchitect> = apiInterface.getSingleArchitect(jsonObject)!!
 
@@ -56,10 +58,14 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
                 response: Response<ResGetSingleArchitect>
             ) {
                 if (response.isSuccessful) {
-                    Toast.makeText(
-                        this@ArchitecturalProfessionalDetailsActivity,
-                        response.body()?.data.toString(), Toast.LENGTH_LONG
-                    ).show()
+
+                    binding.tvName.text = response.body()?.data?.name
+                    binding.tvFirmName.text = response.body()?.data?.firm_name
+                    binding.tvAbout.text = response.body()?.data?.about
+                    Glide.with(this@ArchitecturalProfessionalDetailsActivity).load(response.body()?.data?.profile_image).into(binding.image)
+
+
+
                 } else {
                     Toast.makeText(
                         this@ArchitecturalProfessionalDetailsActivity,
@@ -82,60 +88,6 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun getArchitectDetails() {
-        var architect: Architect = intent.getSerializableExtra("data") as Architect
-        var jsonObject: JsonObject = JsonObject()
-        jsonObject.addProperty("pro_id", architect.pro_id)
-        jsonObject.addProperty("name", architect.name)
-
-        /*       *****************
-
-
-
-        CHANGE MOBILE NUMBER
-
-
-
-        **********************/
-
-
-        jsonObject.addProperty("mobile_no", 1234567890)
-        jsonObject.addProperty("occupation", "etru76iuy")
-        jsonObject.addProperty("purpose", "ewtrty68678")
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
-        var call: Call<ResGetArchitectDetails> = apiInterface.getArchitectDetails(jsonObject)!!
-
-        call.enqueue(object : Callback<ResGetArchitectDetails> {
-            override fun onResponse(
-                call: Call<ResGetArchitectDetails>,
-                response: Response<ResGetArchitectDetails>
-            ) {
-                if (response.isSuccessful) {
-                    Glide.with(this@ArchitecturalProfessionalDetailsActivity)
-                        .load(response.body()?.data?.profile_image).into(binding.roundedImageView)
-                    binding.tvProductName.text = response.body()?.data?.name
-                    binding.tvAbout.text = response.body()?.data?.about
-                } else {
-                    Toast.makeText(
-                        this@ArchitecturalProfessionalDetailsActivity,
-                        "Something went wrong",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ResGetArchitectDetails>, t: Throwable) {
-                Toast.makeText(
-                    this@ArchitecturalProfessionalDetailsActivity,
-                    "Something went wrong",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            }
-
-        })
-
-    }
 
 
 }

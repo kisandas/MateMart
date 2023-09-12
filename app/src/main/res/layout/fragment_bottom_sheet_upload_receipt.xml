@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/cl_bottom_layout"
-    android:layout_marginVertical="@dimen/_16sdp"
+    android:layout_marginTop="@dimen/_16sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -16,11 +16,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
-        android:layout_marginVertical="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:padding="@dimen/_16sdp"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_round_top_corner_radius_8"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,9 +29,23 @@
         app:layout_constraintStart_toStartOf="parent">
 
 
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_inter_bold"
+            android:text="Select to upload receipt"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:textColor="@color/theme_blue_38B449"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/ll_galary"
             android:layout_width="0dp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_round_corner_stroke_radius_6"
             android:gravity="center"
@@ -38,7 +53,7 @@
             android:paddingVertical="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeader"
             app:layout_constraintWidth_percent="0.45">
 
             <ImageView
@@ -61,13 +76,14 @@
             android:id="@+id/ll_camera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/bg_round_corner_stroke_radius_6"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingVertical="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeader"
             app:layout_constraintWidth_percent="0.45">
 
             <ImageView

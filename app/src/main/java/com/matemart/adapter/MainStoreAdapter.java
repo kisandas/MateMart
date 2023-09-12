@@ -23,6 +23,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.matemart.R;
 import com.matemart.activities.CategoryListActivity;
 import com.matemart.activities.SearchProductFromCategoryActivity;
+import com.matemart.activities.SubCategoryActivityList;
 import com.matemart.interfaces.SliderItemClickListner;
 import com.matemart.interfaces.WishListUpdateListner;
 import com.matemart.model.HomeDetailModel;
@@ -36,8 +37,6 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     ArrayList<HomeDetailModel> cardList;
     private Context mContext;
-
-
     public MainStoreAdapter(ArrayList<HomeDetailModel> cardList, Context context) {
         this.cardList = cardList;
         this.mContext = context;

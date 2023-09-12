@@ -6,6 +6,21 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
@@ -15,16 +30,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MateMart"
+
         tools:targetApi="31">
         <activity
-            android:name=".ContactUsActivity"
+            android:name=".activities.PaymentSuccessActivity"
             android:exported="false" />
         <activity
-            android:name=".PolicyDetailsActivity"
+            android:name=".activities.WebViewActivity"
             android:exported="false" />
         <activity
-            android:name=".LabouresListActivity"
+            android:name=".activities.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ContactUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PolicyDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ArchitecturalProfessionalDetailsActivity"
@@ -71,14 +95,17 @@
         <activity
             android:name=".activities.SearchProductFromCategoryActivity"
             android:exported="false" />
-        <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+<!--        <activity-->
+<!--            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"-->
+<!--            android:theme="@style/Base.Theme.AppCompat" />-->
         <activity
             android:name=".activities.SubCategoryActivityList"
             android:exported="false" />
         <activity
             android:name=".activities.CategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ContactForm"
             android:exported="false" />
         <activity
             android:name=".activities.AddReviewActivity"
@@ -123,9 +150,31 @@
             </intent-filter>
         </activity>
 
+<!--        <activity-->
+<!--            android:name="com.yalantis.ucrop.UCropActivity"-->
+<!--            android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
+<!--            tools:replace="android:theme">-->
+<!--            &lt;!&ndash; Other activity attributes &ndash;&gt;-->
+<!--        </activity>-->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/places_api_key" />
+
+        <service
+            android:name=".utils.FirebaseMessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
+
+        <!--        <activity-->
+<!--            android:name="com.yalantis.ucrop.UCropActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />-->
     </application>
 
 </manifest>

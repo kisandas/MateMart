@@ -38,6 +38,8 @@
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
+                android:editable="false"
+                android:enabled="false"
                 android:textColorHint="@color/hint_gray_c6c6c6"
                 android:textSize="@dimen/_13sdp" />
 
@@ -68,6 +70,8 @@
                 android:fontFamily="@font/font_inter_medium"
                 android:hint="Name"
                 android:paddingHorizontal="@dimen/_10sdp"
+                android:editable="false"
+                android:enabled="false"
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
@@ -217,7 +221,7 @@
             android:background="@drawable/bg_btn_blue"
             android:fontFamily="@font/font_inter_semibold"
             android:gravity="center"
-            android:text="Post your requirment"
+            android:text="Submit Details"
             android:textColor="@color/white"
             android:textSize="@dimen/_16sdp"/>
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.example
 
 import com.google.gson.annotations.SerializedName
+import com.matemart.model.CartItem
 
 
 data class RemoveCartResponse(

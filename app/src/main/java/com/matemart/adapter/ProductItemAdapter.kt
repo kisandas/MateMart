@@ -2,6 +2,7 @@ package com.matemart.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -14,6 +15,7 @@ import com.example.example.AddCartResponse
 import com.example.example.RemoveCartResponse
 import com.google.gson.JsonObject
 import com.matemart.R
+import com.matemart.activities.ProductDetailsActivity
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.WishListUpdateListner
 import com.matemart.model.ViewListModel
@@ -121,6 +123,11 @@ class ProductItemAdapter(
             holder.tv_count.text = "" + count[0]
         }
         holder.itemView.setOnClickListener {
+
+            mContext.startActivity(Intent(mContext,ProductDetailsActivity::class.java)
+                .putExtra("p_id",item.p_id)
+                .putExtra("product_detail_id",item.product_detail_id))
+
             //                if (viewList.get(position).getClickID() != null && !viewList.get(position).getClickID().equalsIgnoreCase("null") && !viewList.get(position).getClickID().isEmpty()) {
 //                    Utils.getMediaData(mContext, pref.getString(KEY_CCID), pref.getString(KEY_PROFILE_ID), pref.getString(KEY_THEME_ID), viewList.get(position).getClickID(), holder, false, true);
 //                }

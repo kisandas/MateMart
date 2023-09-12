@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/_16sdp"
-    android:layout_marginVertical="@dimen/_8sdp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="4dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,9 +12,9 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:id="@+id/ivProfile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:src="@drawable/ic_profile"
             app:civ_border_color="@color/theme_blue_38B449"
@@ -28,26 +28,29 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_inter_semibold"
                 android:maxLines="1"
                 android:text="Welcome Back"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_inter_regular"
                 android:maxLines="1"
                 android:text="12/12/2022"
                 android:textColor="@color/dark_gray_b3b3b3"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
 
         <TextView
+            android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
@@ -60,20 +63,22 @@
             android:paddingVertical="@dimen/_2sdp"
             android:text="5"
             android:textColor="@color/white"
-            android:textSize="@dimen/_17sdp" />
+            android:textSize="17sp" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tvReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_marginVertical="8dp"
         android:fontFamily="@font/font_inter_regular"
         android:text="₹1620"
         android:textColor="@color/dark_gray_b3b3b3"
-        android:textSize="@dimen/_13sdp" />
+        android:textSize="14sp" />
 
 
     <View
+        android:id="@+id/viewBottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:layout_marginBottom="@dimen/_10sdp"

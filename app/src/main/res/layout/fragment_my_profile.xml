@@ -50,7 +50,7 @@
                 android:fontFamily="@font/font_inter_bold"
                 android:text="Kishan Antala"
                 android:textColor="@color/theme_blue_38B449"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Wish List"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -151,7 +151,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Address"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -188,7 +188,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Post your Requirements"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -225,7 +225,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Architectural Professional"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -262,7 +262,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Labourer"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -299,7 +299,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Policy"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -336,7 +336,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Contact us"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -373,7 +373,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Delete Account"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="@dimen/_32sdp"
@@ -391,7 +391,7 @@
                 android:background="@color/dark_gray_b3b3b3" />
 
             <TextView
-                android:id="@+id/btn_remove"
+                android:id="@+id/btnLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_gravity="center_horizontal"

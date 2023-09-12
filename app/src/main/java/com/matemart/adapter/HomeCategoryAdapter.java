@@ -3,6 +3,7 @@ package com.matemart.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.matemart.R;
+import com.matemart.activities.SubCategoryActivityList;
 import com.matemart.model.ViewListModel;
 
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     public HomeCategoryAdapter(ArrayList<ViewListModel> viewList, Context context) {
         this.viewList = viewList;
         this.mContext = context;
-
 
     }
 
@@ -63,9 +64,11 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mContext.startActivity(new Intent(mContext, SubCategoryActivityList.class).putExtra("c_id",viewList.get(position).getC_id()).putExtra("title",viewList.get(position).getTitle()));
+
 //                if (viewList.get(position).getClickID() != null && !viewList.get(position).getClickID().equalsIgnoreCase("null") && !viewList.get(position).getClickID().isEmpty()) {
 //                    Utils.getMediaData(mContext, pref.getString(KEY_CCID), pref.getString(KEY_PROFILE_ID), pref.getString(KEY_THEME_ID), viewList.get(position).getClickID(), holder, false, true);
-//                }
+//                }7
             }
         });
 

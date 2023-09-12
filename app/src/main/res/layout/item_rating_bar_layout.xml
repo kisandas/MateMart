@@ -9,6 +9,7 @@
 
 
     <TextView
+        android:id="@+id/Rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_star_fill_yellow"
@@ -20,15 +21,17 @@
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:layout_width="0dp"
+        android:id="@+id/progressRating"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_weight="0.7" />
 
 
     <TextView
+        android:id="@+id/ratingCount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
+        android:layout_weight="0.2"
         android:fontFamily="@font/font_inter_medium"
         android:gravity="end"
         android:text="0344"

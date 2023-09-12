@@ -47,12 +47,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_120sdp"
+                android:id="@+id/ivProductImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginHorizontal="@dimen/_4sdp"
                 android:scaleType="fitXY"
                 android:src="@drawable/sample"
@@ -60,34 +63,39 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_120sdp"
+                android:layout_height="120dp"
                 android:layout_marginHorizontal="@dimen/_4sdp"
-                android:gravity="center"
+              android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="@dimen/_8sdp"
                     android:fontFamily="@font/font_inter_semibold"
                     android:gravity="center"
-                    android:text="Wall light 8Watt round"
+                    android:maxLines="2"
+                    android:text="Wall light 8Watt r jksd djkd  jlfdsjdl dfjld jkfsfj ksd ound"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvAvgRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
                     android:layout_gravity="center"
                     android:drawableStart="@drawable/ic_star_fill_yellow_big"
                     android:drawablePadding="@dimen/_5sdp"
                     android:fontFamily="@font/font_inter_bold"
                     android:text="4.5"
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_26sdp" />
+                    android:textSize="26sp" />
 
                 <TextView
+                    android:id="@+id/tvTotalReview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -96,7 +104,7 @@
                     android:gravity="center"
                     android:text="20 review"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_18sdp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -104,6 +112,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcReviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/_16sdp"
@@ -112,6 +121,7 @@
     </LinearLayout>
 
     <ImageView
+        android:visibility="gone"
         android:layout_width="@dimen/_65sdp"
         android:layout_height="@dimen/_65sdp"
         android:layout_alignParentEnd="true"

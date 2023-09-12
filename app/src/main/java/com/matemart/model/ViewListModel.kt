@@ -1,7 +1,5 @@
 package com.matemart.model
 
-import com.example.example.CartItem
-
 class ViewListModel : java.io.Serializable {
 
     var p_id: Int? = null
@@ -11,7 +9,7 @@ class ViewListModel : java.io.Serializable {
     var clickId: String? = null
     var color: String? = null
     var title: String? = null
-    var c_id: String? = null
+    var c_id: Int? = null
     var saleprice: String? = null
     var price: String? = null
     var total_quantity: Int? = null
@@ -22,7 +20,7 @@ class ViewListModel : java.io.Serializable {
     var average_rating: String? = null
     var priority: String? = null
     var wishlist:List<WishListModel> = emptyList()
-    var cart:CartItem ?= null
+    var cart: CartItem?= null
 
 
 
