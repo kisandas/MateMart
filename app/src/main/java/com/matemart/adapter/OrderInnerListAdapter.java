@@ -3,6 +3,7 @@ package com.matemart.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.example.CategoryModel;
 import com.matemart.R;
+import com.matemart.activities.MyOrderDetailActivity;
 import com.matemart.model.Content;
 
 import java.util.ArrayList;
@@ -47,25 +49,24 @@ public class OrderInnerListAdapter extends RecyclerView.Adapter<OrderInnerListAd
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        holder.tv_order_no.setText(""+data.get(position).getOrderNumber());
-        holder.tv_price.setText("₹"+data.get(position).getPrice());
-        holder.tv_qty.setText(""+data.get(position).getQty());
+        holder.tv_order_no.setText("" + data.get(position).getOrderNumber());
+        holder.tv_price.setText("₹" + data.get(position).getPrice());
+        holder.tv_qty.setText("" + data.get(position).getQty());
 
-        if(data.get(position).getDate() != null)
-             holder.tv_date.setText(""+data.get(position).getDate());
+        if (data.get(position).getDate() != null)
+            holder.tv_date.setText("" + data.get(position).getDate());
 
-        if(data.get(position).getOdstatus() == 4){
+        if (data.get(position).getOdstatus() == 4) {
             holder.tv_status.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.tv_status.setVisibility(View.INVISIBLE);
         }
-
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mContext.startActivity(new Intent(mContext, MyOrderDetailActivity.class).putExtra("o_id",data.get(position).getOId()));
             }
         });
 

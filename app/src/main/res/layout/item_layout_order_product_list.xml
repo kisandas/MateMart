@@ -2,39 +2,41 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_marginVertical="4dp"
     android:layout_height="wrap_content">
 
     <com.loopeer.shadow.ShadowView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="8dp"
         android:elevation="10dp"
         android:foreground="?attr/selectableItemBackground"
         app:cornerRadius="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:shadowMargin="@dimen/_4sdp"
-        app:shadowRadius="@dimen/_4sdp">
+        app:shadowMargin="4dp"
+        app:shadowRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_10sdp">
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="10dp">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
+                android:id="@+id/ivImage"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/sample"
-                app:riv_corner_radius="@dimen/_4sdp" />
+                app:riv_corner_radius="6dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_weight="0.65"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
@@ -43,11 +45,12 @@
                     android:id="@+id/tv_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_4sdp"
+                    android:layout_marginVertical="4dp"
                     android:fontFamily="@font/font_inter_bold"
-                    android:text="Modern looking light with extra bublb"
+                    android:text=""
+                    android:maxLines="2"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="14sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -57,31 +60,32 @@
                         android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/font_inter_regular"
+                        android:fontFamily="@font/font_inter_medium"
                         android:text="₹1000"
                         android:textColor="@color/theme_blue_38B449"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_title_qty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_16sdp"
+                        android:layout_marginTop="4dp"
                         android:layout_toStartOf="@id/tv_qty"
                         android:fontFamily="@font/font_inter_medium"
                         android:text="Qty:"
                         android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_qty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:fontFamily="@font/font_inter_bold"
+                        android:fontFamily="@font/font_inter_medium"
                         android:text="2"
-                        android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="@dimen/_14sdp" />
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/theme_blue_38B449"
+                        android:textSize="15sp" />
 
                 </RelativeLayout>
             </LinearLayout>

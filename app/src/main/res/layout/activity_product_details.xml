@@ -37,7 +37,7 @@
                 android:maxLines="1"
                 android:text="product name"
                 android:textColor="@color/theme_blue_38B449"
-                android:textSize="@dimen/_18sdp" />
+                android:textSize="18sp" />
 
 
             <ImageView
@@ -89,7 +89,7 @@
                     android:maxLines="3"
                     android:text="Slim panal light 6Watt round"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                     android:fontFamily="@font/font_inter_semibold"
                     android:text="4.3"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,7 +118,7 @@
                     android:fontFamily="@font/font_inter_extra_bold"
                     android:text="₹1620"
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tvPrice"
@@ -130,7 +130,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="₹1620"
                     android:textColor="@color/dark_gray_b3b3b3"
-                    android:textSize="@dimen/_11sdp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -147,7 +147,7 @@
                     android:maxWidth="@dimen/_105sdp"
                     android:text="Only 10 in stock"
                     android:textColor="@color/red_c70000"
-                    android:textSize="@dimen/_10sdp" />
+                    android:textSize="10sp" />
 
 
                 <LinearLayout
@@ -176,7 +176,7 @@
                         android:gravity="center"
                         android:text="45"
                         android:textColor="@color/theme_blue_38B449"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/iv_plus"
@@ -205,7 +205,7 @@
                     android:fontFamily="@font/font_inter_bold"
                     android:text="Description"
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tvDescription"
@@ -214,7 +214,7 @@
                     android:fontFamily="@font/font_inter_regular"
                     android:text="₹1620"
                     android:textColor="@color/dark_gray_b3b3b3"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                     android:fontFamily="@font/font_inter_bold"
                     android:text="Rate &amp; Review"
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
@@ -267,7 +267,7 @@
                         android:fontFamily="@font/font_inter_medium"
                         android:text="4.5"
                         android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="@dimen/_16sdp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tvTotalRating"
@@ -279,7 +279,7 @@
                         android:gravity="center"
                         android:text="121 rating and 20 review"
                         android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
@@ -331,7 +331,7 @@
                     android:fontFamily="@font/font_inter_bold"
                     android:text="View all reviews"
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -356,7 +356,7 @@
                     android:fontFamily="@font/font_inter_bold"
                     android:text="Similar Products"
                     android:textColor="@color/theme_blue_38B449"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"

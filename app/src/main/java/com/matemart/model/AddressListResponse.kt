@@ -26,9 +26,9 @@ data class Address(
     @SerializedName("address") var address: String? = null,
     @SerializedName("default") var default: Int? = null,
     @SerializedName("type_of_address") var typeOfAddress: Int? = null,
-    @SerializedName("lat") var lat: Int? = null,
-    @SerializedName("long") var long: Int? = null,
+    @SerializedName("lat") var lat: Double? = null,
+    @SerializedName("long") var long: Double? = null,
     @SerializedName("created_at") var createdAt: String? = null,
     @SerializedName("updated_at") var updatedAt: String? = null
 
-)
+):java.io.Serializable

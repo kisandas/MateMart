@@ -27,8 +27,55 @@ import java.util.Locale;
 
 public class Utils {
 
+
     public static String ERROR_MESSAGE = "Oops!! Something went wrong. Please try again after some time!";
     public static String ERROR_TITLE = "Something went wrong!";
+
+    public static String ORDER_STATUS_PLACED = "Order Placed";
+    public static String ORDER_STATUS_PLACED_TEXT = "We have received your order on ";
+
+    public static String ORDER_STATUS_PROCESSED = "Order Processed";
+    public static String ORDER_STATUS_PROCESSED_TEXT = "We are prepared your order on ";
+
+    public static String ORDER_STATUS_CONFIRMED = "Order Confirmed";
+    public static String ORDER_STATUS_CONFIRMED_TEXT = "We have been confirmed your order on ";
+
+    public static String ORDER_STATUS_OUT_FOR_DELIVERY = "Out For Delivery";
+    public static String ORDER_STATUS_OUT_FOR_DELIVERY_1_TEXT = "Your order will be delivered soon";
+    public static String ORDER_STATUS_OUT_FOR_DELIVERY_2_TEXT = "Your order is out for Delivery";
+
+    public static String ORDER_STATUS_DELIVERED = "Delivered";
+    public static String ORDER_STATUS_DELIVERED_TEXT = "Your order is Delivered";
+
+    public static String ORDER_STATUS_RETURN = "Return Pending";
+    public static String ORDER_STATUS_RETURN_TEXT = "Your order will be returned";
+
+    public static String ORDER_STATUS_RETURNED = "Returned";
+    public static String ORDER_STATUS_RETURNED_TEXT = "Your order is Returned";
+
+    public static String ORDER_STATUS_CANCELLED = "Order Cancelled";
+    public static String ORDER_STATUS_CANCELLED_TEXT = "Order Cancelled On ";
+
+
+    public static String OrderPlaced = "Order Placed";
+    public static String OrderProcessed = "Order Processed";
+    public static String OrderConfirmed = "Order Confirmed";
+    public static String OrderOutForDelivery = "Out For Delivery";
+    public static String OrderDelivered = "Delivered";
+    public static String OrderReturn = "Order return";
+    public static String OrderReturned = "Order Returned";
+    public static String OrderCancelled = "Order Cancelled";
+
+
+    public static int Placed = 0;
+    public static int Processing = 1;
+    public static int Confirmed = 2;
+    public static int OutForDelivery = 3;
+    public static int Delivered = 4;
+    public static int ReturnPending = 5;
+    public static int Returned = 6;
+    public static int Cancelled = -1;
+
 
     public static void showBadge(Context context, BottomNavigationView
             bottomNavigationView, @IdRes int itemId, String value) {
@@ -54,12 +101,14 @@ public class Utils {
         return hasAllPermissions;
 
     }
+
     public static boolean hasPermission(Context context, String permission) {
 
         int res = context.checkCallingOrSelfPermission(permission);
         return res == PackageManager.PERMISSION_GRANTED;
 
     }
+
     public static String getDateTimeStampName() {
         final DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
         //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -72,6 +121,7 @@ public class Utils {
     }
 
     public static String IMG_FOLDER = "MyImages";
+
     public static File createImageFile(Context context) throws IOException {
         String timeStamp = Utils.getDateTimeStampName();
         String imageFileName = "PIC_" + timeStamp;
@@ -95,4 +145,6 @@ public class Utils {
     public static Uri getUriForFileProvider(Context context, File file) {
         return FileProvider.getUriForFile(context, context.getString(R.string.authority), file);
     }
+
+
 }

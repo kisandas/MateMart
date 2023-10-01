@@ -25,7 +25,7 @@
 
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                     android:fontFamily="@font/font_inter_medium"
                     android:text="+91"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <View
                     android:layout_width="@dimen/_1sdp"
@@ -71,7 +71,7 @@
                     android:text=""
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textColorHint="@color/hint_gray_c6c6c6"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
 
             </LinearLayout>
@@ -84,7 +84,7 @@
                 android:fontFamily="@font/font_inter_regular"
                 android:text="@string/tap_to_login"
                 android:textColor="@color/dark_gray_b3b3b3"
-                android:textSize="@dimen/_11sdp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                 android:text="Full Name"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="13sp"
                 android:visibility="invisible" />
 
 
@@ -124,7 +124,7 @@
                     android:text=""
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textColorHint="@color/hint_gray_c6c6c6"
-                    android:textSize="@dimen/_13sdp"
+                    android:textSize="13sp"
                     android:visibility="invisible" />
 
 
@@ -146,7 +146,7 @@
             android:paddingHorizontal="@dimen/_40sdp"
             android:text="Login"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:id="@+id/ll_guest_login"
@@ -164,7 +164,7 @@
                 android:text="If you want to use as "
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textFontWeight="600"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
                 android:text="Guest user"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="600"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

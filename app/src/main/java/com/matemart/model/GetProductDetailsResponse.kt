@@ -69,6 +69,6 @@ data class Review(
 )
 
 data class VariationData(
-    val variations: Map<String, String>,
+    val variations: HashMap<String, String>,
     val product_detail_id: Int
 )

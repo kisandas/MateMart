@@ -1,25 +1,20 @@
 package com.matemart.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.matemart.databinding.ItemLayoutArchitecturalProfessionalListBinding
-import com.matemart.databinding.ItemReviewListBinding
+import com.matemart.activities.onVariationChangeListener
 import com.matemart.databinding.ItemVariationOuterBinding
-import com.matemart.model.Architect
-import com.matemart.model.Review
 
- class VariationOuterAdapter(
+class VariationOuterAdapter(
     var context: Context,
-   private val variationsHashMap: HashMap<String, List<String>>
+    private val variationsHashMap: HashMap<String, List<String>>,
+    private val enabledVariationsHashMap: HashMap<String, List<String>>,
+    private val selectedVariationsHashMap: HashMap<String, String>,private val listener : onVariationChangeListener
 ) :
     RecyclerView.Adapter<VariationOuterAdapter.MyViewHolder>() {
-
 
 
     class MyViewHolder(var binding: ItemVariationOuterBinding) :
@@ -45,7 +40,8 @@ import com.matemart.model.Review
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val variationEntry: Map.Entry<String, List<String>>? = variationsHashMap.entries.elementAtOrNull(position)
+        val variationEntry: Map.Entry<String, List<String>>? =
+            variationsHashMap.entries.elementAtOrNull(position)
         if (variationEntry != null) {
             val (key, valueList) = variationEntry
 
@@ -57,19 +53,14 @@ import com.matemart.model.Review
                 RecyclerView.HORIZONTAL,
                 false
             )
-            holder.binding.rcVariation.adapter =  VariationInnerAdapter(
+            holder.binding.rcVariation.adapter = VariationInnerAdapter(
                 context,
-                valueList
+                key,
+                valueList,
+                enabledVariationsHashMap,
+                selectedVariationsHashMap,listener
             )
         }
-
-
-
-
     }
 
-
-    public interface Item {
-        fun onClick(architect: Architect)
-    }
 }

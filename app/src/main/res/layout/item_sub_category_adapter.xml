@@ -31,7 +31,7 @@
             android:maxLines="3"
             android:text="Slim panal light 6Watt round"
             android:textColor="@color/dark_gray_4d4d4d"
-            android:textSize="@dimen/_11sdp" />
+            android:textSize="11sp" />
 
 
     </RelativeLayout>

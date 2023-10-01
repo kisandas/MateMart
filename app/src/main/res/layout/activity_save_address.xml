@@ -21,7 +21,7 @@
             android:text="Contact Info"
             android:textColor="@color/theme_blue_38B449"
             android:textFontWeight="800"
-            android:textSize="@dimen/_13sdp" />
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,9 +37,10 @@
                 android:text="First Name"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_6sdp"
@@ -50,7 +51,7 @@
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -68,20 +69,21 @@
                 android:text="Phone Number"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <EditText
+                android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:background="@drawable/bg_edit_text"
                 android:fontFamily="@font/font_inter_medium"
-                android:hint="Name"
+                android:hint="Phone No,"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -100,7 +102,7 @@
             android:text="Add Info"
             android:textColor="@color/theme_blue_38B449"
             android:textFontWeight="800"
-            android:textSize="@dimen/_13sdp" />
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,42 +113,45 @@
 
 
             <EditText
+                android:id="@+id/etLine1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/bg_edit_text"
                 android:fontFamily="@font/font_inter_medium"
-                android:hint="Name"
+                android:hint="House/Flat No."
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <EditText
+                android:id="@+id/etLine2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_edit_text"
+                android:fontFamily="@font/font_inter_medium"
+                android:hint="Address"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="13sp" />
+
+            <EditText
+                android:id="@+id/etState"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/bg_edit_text"
                 android:fontFamily="@font/font_inter_medium"
-                android:hint="Name"
+                android:hint="State"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/bg_edit_text"
-                android:fontFamily="@font/font_inter_medium"
-                android:hint="Name"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text=""
-                android:textColor="@color/dark_gray_4d4d4d"
-                android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,32 +161,34 @@
 
 
                 <EditText
+                    android:id="@+id/etCity"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_weight="0.5"
                     android:background="@drawable/bg_edit_text"
                     android:fontFamily="@font/font_inter_medium"
-                    android:hint="Name"
+                    android:hint="City"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:text=""
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textColorHint="@color/hint_gray_c6c6c6"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <EditText
+                    android:id="@+id/etPin"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_weight="0.5"
                     android:background="@drawable/bg_edit_text"
                     android:fontFamily="@font/font_inter_medium"
-                    android:hint="Name"
+                    android:hint="Pin"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:text=""
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textColorHint="@color/hint_gray_c6c6c6"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -201,9 +208,10 @@
             android:text="Type of Address"
             android:textColor="@color/theme_blue_38B449"
             android:textFontWeight="800"
-            android:textSize="@dimen/_13sdp" />
+            android:textSize="13sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:weightSum="0.9"
             android:orientation="horizontal"
             android:layout_marginHorizontal="@dimen/_16sdp"
@@ -211,38 +219,41 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_height="wrap_content">
             <RadioButton
+                android:id="@+id/rbHome"
                 android:layout_weight="0.3"
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:fontFamily="@font/font_inter_regular"
-                android:textSize="@dimen/_14sdp"
-                android:checked="true"
+                android:textSize="14sp"
                 android:layout_width="0dp"
                 android:text="Home"
                 android:layout_height="wrap_content"/>
             <RadioButton
+                android:id="@+id/rbOffice"
                 android:layout_weight="0.3"
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:fontFamily="@font/font_inter_regular"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="14sp"
                 android:text="Office"
                 android:layout_width="0dp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_height="wrap_content"/>
             <RadioButton
+                android:id="@+id/rbOther"
                 android:layout_weight="0.3"
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:fontFamily="@font/font_inter_regular"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="14sp"
                 android:layout_width="0dp"
                 android:text="Other"
                 android:layout_height="wrap_content"/>
         </RadioGroup>
 
         <CheckBox
+            android:id="@+id/cbMarkAsDefault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16sdp"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="14sp"
             android:gravity="center_vertical"
             android:checked="true"
             android:textColor="@color/dark_gray_4d4d4d"
@@ -261,7 +272,7 @@
             android:gravity="center"
             android:text="Save Address"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

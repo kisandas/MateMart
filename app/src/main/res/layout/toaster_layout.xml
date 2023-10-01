@@ -40,7 +40,7 @@
             android:text="Hellooo "
             android:textColor="@color/dark_gray"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_message"
@@ -51,7 +51,7 @@
             android:text="Hellooo "
             android:textColor="@color/dark_gray"
             android:textColorHint="@color/hint_text_color"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 

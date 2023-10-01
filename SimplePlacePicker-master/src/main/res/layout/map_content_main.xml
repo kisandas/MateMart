@@ -98,7 +98,7 @@
                 android:text="Description"
                 android:layout_marginStart="@dimen/_16sdp"
                 android:textColor="@color/theme_blue_38B449"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
 
             <com.essam.simpleplacepicker.utils.CustomTextView
                 android:id="@+id/tv_display_marker_location"

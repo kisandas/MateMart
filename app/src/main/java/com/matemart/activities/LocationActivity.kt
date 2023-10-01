@@ -197,6 +197,9 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
                 call: Call<ResGetProfileDetails>,
                 response: retrofit2.Response<ResGetProfileDetails>
             ) {
+
+                Log.e("jjjjjjjjjjj", "onResponse: "+response.body()?.data.toString() )
+                Log.e("jjjjjjjjjjj", "onResponse: "+response.body().toString() )
                 if (response.isSuccessful) {
 
                     state.let {
@@ -230,6 +233,8 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
             }
 
             override fun onFailure(call: Call<ResGetProfileDetails>, t: Throwable) {
+                Log.e("jjjjjjjjjjj", "onFailure: "+t.message.toString() )
+               t.printStackTrace()
                 Toast.makeText(this@LocationActivity, "Something went wrong", Toast.LENGTH_LONG)
                     .show()
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llParentView"
     android:orientation="vertical"
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
@@ -12,12 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
-        android:background="@drawable/textview_selector"
-        android:paddingVertical="4dp"
+        android:paddingVertical="2dp"
         android:gravity="center"
         android:fontFamily="@font/font_inter_regular"
-        android:textColor="@color/textview_selector"
-        android:text="Color"
+        android:text=""
         android:button="@null"
         android:textSize="14sp" />
 

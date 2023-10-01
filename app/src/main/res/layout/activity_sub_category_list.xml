@@ -39,7 +39,7 @@
                 android:maxLines="1"
                 android:text="Plumbing Sub Categories"
                 android:textColor="@color/theme_blue_38B449"
-                android:textSize="@dimen/_18sdp" />
+                android:textSize="18sp" />
 
 
         </LinearLayout>

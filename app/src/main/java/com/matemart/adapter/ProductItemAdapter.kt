@@ -11,10 +11,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.example.AddCartResponse
+import com.matemart.model.AddCartResponse
 import com.example.example.RemoveCartResponse
 import com.google.gson.JsonObject
 import com.matemart.R
+import com.matemart.activities.CompareProductDetailsActivity
 import com.matemart.activities.ProductDetailsActivity
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.WishListUpdateListner
@@ -69,6 +70,12 @@ class ProductItemAdapter(
             count[0] = item.cart!!.qty!!
         }
 
+        if(item.is_compare == 1){
+            holder.qtyLayout.visibility = GONE
+        }else{
+            holder.qtyLayout.visibility = VISIBLE
+        }
+
         if (item.is_wishlist == 0) {
             holder.iv_like_unlike_product.visibility = VISIBLE
             holder.iv_remove_whishlist.visibility = GONE
@@ -84,11 +91,11 @@ class ProductItemAdapter(
         }
 
         holder.iv_like_unlike_product.setOnClickListener {
-            updateWishList(item.p_id!!, 1,holder)
+            updateWishList(item.p_id!!, 1, holder)
         }
 
         holder.iv_remove_whishlist.setOnClickListener {
-            updateWishList(item.p_id!!, 0,holder)
+            updateWishList(item.p_id!!, 0, holder)
         }
 
         holder.iv_plus.setOnClickListener {
@@ -124,13 +131,31 @@ class ProductItemAdapter(
         }
         holder.itemView.setOnClickListener {
 
-            mContext.startActivity(Intent(mContext,ProductDetailsActivity::class.java)
-                .putExtra("p_id",item.p_id)
-                .putExtra("product_detail_id",item.product_detail_id))
+
+            if (item.is_compare == 0) {
+                mContext.startActivity(
+                    Intent(mContext, ProductDetailsActivity::class.java)
+                        .putExtra("p_id", item.p_id)
+                        .putExtra("product_detail_id", item.product_detail_id)
+                )
+            } else {
+                mContext.startActivity(
+                    Intent(mContext, CompareProductDetailsActivity::class.java)
+                        .putExtra("p_id", item.p_id)
+                        .putExtra("product_detail_id", item.product_detail_id)
+                )
+            }
+
 
             //                if (viewList.get(position).getClickID() != null && !viewList.get(position).getClickID().equalsIgnoreCase("null") && !viewList.get(position).getClickID().isEmpty()) {
 //                    Utils.getMediaData(mContext, pref.getString(KEY_CCID), pref.getString(KEY_PROFILE_ID), pref.getString(KEY_THEME_ID), viewList.get(position).getClickID(), holder, false, true);
 //                }
+        }
+
+        if(item.is_compare == 1){
+            holder.qtyLayout.visibility = GONE
+        }else{
+            holder.qtyLayout.visibility = VISIBLE
         }
     }
 
@@ -263,6 +288,7 @@ class ProductItemAdapter(
         var iv_minus: ImageView
         var iv_plus: ImageView
         var tv_count: TextView
+        var qtyLayout: RelativeLayout
 
         //        out of stock
         var ll_bg_alpha: LinearLayout
@@ -283,6 +309,7 @@ class ProductItemAdapter(
             iv_minus = itemView.findViewById(R.id.iv_minus)
             iv_plus = itemView.findViewById(R.id.iv_plus)
             tv_count = itemView.findViewById(R.id.tv_count)
+            qtyLayout = itemView.findViewById(R.id.qtyLayout)
             ll_bg_alpha = itemView.findViewById(R.id.ll_bg_alpha)
             rl_bg_alpha = itemView.findViewById(R.id.rl_bg_alpha)
             tvOutOfStock = itemView.findViewById(R.id.tvOutOfStock)

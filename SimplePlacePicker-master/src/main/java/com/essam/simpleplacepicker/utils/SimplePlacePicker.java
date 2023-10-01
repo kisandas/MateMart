@@ -1,5 +1,7 @@
 package com.essam.simpleplacepicker.utils;
 
+import org.jetbrains.annotations.Nullable;
+
 public interface SimplePlacePicker {
 
     String PACKAGE_NAME = "com.essam.simpleplacepicker";
@@ -17,5 +19,7 @@ public interface SimplePlacePicker {
     int SUCCESS_RESULT = 0;
     int FAILURE_RESULT = 1;
     int SELECT_LOCATION_REQUEST_CODE = 22;
+
+    String FLAT_NO ="flat_no";
 }
 

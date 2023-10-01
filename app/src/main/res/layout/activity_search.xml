@@ -48,7 +48,7 @@
                 android:text=""
                 android:textColor="@color/dark_gray"
                 android:textColorHint="@color/hint_text_color"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="12sp" />
 
 
             <ImageView
@@ -96,7 +96,7 @@
             android:maxLines="1"
             android:text="Recent Search"
             android:textColor="@color/theme_blue_38B449"
-            android:textSize="@dimen/_18sdp" />
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecentSearch"
@@ -120,7 +120,7 @@
             android:maxLines="1"
             android:text="Trending Searches"
             android:textColor="@color/theme_blue_38B449"
-            android:textSize="@dimen/_18sdp" />
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTrendingSearch"
@@ -150,7 +150,7 @@
             android:gravity="center"
             android:text="What are you searching for?"
             android:textColor="@color/theme_blue_38B449"
-            android:textSize="@dimen/_24sdp" />
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
             android:text="Find related results by doing a search
 for your favourite thing in this area."
             android:textColor="@color/dark_gray_4d4d4d"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 

@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:text="MISS127"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="14sp" />
 
 
             <TextView
@@ -50,7 +50,7 @@
                 android:fontFamily="@font/font_inter_bold"
                 android:text="Apply Coupan code"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_15sdp" />
+                android:textSize="15sp" />
 
 
             <TextView
@@ -62,7 +62,7 @@
                 android:gravity="center"
                 android:text="MISS127"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_15sdp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvCouponExpiry"
@@ -73,7 +73,7 @@
                 android:gravity="center"
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
 
             <View

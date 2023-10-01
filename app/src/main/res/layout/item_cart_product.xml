@@ -60,7 +60,7 @@
                         android:maxLines="2"
                         android:text="Modern looking light with extra bublb"
                         android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="@dimen/_16sdp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_product_details"
@@ -71,7 +71,7 @@
                         android:maxLines="2"
                         android:text="Modern looking light with extra bublb"
                         android:textColor="@color/dark_gray_b3b3b3"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="13sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                             android:fontFamily="@font/font_inter_extra_bold"
                             android:text="₹1000"
                             android:textColor="@color/theme_blue_38B449"
-                            android:textSize="@dimen/_17sdp" />
+                            android:textSize="17sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
                                 android:gravity="center"
                                 android:text="45"
                                 android:textColor="@color/theme_blue_38B449"
-                                android:textSize="@dimen/_14sdp" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:id="@+id/iv_plus"

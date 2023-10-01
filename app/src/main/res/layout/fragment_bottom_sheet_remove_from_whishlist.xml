@@ -44,7 +44,7 @@
                 android:text="Are you want to delete your
 favorite items?"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -62,7 +62,7 @@ favorite items?"
             android:gravity="center"
             android:text="Cancel"
             android:textColor="@color/dark_gray_4d4d4d"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_delete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_delete"
@@ -81,7 +81,7 @@ favorite items?"
             android:gravity="center"
             android:text="Delete"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.56" />

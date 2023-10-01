@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/iv_category_image"
-            android:layout_width="@dimen/_68sdp"
-            android:layout_height="@dimen/_68sdp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
             android:background="@drawable/bg_circle_white"
-            android:padding="@dimen/_16sdp"
+            android:padding="16dp"
             android:src="@drawable/ic_profile" />
 
         <TextView
@@ -30,10 +30,11 @@
             android:layout_marginVertical="@dimen/_4sdp"
             android:fontFamily="@font/font_inter_regular"
             android:gravity="center"
-            android:maxWidth="@dimen/_70sdp"
+            android:maxLines="2"
+            android:maxWidth="66dp"
             android:text="Plumbing Acessories"
             android:textColor="@color/dark_gray_4d4d4d"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

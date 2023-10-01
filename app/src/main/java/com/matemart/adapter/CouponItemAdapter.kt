@@ -1,9 +1,6 @@
 package com.matemart.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,25 +9,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.example.AddCartResponse
-import com.example.example.RemoveCartResponse
-import com.google.gson.JsonObject
-import com.makeramen.roundedimageview.RoundedImageView
 import com.matemart.R
 import com.matemart.activities.OnCouponSelectedListener
-import com.matemart.interfaces.ApiInterface
-import com.matemart.interfaces.WishListUpdateListner
-import com.matemart.model.CartDataModel
 import com.matemart.model.CouponItemData
-import com.matemart.model.ViewListModel
-import com.matemart.utils.Service
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class CouponItemAdapter(
-    private val amount: Int,
+    private val amount: Double,
     private val viewList: ArrayList<CouponItemData>?,
     private val mContext: Context,
 

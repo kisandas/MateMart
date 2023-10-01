@@ -16,7 +16,7 @@
         android:fontFamily="@font/font_inter_bold"
         android:text="Change Delivery Address"
         android:textColor="@color/theme_blue_38B449"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:textColor="@color/theme_blue_38B449"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintStart_toStartOf="parent"/>
     <EditText
@@ -68,7 +68,7 @@
         android:text=""
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_add_new_address" />
@@ -88,7 +88,7 @@
         android:text=""
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_address" />
@@ -108,7 +108,7 @@
         android:text=""
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_locality" />
 
@@ -127,7 +127,7 @@
         android:text=""
         android:textColor="@color/dark_gray_4d4d4d"
         android:textColorHint="@color/hint_gray_c6c6c6"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_locality" />
 
@@ -140,7 +140,7 @@
         android:fontFamily="@font/font_inter_regular"
         android:text="Make this my default address"
         android:textColor="@color/dark_gray_4d4d4d"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_city" />
@@ -159,7 +159,7 @@
         android:paddingHorizontal="@dimen/_40sdp"
         android:text="Add Address"
         android:textColor="@color/white"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -42,7 +42,8 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
 
 		if(token.isNotEmpty()){
 			Log.e("cccccccccc", "onNewToken: "+token )
-//			SharedPreference(applicationContext).setStr("fcmTokenTemp",token);
+			SharedPrefHelper.getInstance(MyApplication.getInstance())
+				.write(SharedPrefHelper.FIREBASE_TOKEN, token)
 		}
 	}
 

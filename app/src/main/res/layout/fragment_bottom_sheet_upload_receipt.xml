@@ -69,7 +69,7 @@
                 android:gravity="center"
                 android:text="Gallery"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,7 +99,7 @@
                 android:gravity="center"
                 android:text="Camera"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

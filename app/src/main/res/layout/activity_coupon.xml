@@ -29,7 +29,7 @@
             android:fontFamily="@font/font_inter_bold"
             android:text="Apply Coupan code"
             android:textColor="@color/theme_blue_38B449"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_header" />
 
@@ -56,7 +56,7 @@
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:maxLines="1"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -123,7 +123,7 @@
                     android:fontFamily="@font/font_inter_medium"
                     android:text="Max. Saving"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/couponAmount"
@@ -133,7 +133,7 @@
                     android:maxLines="1"
                     android:text="0"
                     android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                 android:paddingVertical="@dimen/_6sdp"
                 android:text="Apply"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_15sdp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

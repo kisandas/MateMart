@@ -34,6 +34,18 @@
             android:textColor="@color/theme_blue_38B449"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/tvAddReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+            android:fontFamily="@font/font_inter_medium"
+            android:maxLines="1"
+            android:visibility="gone"
+            android:text="Add Review"
+            android:textColor="@color/theme_blue_38B449"
+            android:textSize="12sp" />
+
 
     </LinearLayout>
 </LinearLayout>

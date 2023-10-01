@@ -15,7 +15,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

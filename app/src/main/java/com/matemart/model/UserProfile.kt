@@ -2,6 +2,7 @@ package com.matemart.model
 
 class UserProfile : java.io.Serializable {
     var u_id: Int? = null
+    var a_id: Int? = null
     var uname: String? = null
     var email: String? = null
     var city: String? = null

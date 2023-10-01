@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.matemart.model.*
 import com.matemart.model.login.UserResponse
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -30,7 +31,7 @@ interface ApiInterface {
     @POST("single-architect")
     fun getSingleArchitect(@Body jsonObject: JsonObject): Call<ResGetSingleArchitect>?
 
-    @POST("profile-details")
+    @GET("profile-details")
     fun getUserProfile(): Call<ResGetProfileDetails>?
 
     @POST("update-profile")
@@ -91,11 +92,29 @@ interface ApiInterface {
     @GET("address")
     fun getAddressList(): Call<AddressListResponse>?
 
+    @POST("address-default")
+    fun markAddressDefault(@Body jsonObject: JsonObject): Call<CommonResponse>?
+
+    @POST("address-delete")
+    fun deleteAddress(@Body jsonObject: JsonObject): Call<CommonResponse>?
+
+    @POST("address-update")
+    fun updateAddress(@Body jsonObject: JsonObject): Call<CommonResponse>?
+
+    @POST("address-store")
+    fun createAddress(@Body jsonObject: JsonObject): Call<CommonResponse>?
+
     @GET("app-update-data")
     fun getAppUpdateData(): Call<AppDataResponse>?
 
     @POST("product-details")
     fun getProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?
+
+    @POST("compare-product")
+    fun getCompareProductDetail(@Body jsonObject: JsonObject): Call<CompareProductDetailResponse>?
+
+    @POST("single-product-filter")
+    fun getSingleProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?
 
 
     @POST("razorpay-url")
@@ -110,10 +129,29 @@ interface ApiInterface {
     @GET("order")
     fun getAllOrderData(): Call<AllOrderResponseResponse>?
 
+    @POST("order-cancel")
+    fun cancelOrder(@Body request: JsonObject): Call<CommonResponse>?
+
+    @POST("return-order")
+    fun returnOrder(@Body request: JsonObject): Call<CommonResponse>?
+
+    @POST("review-store")
+    fun writeReview(@Body request: JsonObject): Call<CommonResponse>?
+
+    @POST("single-order")
+    fun getSingleOrderDetails(@Body request: JsonObject): Call<ResponseSingleOrderData>?
+
+
+    @POST("order-tracking")
+    fun getOrderTracking(@Body request: JsonObject): Call<ResponseOrderTrackingModel>?
+
     @POST("user-logout")
     fun logoutUser(): Call<LogoutResponse>?
 
     @Multipart
     @POST("image-upload")
     fun uploadReceipt(@Part image: MultipartBody.Part): Call<ImageUploadResponseModel>?
+
+    @GET("{ifscCode}")
+    fun getIFSCDetails(@Path("ifscCode") ifscCode: String): Call<ResponseBody>
 }

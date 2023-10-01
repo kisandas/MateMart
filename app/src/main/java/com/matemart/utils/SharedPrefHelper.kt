@@ -40,6 +40,7 @@ class SharedPrefHelper private constructor(application: MyApplication) {
         const val IS_DEVICE_REGISTERED = "isDeviceRegistered"
         const val USER_ID = "u_id"
         const val ADDRESS_ID = "a_id"
+        const val FIREBASE_TOKEN = "firebaseToken"
         var KEY_LOGIN_TOKEN = "key_otp_token"
         var KEY_LOGIN_NUMBER = "key_number"
         var KEY_STATE = "key_state"

@@ -59,7 +59,7 @@
                 android:fontFamily="@font/font_inter_regular"
                 android:text="Kishan Antala"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:fontFamily="@font/font_inter_semibold"
             android:text="Edit"
             android:textColor="@color/theme_blue_38B449"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -403,7 +403,7 @@
                 android:text="Log out"
                 android:paddingHorizontal="@dimen/_80sdp"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="16sp"
                 android:drawablePadding="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_move_wishlist"
                 app:layout_constraintStart_toStartOf="parent"

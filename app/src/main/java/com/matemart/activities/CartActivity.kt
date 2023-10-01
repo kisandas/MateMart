@@ -43,7 +43,7 @@ class CartActivity : AppCompatActivity() {
         val REQUEST_CODE_COUPON = 203
     }
 
-    var amount = 0
+    var amount = 0.0
     var cartListItem = 0
     var PromoCode = ""
     var discountAmount = 0
@@ -205,8 +205,8 @@ class CartActivity : AppCompatActivity() {
                                 String.format("%.2f", (total_gst + total)).toDouble().toString()
                             cartListItem = cartList.size
                             binding?.llNonEmptyCart?.btnConfirmOrder?.text =
-                                "Buy " + cartList.size + " items for " + (total_gst + total)
-                            amount = (total_gst.toInt() + total.toInt())
+                                "Buy " + cartList.size + " items for " +  String.format("%.2f", (total_gst + total)).toDouble().toString()
+                            amount = String.format("%.2f", (total_gst + total)).toDouble()
                         }
 
                     }
@@ -233,7 +233,7 @@ class CartActivity : AppCompatActivity() {
 
     }
 
-    fun createRazorPayPaymentLink(amount: Int) {
+    fun createRazorPayPaymentLink(amount: Double) {
         val u_id = SharedPrefHelper.getInstance(MyApplication.getInstance())
             .read(SharedPrefHelper.USER_ID, 0)
         var a_id = SharedPrefHelper.getInstance(MyApplication.getInstance())

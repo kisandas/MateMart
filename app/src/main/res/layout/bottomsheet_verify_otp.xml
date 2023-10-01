@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="we have sent a verification code to your registered mobile no : +91 9998887776."
         android:textColor="@color/dark_gray_b3b3b3"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
         android:fontFamily="@font/font_inter_extra_bold"
         android:text="Enter your OTP code here"
         android:textColor="@color/theme_blue_38B449"
-        android:textSize="@dimen/_17sdp"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_mobile_text" />
@@ -74,7 +74,7 @@
         android:gravity="center"
         android:text="Message not received?"
         android:textColor="@color/dark_gray_b3b3b3"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otp_view" />
@@ -90,7 +90,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:text="02:00 min"
         android:textColor="@color/dark_gray_4d4d4d"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_not_recieve" />
@@ -105,7 +105,7 @@
         android:gravity="center"
         android:text="@string/resend_otp"
         android:textColor="@color/theme_blue_38B449"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_not_recieve" />
 
@@ -122,7 +122,7 @@
         android:paddingHorizontal="@dimen/_40sdp"
         android:text="Confirm OTP"
         android:textColor="@color/white"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

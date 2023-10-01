@@ -25,7 +25,7 @@ class CouponActivity : AppCompatActivity(), OnCouponSelectedListener {
 
     private var binding: ActivityCouponBinding? = null
     var selectedCouponList: ArrayList<CouponItemData> = arrayListOf()
-    var amount = 0
+    var amount = 0.0
     var promoCode =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,7 @@ class CouponActivity : AppCompatActivity(), OnCouponSelectedListener {
         binding?.llHeader?.ivBack?.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-        amount = intent.getIntExtra("amount", 0)
+        amount = intent.getDoubleExtra("amount", 0.0)
 
 
         binding!!.btnApply.setOnClickListener {
@@ -109,7 +109,7 @@ class CouponActivity : AppCompatActivity(), OnCouponSelectedListener {
     }
 
     var couponData: CouponItemData? = null
-    var discountAmount =0
+    var discountAmount =0.0
 
     override fun onCouponSelected(data: CouponItemData?) {
         couponData = data
@@ -118,7 +118,7 @@ class CouponActivity : AppCompatActivity(), OnCouponSelectedListener {
             validateButton(true)
 
             if (couponData!!.type == 0) {
-                discountAmount =couponData!!.amount?.toInt() ?: 0
+                discountAmount =couponData!!.amount?.toDouble() ?: 0.0
             } else if (couponData!!.type == 1) {
                  discountAmount = (amount * couponData!!.amount!!.toInt()) / 100
 

@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="Welcome Back"
                 android:layout_marginTop="@dimen/_40sdp"
-                android:textSize="@dimen/_20sdp"
+                android:textSize="20sp"
                 android:fontFamily="@font/font_inter_medium"
                 android:textColor="@color/dark_gray_4d4d4d"
                 app:layout_constraintStart_toStartOf="parent"

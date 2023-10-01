@@ -5,14 +5,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.example.CategoryModel
-import com.example.example.ResponseCategory
-import com.example.example.ResponseProductList
+import com.matemart.model.ResponseProductList
 import com.google.gson.JsonObject
 import com.matemart.R
-import com.matemart.adapter.MainStoreAdapter.ItemHomeProductListHolder
 import com.matemart.adapter.ProductItemAdapter
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.WishListUpdateListner

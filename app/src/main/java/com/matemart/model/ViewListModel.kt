@@ -10,6 +10,7 @@ class ViewListModel : java.io.Serializable {
     var color: String? = null
     var title: String? = null
     var c_id: Int? = null
+    var is_compare: Int? = null
     var saleprice: String? = null
     var price: String? = null
     var total_quantity: Int? = null

@@ -22,6 +22,7 @@ import com.matemart.model.ResReviewModel
 import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
 import com.matemart.utils.SharedPrefHelper
+import com.matemart.utils.SharedPrefHelper.Companion.EMAIL
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -148,7 +149,8 @@ class MyProfileFragment : Fragment() {
 
                     var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
 
-                    pref.write(SharedPrefHelper.ADDRESS_ID, "")
+                    pref.write(SharedPrefHelper.ADDRESS_ID, 0)
+                    pref.write(EMAIL,"")
                     pref.write(SharedPrefHelper.USER_ID, "")
                     pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
                     pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")

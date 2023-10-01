@@ -26,7 +26,7 @@
                 android:text="Your Name"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:editable="false"
                 android:enabled="false"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -60,7 +60,7 @@
                 android:text="Phone Number"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -93,7 +93,7 @@
                 android:text="What kind of work do you want "
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <com.loopeer.shadow.ShadowView
                 android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                     android:gravity="start"
                     android:textColor="@color/dark_gray_4d4d4d"
                     android:textColorHint="@color/hint_gray_c6c6c6"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
             </com.loopeer.shadow.ShadowView>
         </LinearLayout>
@@ -137,7 +137,7 @@
                     android:text="Your Occupation"
                     android:textColor="@color/theme_blue_38B449"
                     android:textFontWeight="800"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
                     android:layout_marginHorizontal="@dimen/_4sdp"
                     android:textColor="@color/dark_gray_b3b3b3"
                     android:textFontWeight="800"
-                    android:textSize="@dimen/_11sdp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
 
@@ -163,7 +163,7 @@
                 android:text=""
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textColorHint="@color/hint_gray_c6c6c6"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -182,7 +182,7 @@
                 android:text="Upload Material Photo"
                 android:textColor="@color/theme_blue_38B449"
                 android:textFontWeight="800"
-                android:textSize="@dimen/_13sdp" />
+                android:textSize="13sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,7 +207,7 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/hint_gray_c6c6c6"
                     android:textFontWeight="800"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="13sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -223,7 +223,7 @@
             android:gravity="center"
             android:text="Submit Details"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </ScrollView>

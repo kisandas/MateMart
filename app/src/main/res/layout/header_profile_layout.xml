@@ -38,7 +38,7 @@
                 android:maxLines="1"
                 android:text="Welcome Back"
                 android:textColor="@color/dark_gray_b3b3b3"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:maxLines="1"
                 android:text="Welcome Back"
                 android:textColor="@color/theme_blue_38B449"
-                android:textSize="@dimen/_18sdp"
+                android:textSize="18sp"
                 />
         </LinearLayout>
 
