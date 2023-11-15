@@ -18,12 +18,12 @@ data class ProductData(
     val review_total: Int,
     val rating: Double,
     val avg_rating: Double,
-    val ratings: List<Rating>,
-    val review: List<Review>,
-    val filtervariation_data: HashMap<String, List<String>>,
+    val ratings: List<Rating> = emptyList(),
+    val review: List<Review> = emptyList(),
+    val filtervariation_data: HashMap<String, List<String>> = hashMapOf(),
     val variation_name: List<String>,
-    val variation: HashMap<String, List<String>>,
-    val variation_data: VariationData
+    val variation: HashMap<String, List<String>> = hashMapOf(),
+    val variation_data: VariationData = VariationData()
 )
 
 data class Product(
@@ -40,8 +40,8 @@ data class Product(
     val cart_qty: Int,
     val is_wishlist: Int,
     val is_cart: Int,
-    val images: List<String>,
-    val wishlist: List<Any>,
+    val images: List<String> = emptyList(),
+    val wishlist: List<Any> = emptyList(),
     val cart: Cart
 )
 
@@ -69,6 +69,6 @@ data class Review(
 )
 
 data class VariationData(
-    val variations: HashMap<String, String>,
-    val product_detail_id: Int
+    val variations: HashMap<String, String>  = hashMapOf(),
+    val product_detail_id: Int = 0
 )

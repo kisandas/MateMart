@@ -14,11 +14,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:background="@drawable/bg_view_shadow"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/_10sdp">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -217,7 +216,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.44"
+                    android:layout_weight="0.4"
                     android:fontFamily="@font/font_inter_medium"
                     android:text="Name"
                     android:textColor="@color/white"
@@ -236,7 +235,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1"
+                    android:layout_weight="0.14"
                     android:fontFamily="@font/font_inter_medium"
                     android:text="QTY"
                     android:gravity="center"
@@ -409,6 +408,56 @@
                     />
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llCompareHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="10dp"
+                android:background="@color/theme_blue_38B449"
+                android:orientation="horizontal"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.34"
+                    android:paddingHorizontal="6dp"
+                    android:fontFamily="@font/font_inter_medium"
+                    android:text="Alternative Brands"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/font_inter_medium"
+
+                    android:text="Total Order Value"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:fontFamily="@font/font_inter_medium"
+                    android:text="Select Brand"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcCompareBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp" />
 
 
         </LinearLayout>

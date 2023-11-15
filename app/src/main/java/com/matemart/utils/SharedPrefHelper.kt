@@ -42,6 +42,7 @@ class SharedPrefHelper private constructor(application: MyApplication) {
         const val ADDRESS_ID = "a_id"
         const val FIREBASE_TOKEN = "firebaseToken"
         var KEY_LOGIN_TOKEN = "key_otp_token"
+        var IS_USER_GUEST = "is_user_guest"
         var KEY_LOGIN_NUMBER = "key_number"
         var KEY_STATE = "key_state"
         var KEY_CITY = "key_city"

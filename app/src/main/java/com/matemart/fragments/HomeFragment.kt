@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.gson.JsonObject
+import com.matemart.R
+import com.matemart.activities.LocationActivity
 import com.matemart.activities.LoginActivity
 import com.matemart.activities.SearchActivity
 import com.matemart.adapter.MainStoreAdapter
@@ -26,6 +30,7 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
+    var pref: SharedPrefHelper? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -36,11 +41,20 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
         getUserProfile()
 
+        binding?.header?.ivLocation?.setOnClickListener {
+            startActivity(Intent(requireContext(), LocationActivity::class.java))
+        }
 
         binding?.header?.ivSearch?.setOnClickListener {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
+        }
+
+        if(pref?.read(SharedPrefHelper.IS_USER_GUEST,false) == true){
+            binding?.header?.ivLocation?.visibility = GONE
+            binding?.header?.ivNotification?.visibility = GONE
         }
     }
 
@@ -48,6 +62,7 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         binding = null
     }
+
 
     fun getHomeData() {
         var apiInterface: ApiInterface =
@@ -91,6 +106,35 @@ class HomeFragment : Fragment() {
 
     }
 
+    fun refreshToken(token: String) {
+
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("device_key", token)
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, requireContext())
+        var call: Call<CommonResponse> = apiInterface.refreshTokenForPush(jsonObject)!!
+
+        Log.e("hhhhhhhhjjh", "refreshToken: "+jsonObject.toString() )
+
+        call.enqueue(object : Callback<CommonResponse> {
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+                Log.e("hhhhhhhhjjh", "response: "+response.body().toString() )
+
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                Log.e("hhhhhhhhjjh", "errrrrrrr: "+t.message.toString() )
+            }
+
+        })
+
+    }
+
+
     private fun getUserProfile() {
         var apiInterface: ApiInterface =
             Service.createService(ApiInterface::class.java, requireContext())
@@ -106,9 +150,15 @@ class HomeFragment : Fragment() {
                     if (response.body()?.statuscode == 11) {
                         response.body()?.data?.let {
 
-                            Glide.with(requireContext()).load(it.profile_image)
+                            Glide.with(requireContext()).load(it.profile_image).placeholder(
+                                R.drawable.ic_user_place_holder)
                                 .into(binding?.header?.ivProfile as ImageView)
                             binding?.header?.tvName?.text = it.uname
+
+                            refreshToken(
+                                SharedPrefHelper.getInstance(MyApplication.getInstance())
+                                    .read(SharedPrefHelper.FIREBASE_TOKEN)
+                            )
 
                             SharedPrefHelper.getInstance(MyApplication.getInstance())
                                 .write(SharedPrefHelper.USER_NAME, it.uname.toString()).toString()

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.matemart.R
 import com.matemart.databinding.ActivityCartBinding
 import com.matemart.databinding.ActivityPreviewReceiptBinding
@@ -28,6 +29,13 @@ class PreviewReceiptActivity : AppCompatActivity() {
         binding = ActivityPreviewReceiptBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
 
+        imageUri = Uri.parse(intent.getStringExtra("imageUri").toString())
+
+        Glide.with(this@PreviewReceiptActivity).load(imageUri).into(binding!!.ivImage)
+
+        binding!!.include2.title.text ="Preview Receipt"
+        binding!!.include2.ivBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+
         binding!!.btnUpload.setOnClickListener {
             uploadReceipt(imageUri)
         }
@@ -50,7 +58,7 @@ class PreviewReceiptActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
 //                    finish with Result
-                    finish()
+//                    finish()
 
                 } else {
                     Toast.makeText(

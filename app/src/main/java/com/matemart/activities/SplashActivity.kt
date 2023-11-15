@@ -104,7 +104,7 @@ class SplashActivity : AppCompatActivity() {
 
 
     fun callGetAppDataAPI() {
-        if (!pref?.read(KEY_CCID).isNullOrEmpty()) {
+        if (!pref?.read(KEY_ACCESS_TOKEN).isNullOrEmpty()) {
             startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
             finish()
         } else {

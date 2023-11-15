@@ -22,9 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--kkkkkkkkk shadowView-->
 
-            <LinearLayout
+            <com.loopeer.shadow.ShadowView
                 android:id="@+id/shadowView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,7 +107,7 @@
 
 
                 </LinearLayout>
-            </LinearLayout>
+            </com.loopeer.shadow.ShadowView>
 
 
             <TextView

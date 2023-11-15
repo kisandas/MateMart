@@ -5,12 +5,14 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardElevation="@dimen/_5sdp"
+    android:layout_marginTop="16dp"
     android:layout_marginHorizontal="@dimen/_10sdp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivBanner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_140sdp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/sample"
         app:riv_corner_radius="@dimen/_8sdp" />

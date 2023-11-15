@@ -27,8 +27,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_user_place_holder"
+            app:civ_border_color="@color/theme_blue_38B449"
+            app:civ_border_width="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,16 +51,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_inter_bold"
-                android:text="Kishan Antala"
+                android:text=""
+                android:id="@+id/tvName"
                 android:textColor="@color/theme_blue_38B449"
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tvGuestEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/font_inter_regular"
-                android:text="Kishan Antala"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -69,6 +74,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_inter_semibold"
             android:text="Edit"
+            android:visibility="gone"
             android:textColor="@color/theme_blue_38B449"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -87,332 +93,364 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/mainLayoutOptions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
+                android:layout_marginTop="@dimen/_30sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_wish_list" />
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_wish_list" />
+
+                    <TextView
+                        android:id="@+id/tv_wish_list"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Wish List"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_pin_location" />
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Address"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_documet" />
+
+                    <TextView
+                        android:id="@+id/tv_post_requirements"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Post your Requirements"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_arch_process" />
+
+                    <TextView
+                        android:id="@+id/tv_arch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Architectural Professional"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_labourer" />
+
+                    <TextView
+                        android:id="@+id/tv_labour"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Labourer"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_policy" />
+
+                    <TextView
+                        android:id="@+id/tv_policy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Policy"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_contact_us" />
+
+                    <TextView
+                        android:id="@+id/tv_contact_us"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Contact us"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_account" />
+
+                    <TextView
+                        android:id="@+id/tv_invoice_downloads"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:layout_weight="0.8"
+                        android:fontFamily="@font/font_inter_regular"
+                        android:text="Delete Account"
+                        android:textColor="@color/dark_gray_4d4d4d"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_next" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:alpha="0.6"
+                    android:background="@color/dark_gray_b3b3b3" />
 
                 <TextView
-                    android:id="@+id/tv_wish_list"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Wish List"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
+                    android:id="@+id/btnLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="@dimen/_30sdp"
+                    android:background="@drawable/bg_round_corner_stroke_radius_color_red_6"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:drawableTint="@color/red_c70000"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_80sdp"
+                    android:text="Log out"
+                    android:textColor="@color/red_c70000"
+                    android:textSize="16sp"
+                    app:drawableStartCompat="@drawable/ic_logout"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_move_wishlist"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btn_move_wishlist"
+                    app:layout_constraintWidth_percent="0.32" />
 
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_pin_location" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Address"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_documet" />
-
-                <TextView
-                    android:id="@+id/tv_post_requirements"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Post your Requirements"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arch_process" />
-
-                <TextView
-                    android:id="@+id/tv_arch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Architectural Professional"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_labourer" />
-
-                <TextView
-                    android:id="@+id/tv_labour"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Labourer"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_policy" />
-
-                <TextView
-                    android:id="@+id/tv_policy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Policy"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_contact_us" />
-
-                <TextView
-                    android:id="@+id/tv_contact_us"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Contact us"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_account" />
-
-                <TextView
-                    android:id="@+id/tv_invoice_downloads"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.8"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="Delete Account"
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_16sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:alpha="0.6"
-                android:background="@color/dark_gray_b3b3b3" />
 
             <TextView
-                android:id="@+id/btnLogout"
+                android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginVertical="@dimen/_30sdp"
-                android:background="@drawable/bg_round_corner_stroke_radius_color_4d4d4d_6"
+                android:background="@drawable/bg_round_corner_stroke_radius_6"
+                android:drawablePadding="@dimen/_10sdp"
+                android:drawableTint="@color/theme_blue_38B449"
                 android:fontFamily="@font/font_inter_bold"
                 android:gravity="center"
-                android:text="Log out"
-                android:paddingHorizontal="@dimen/_80sdp"
-                android:textColor="@color/dark_gray_4d4d4d"
+                android:paddingHorizontal="@dimen/_85sdp"
+                android:text="LogIn"
+                android:textColor="@color/theme_blue_38B449"
                 android:textSize="16sp"
-                android:drawablePadding="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_move_wishlist"
+                app:drawableStartCompat="@drawable/ic_login"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_move_wishlist"
-                app:layout_constraintWidth_percent="0.32"
-                app:drawableStartCompat="@drawable/ic_logout" />
+                app:layout_constraintWidth_percent="0.32" />
+        </RelativeLayout>
 
-
-        </LinearLayout>
 
     </ScrollView>
 

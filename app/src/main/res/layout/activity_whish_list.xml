@@ -17,6 +17,8 @@
         android:id="@+id/list"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="4dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

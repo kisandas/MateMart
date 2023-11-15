@@ -4,6 +4,9 @@ package com.matemart.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,13 +16,12 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.gson.JsonObject
 import com.matemart.R
+import com.matemart.adapter.ItemCompareBrandAdapter
 import com.matemart.adapter.ItemVariationAdapterForCompareProduct
 import com.matemart.databinding.ActivityCompareProductDetailsBinding
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.SliderItemClickListner
-import com.matemart.model.AddCartResponse
-import com.matemart.model.CompareProductDetailResponse
-import com.matemart.model.CompareVariation
+import com.matemart.model.*
 import com.matemart.utils.ReadMoreOption
 import com.matemart.utils.Service
 import retrofit2.Call
@@ -32,6 +34,7 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
     var product_detail_id: Int = 0
 
     lateinit var adapter: ItemVariationAdapterForCompareProduct
+    lateinit var brandAdapter: ItemCompareBrandAdapter
 
     var selectedVariation: ArrayList<CompareVariation> = arrayListOf()
 
@@ -61,9 +64,26 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
         getProductDetail(p_id, product_detail_id)
 
         binding.btnAddToCart.setOnClickListener { addToCartItem() }
+        binding.llCompareHeader.visibility = GONE
+
+        binding.icCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked) {
+                getCompareBrand()
+            } else {
+
+                binding.llCompareHeader.visibility = GONE
+                binding.rcCompareBrand.visibility = GONE
+
+            }
+        }
+
+
+
 
 
     }
+
 
     private fun addToCartItem() {
         if (selectedVariation.size > 0) {
@@ -97,12 +117,22 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
 
                     if (response.body()?.statuscode == 11) {
                         Toast.makeText(
-                            this@CompareProductDetailsActivity, "Item Added to Cart", Toast.LENGTH_LONG
+                            this@CompareProductDetailsActivity,
+                            "Item Added to Cart",
+                            Toast.LENGTH_LONG
                         ).show()
-                        startActivity(Intent(this@CompareProductDetailsActivity, CartActivity::class.java))
+                        startActivity(
+                            Intent(
+                                this@CompareProductDetailsActivity,
+                                CartActivity::class.java
+                            )
+                        )
+                        finish()
                     } else {
                         Toast.makeText(
-                            this@CompareProductDetailsActivity, "Something went wrong", Toast.LENGTH_LONG
+                            this@CompareProductDetailsActivity,
+                            "Something went wrong",
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 }
@@ -111,7 +141,9 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
             override fun onFailure(call: Call<AddCartResponse>, t: Throwable) {
                 if (isLastIteration) {
                     Toast.makeText(
-                        this@CompareProductDetailsActivity, "Something went wrong", Toast.LENGTH_LONG
+                        this@CompareProductDetailsActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
                     ).show()
                 }
             }
@@ -119,7 +151,6 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
         })
 
     }
-
 
 
     private fun getProductDetail(p_id: Int, product_detail_id: Int) {
@@ -148,7 +179,7 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
 
                         adapter = ItemVariationAdapterForCompareProduct(
                             this@CompareProductDetailsActivity,
-                            data.variation,this@CompareProductDetailsActivity
+                            data.variation, this@CompareProductDetailsActivity
                         )
                         binding.rcVariation.layoutManager =
                             LinearLayoutManager(this@CompareProductDetailsActivity, VERTICAL, false)
@@ -206,6 +237,75 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
         })
     }
 
+    private fun getCompareBrand() {
+        val jsonObject = JsonObject()
+
+        for (item in selectedVariation) {
+//            jsonObject.addProperty(item.productDetailId.toString(),item.currentQty)
+            jsonObject.addProperty("17644",item.currentQty)
+        }
+
+//        jsonObject.addProperty("17645",5)
+//        jsonObject.addProperty("17644",5)
+//        jsonObject.addProperty("17646",5)
+
+        val json = JsonObject()
+
+        json.add("product_info",jsonObject)
+
+        Log.e("mmmmmm", "getCompareBrand: "+json )
+
+
+
+
+        val apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
+        val call: Call<CompareBrandFilter> =
+            apiInterface.getCompareBrand(json)!!
+
+        call.enqueue(object : Callback<CompareBrandFilter> {
+            override fun onResponse(
+                call: Call<CompareBrandFilter>,
+                response: Response<CompareBrandFilter>
+            ) {
+                if (response.body()?.statuscode == 11) {
+
+                    val data = response.body()?.data
+
+                    if (data != null) {
+                        binding.llCompareHeader.visibility = VISIBLE
+                        binding.rcCompareBrand.visibility = VISIBLE
+
+                        val listBrand = data.compareResult
+
+                        brandAdapter =
+                            ItemCompareBrandAdapter(this@CompareProductDetailsActivity, listBrand,this@CompareProductDetailsActivity)
+
+                        binding.rcCompareBrand.layoutManager =
+                            LinearLayoutManager(this@CompareProductDetailsActivity, VERTICAL, false)
+                        binding.rcCompareBrand.adapter = brandAdapter
+
+                    }
+
+                } else {
+                    Toast.makeText(
+                        this@CompareProductDetailsActivity,
+                        response.body()?.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<CompareBrandFilter>, t: Throwable) {
+                t.printStackTrace()
+                Toast.makeText(
+                    this@CompareProductDetailsActivity,
+                    t.toString(),
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+        })
+    }
 
     override fun ItemClick(cardPosition: Int, position: Int) {
 
@@ -214,12 +314,12 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
 
     override fun onItemAddQTY(variation: CompareVariation) {
         val item = selectedVariation.find { it.productDetailId == variation.productDetailId }
-        if(item != null) {
+        if (item != null) {
             val index = selectedVariation.indexOf(item)
-           if(index != -1){
-               selectedVariation[index] = variation
-           }
-        }else{
+            if (index != -1) {
+                selectedVariation[index] = variation
+            }
+        } else {
             selectedVariation.add(variation)
         }
 
@@ -231,19 +331,37 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
 
     override fun onItemRemoveQTY(variation: CompareVariation) {
         val item = selectedVariation.find { it.productDetailId == variation.productDetailId }
-        if(item != null) {
+        if (item != null) {
             val index = selectedVariation.indexOf(item)
-            if(index != -1){
+            if (index != -1) {
                 selectedVariation[index] = variation
             }
-        }else{
-            selectedVariation.removeIf{it.productDetailId == variation.productDetailId}
+        } else {
+            selectedVariation.removeIf { it.productDetailId == variation.productDetailId }
         }
 
         calculateAndSetValue(selectedVariation)
     }
 
-    fun calculateAndSetValue(selectedVariation: ArrayList<CompareVariation>){
+    override fun onAddItemIntoCart(position: Int,data:CompareResult) {
+
+        if (data.addtocartdata.size > 0) {
+            for ((index, item) in data.addtocartdata.withIndex()) {
+
+                val isLastIteration = index == data.addtocartdata.size - 1
+                item.productDetailId?.let {
+                    item.totalQty?.toInt()?.let { it1 ->
+                        addToCart(
+                            it, it1, isLastIteration
+                        )
+                    }
+                }
+            }
+        }
+
+    }
+
+    fun calculateAndSetValue(selectedVariation: ArrayList<CompareVariation>) {
         var totalQTY = 0
         var totalAmount = 0.0
 
@@ -262,7 +380,10 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
         binding.tvTotalQTYValue.text = "$totalQTY"
         binding.tvTotalPriceValue.text = String.format("%.2f", totalAmount)
 
+
     }
+
+
 
 
 }
@@ -272,4 +393,8 @@ interface ProductVariationClickItem {
 
     fun onItemRemoveQTY(variation: CompareVariation)
 
+    fun onAddItemIntoCart(position: Int,data: CompareResult)
+
 }
+
+

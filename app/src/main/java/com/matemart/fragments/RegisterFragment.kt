@@ -11,22 +11,26 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.matemart.utils.Toast.Toaster
 import com.matemart.activities.OTPActivity
 import androidx.core.content.res.ResourcesCompat
-import com.matemart.utils.CustomTypefaceSpan
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.matemart.R
+import com.matemart.activities.HomeActivity
 import com.matemart.databinding.FragmentLoginBinding
 import com.matemart.databinding.FragmentRegisterBinding
+import com.matemart.interfaces.ApiInterface
+import com.matemart.model.GuestUserModel
 import com.matemart.model.login.LoginResponse
-import com.matemart.utils.BaseFragment
-import com.matemart.utils.MyApplication
-import com.matemart.utils.SharedPrefHelper
+import com.matemart.utils.*
 import com.matemart.viewmodel.AuthViewModel
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterFragment : BaseFragment() {
 
@@ -60,6 +64,10 @@ class RegisterFragment : BaseFragment() {
 
         binding.btnRegister.setOnClickListener {
             checkValidation()
+        }
+
+        binding.tvGuestUser.setOnClickListener {
+            getGuestUserLogin()
         }
         setTextIntoTextView(
             binding.tvChecktext,
@@ -179,4 +187,42 @@ class RegisterFragment : BaseFragment() {
             .show()
         startActivity(Intent(requireActivity(), OTPActivity::class.java))
     }
+
+    fun getGuestUserLogin() {
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, requireContext())
+        var call: Call<GuestUserModel> = apiInterface.getGuestUser()!!
+
+        call.enqueue(object : Callback<GuestUserModel> {
+            override fun onResponse(
+                call: Call<GuestUserModel>,
+                response: Response<GuestUserModel>
+            ) {
+                if (response.isSuccessful) {
+                    val token = response.body()?.data?.apiToken
+
+                    token?.let {
+                        SharedPrefHelper.getInstance(MyApplication.getInstance())
+                            .write(SharedPrefHelper.KEY_ACCESS_TOKEN, it)
+                    }
+
+                    SharedPrefHelper.getInstance(MyApplication.getInstance())
+                        .write(SharedPrefHelper.IS_USER_GUEST, true)
+
+                    startActivity(Intent(requireContext(), HomeActivity::class.java))
+                    requireActivity().finish()
+                } else {
+
+                }
+            }
+
+            override fun onFailure(call: Call<GuestUserModel>, t: Throwable) {
+                Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_LONG)
+                    .show()
+            }
+
+        })
+
+    }
+
 }

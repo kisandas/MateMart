@@ -1,66 +1,182 @@
 package com.matemart.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonArray
 import com.matemart.model.ResponseProductList
 import com.google.gson.JsonObject
 import com.matemart.R
 import com.matemart.adapter.ProductItemAdapter
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.WishListUpdateListner
+import com.matemart.model.FilterBody
 import com.matemart.model.ViewListModel
 import com.matemart.utils.Service
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchProductFromCategoryActivity : AppCompatActivity() , WishListUpdateListner {
+class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateListner {
+
+    companion object{
+        var actualMap: LinkedHashMap<String, List<FilterBody>>? = LinkedHashMap()
+    }
 
     lateinit var rcProductList: RecyclerView
     lateinit var tvTitle: TextView
+    lateinit var ivBack: ImageView
     var list: ArrayList<ViewListModel> = arrayListOf()
-    lateinit var adapter : ProductItemAdapter
+    lateinit var adapter: ProductItemAdapter
+    lateinit var ivFilter: ImageView
+    var actualMap: HashMap<String, List<FilterBody>> = LinkedHashMap()
+    var clickID = ""
+    var c_id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_product_from_category)
         rcProductList = findViewById(R.id.rcProductList)
         tvTitle = findViewById(R.id.tvTitle)
+        ivFilter = findViewById(R.id.ivFilter)
+        ivBack = findViewById(R.id.iv_back)
+
+        actualMap.clear()
+
+        val searchEditText = findViewById<EditText>(R.id.etSearchProduct)
+
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not needed in this case
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Called when the text changes, you can call the filterList function here
+                val query = s.toString()
+                filterList(query)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Not needed in this case
+            }
+        })
 
         val layoutManager = GridLayoutManager(this, 2)
-       rcProductList.layoutManager = layoutManager
-       adapter = ProductItemAdapter(list, this,this)
-       rcProductList.adapter = adapter
+        rcProductList.layoutManager = layoutManager
+        adapter = ProductItemAdapter(list, this, this)
+        rcProductList.adapter = adapter
+
+        ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
 
         tvTitle.text = intent.getStringExtra("title")
+        c_id = intent.getIntExtra("c_id", 0)
+        clickID = intent.getStringExtra("clickId").toString()
+
+        ivFilter.setOnClickListener {
+            startActivityForResult(
+                Intent(this@SearchProductFromCategoryActivity, FilterActivity::class.java)
+                    .putExtra("c_id", c_id)
+                    .putExtra("clickId", clickID), 203
+            )
+        }
         updateList()
 
     }
 
-    private  fun updateList(){
-        if(intent.hasExtra("clickId")){
+    private fun updateList() {
+        if (intent.hasExtra("clickId")) {
 //            View All Products
             list.clear()
             getViewAllProduct(intent.getStringExtra("clickId")!!)
 
-        }else {
+        } else {
 //              Product by subcategory
             list.clear()
-            getProductsFromSubCategory(intent.getIntExtra("c_id",0))
+            getProductsFromSubCategory(intent.getIntExtra("c_id", 0))
         }
     }
 
+    fun filterList(query: String) {
+        val filteredList = list.filter { item -> item.p_name?.contains(query, ignoreCase = true) == true }
+        adapter.updateList(filteredList)
+    }
 
-    private fun getViewAllProduct(clickId : String) {
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.e(
+            "------------->",
+            "onActivityResult: " + requestCode + "     resultCode: " + resultCode
+        )
+        if (requestCode == 203 && resultCode == RESULT_OK) {
+            Log.e("------------->", "onActivityResult c_id: " + data?.getIntExtra("c_id", 0))
+            Log.e("------------->", "onActivityResult clickId: " + data?.getStringExtra("clickId"))
+
+//
+//            actualMap =
+//                (data?.getSerializableExtra("filterMap") as? HashMap<String, List<FilterBody>>)!!
+
+//            Log.e("actualMap++++++++", "onActivityResult: "+ actualMap)
+
+            if (actualMap != null) {
+                val obj = convertToJSON(actualMap)
+
+                Log.e("checkOBJJJ", "onActivityResult: 3333333333333" )
+                if (clickID != null && clickID != "null" && clickID.isNotEmpty()) {
+                    obj.addProperty("clickId", clickID)
+                }else{
+                    obj.addProperty("clickId", "Category")
+                }
+
+                if (c_id != null && c_id != -1) {
+                    obj.addProperty("c_id", c_id)
+                }
+                getFilteredData(obj)
+
+            }
+
+
+        }
+    }
+
+    fun convertToJSON(inputMap: HashMap<String, List<FilterBody>>): JsonObject {
+        val jsonObject = JsonObject()
+
+        for ((key, valueList) in inputMap) {
+            val nameArray = JsonArray()
+
+            for (filterBody in valueList) {
+                if (filterBody.isDisabled)
+                    nameArray.add(filterBody.name)
+            }
+
+            if (nameArray.size() > 0)
+                jsonObject.add(key, nameArray)
+        }
+
+        return jsonObject
+    }
+
+    private fun getViewAllProduct(clickId: String) {
         var jsonObject: JsonObject = JsonObject()
         jsonObject.addProperty("clickId", clickId)
 
 
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
         var call: Call<ResponseProductList> = apiInterface.getViewAllProducts(jsonObject)!!
 
         call.enqueue(object : Callback<ResponseProductList> {
@@ -68,7 +184,45 @@ class SearchProductFromCategoryActivity : AppCompatActivity() , WishListUpdateLi
                 call: Call<ResponseProductList>,
                 response: Response<ResponseProductList>
             ) {
-                if (response.body()?.statuscode ==11) {
+                if (response.body()?.statuscode == 11) {
+                    response.body()?.data?.let { list.addAll(it) }
+                    adapter.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(
+                        this@SearchProductFromCategoryActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseProductList>, t: Throwable) {
+                Toast.makeText(
+                    this@SearchProductFromCategoryActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+        })
+
+    }
+
+    private fun getProductsFromSubCategory(c_id: Int) {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("c_id", c_id)
+
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
+        var call: Call<ResponseProductList> = apiInterface.getProductsFromSubCategory(jsonObject)!!
+
+        call.enqueue(object : Callback<ResponseProductList> {
+            override fun onResponse(
+                call: Call<ResponseProductList>,
+                response: Response<ResponseProductList>
+            ) {
+                if (response.body()?.statuscode == 11) {
                     response.body()?.data?.let { list.addAll(it) }
                     adapter.notifyDataSetChanged()
                 } else {
@@ -93,21 +247,22 @@ class SearchProductFromCategoryActivity : AppCompatActivity() , WishListUpdateLi
 
     }
 
-    private fun getProductsFromSubCategory(c_id : Int) {
-        var jsonObject: JsonObject = JsonObject()
-        jsonObject.addProperty("c_id", c_id)
+    fun getFilteredData(jsonObject: JsonObject) {
 
-
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
-        var call: Call<ResponseProductList> = apiInterface.getProductsFromSubCategory(jsonObject)!!
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
+        var call: Call<ResponseProductList> = apiInterface.getFilteredProduct(jsonObject)!!
 
         call.enqueue(object : Callback<ResponseProductList> {
             override fun onResponse(
                 call: Call<ResponseProductList>,
                 response: Response<ResponseProductList>
             ) {
-                if (response.body()?.statuscode ==11) {
-                    response.body()?.data?.let { list.addAll(it) }
+                if (response.body()?.statuscode == 11) {
+                    response.body()?.data?.let {
+                        list.clear()
+                        list.addAll(it)
+                    }
                     adapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
@@ -128,7 +283,6 @@ class SearchProductFromCategoryActivity : AppCompatActivity() , WishListUpdateLi
             }
 
         })
-
     }
 
     override fun onUpdate() {

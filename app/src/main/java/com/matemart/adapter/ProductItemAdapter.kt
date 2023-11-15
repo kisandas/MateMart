@@ -16,17 +16,21 @@ import com.example.example.RemoveCartResponse
 import com.google.gson.JsonObject
 import com.matemart.R
 import com.matemart.activities.CompareProductDetailsActivity
+import com.matemart.activities.LoginActivity
 import com.matemart.activities.ProductDetailsActivity
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.WishListUpdateListner
 import com.matemart.model.ViewListModel
+import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
+import com.matemart.utils.SharedPrefHelper
+import com.matemart.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ProductItemAdapter(
-    private val viewList: ArrayList<ViewListModel>?,
+    private var viewList: ArrayList<ViewListModel>?,
     private val mContext: Context,
     private val updateListner: WishListUpdateListner
 ) : RecyclerView.Adapter<ProductItemAdapter.ItemViewHolder>() {
@@ -50,8 +54,8 @@ class ProductItemAdapter(
         holder.tvProductName.text = item.p_name
         holder.tvRating.text = item.average_rating
         holder.tv_text_left_stock.text = "" + item.total_quantity
-        holder.tv_amount.text = item.saleprice
-        holder.tv_original_price.text = item.price
+        holder.tv_amount.text = "₹"+item.saleprice
+        holder.tv_original_price.text = "₹"+item.price
         val count = intArrayOf(0)
         if (item.total_quantity!! <= 0) {
             holder.ll_bg_alpha.visibility = View.VISIBLE
@@ -91,29 +95,103 @@ class ProductItemAdapter(
         }
 
         holder.iv_like_unlike_product.setOnClickListener {
-            updateWishList(item.p_id!!, 1, holder)
+
+            if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                    .read(SharedPrefHelper.IS_USER_GUEST, false)
+            ) {
+                Toast.makeText(
+                    mContext,
+                    Utils.LOGIN_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
+
+                var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
+
+                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
+                pref.write(SharedPrefHelper.EMAIL, "")
+                pref.write(SharedPrefHelper.USER_ID, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
+                pref.write(SharedPrefHelper.KEY_CCID, "")
+                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+
+
+                mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+
+            }else {
+                updateWishList(item.p_id!!, 1, holder)
+            }
         }
 
         holder.iv_remove_whishlist.setOnClickListener {
-            updateWishList(item.p_id!!, 0, holder)
+            if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                    .read(SharedPrefHelper.IS_USER_GUEST, false)
+            ) {
+                Toast.makeText(
+                    mContext,
+                    Utils.LOGIN_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
+
+                var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
+
+                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
+                pref.write(SharedPrefHelper.EMAIL, "")
+                pref.write(SharedPrefHelper.USER_ID, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
+                pref.write(SharedPrefHelper.KEY_CCID, "")
+                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+
+
+                mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+
+            }else {
+                updateWishList(item.p_id!!, 0, holder)
+            }
         }
 
         holder.iv_plus.setOnClickListener {
-            if (count[0] < item.total_quantity!!) {
-                count[0]++
-                if (count[0] > 0) {
-                    holder.iv_minus.visibility = View.VISIBLE
-                    holder.tv_count.visibility = View.VISIBLE
-                    holder.tv_count.text = "" + count[0]
-                    addToCart(item, count[0])
-                    //                    call ApI for Add into cart
-                }
-            } else {
+
+            if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                    .read(SharedPrefHelper.IS_USER_GUEST, false)
+            ) {
                 Toast.makeText(
                     mContext,
-                    "Only " + item.total_quantity + " items available",
-                    Toast.LENGTH_SHORT
+                    Utils.LOGIN_MESSAGE,
+                    Toast.LENGTH_LONG
                 ).show()
+
+                var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
+
+                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
+                pref.write(SharedPrefHelper.EMAIL, "")
+                pref.write(SharedPrefHelper.USER_ID, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
+                pref.write(SharedPrefHelper.KEY_CCID, "")
+                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+
+
+                mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+
+            }else {
+                if (count[0] < item.total_quantity!!) {
+                    count[0]++
+                    if (count[0] > 0) {
+                        holder.iv_minus.visibility = View.VISIBLE
+                        holder.tv_count.visibility = View.VISIBLE
+                        holder.tv_count.text = "" + count[0]
+                        addToCart(item, count[0])
+                        //                    call ApI for Add into cart
+                    }
+                } else {
+                    Toast.makeText(
+                        mContext,
+                        "Only " + item.total_quantity + " items available",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
         holder.iv_minus.setOnClickListener {
@@ -176,13 +254,13 @@ class ProductItemAdapter(
                 if (response.body()?.statuscode == 11) {
                     Toast.makeText(
                         mContext,
-                        "Item Added to Cart",
+                        response.body()?.message,
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
                     Toast.makeText(
                         mContext,
-                        "Something went wrong",
+                        response.body()?.message,
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -231,6 +309,11 @@ class ProductItemAdapter(
         })
 
 
+    }
+
+    fun updateList(newList: List<ViewListModel>) {
+        viewList = ArrayList(newList)
+        notifyDataSetChanged()
     }
 
     private fun removeFromCart(item: ViewListModel) {

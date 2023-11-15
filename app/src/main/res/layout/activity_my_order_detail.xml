@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--kkkkkkkkk shadowView-->
-            <LinearLayout
+
+            <com.loopeer.shadow.ShadowView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
@@ -128,7 +128,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
-            </LinearLayout>
+            </com.loopeer.shadow.ShadowView>
 
             <!--            <com.loopeer.shadow.ShadowView-->
             <!--                android:layout_width="match_parent"-->
@@ -319,8 +319,8 @@ Vile Parle (east),400057"
                 android:text="Phone no: 1234567891"
                 android:textColor="@color/dark_gray_4d4d4d"
                 android:textSize="14sp" />
-<!--kkkkkkkkk shadowView-->
-            <LinearLayout
+
+            <com.loopeer.shadow.ShadowView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
@@ -518,7 +518,7 @@ Vile Parle (east),400057"
                     </LinearLayout>
                 </LinearLayout>
 
-            </LinearLayout>
+            </com.loopeer.shadow.ShadowView>
         </LinearLayout>
 
 

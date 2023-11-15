@@ -112,6 +112,9 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
     implementation("com.google.firebase:firebase-messaging-ktx")
+
+
+    implementation 'com.karumi:dexter:6.2.2'
 //    implementation 'me.jessyan:insgallery:0.7.0'
 
 //    implementation 'me.jessyan:insgallery:0.7.0'

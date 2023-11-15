@@ -168,6 +168,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tvGuestUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_inter_semibold"

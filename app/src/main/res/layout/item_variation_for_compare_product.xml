@@ -12,7 +12,7 @@
         android:id="@+id/tvProductName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.44"
+        android:layout_weight="0.4"
         android:fontFamily="@font/font_inter_regular"
         android:text="Name"
         android:textColor="@color/dark_gray_4d4d4d"
@@ -70,7 +70,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
+        android:layout_weight="0.14"
         android:gravity="center"
         android:orientation="vertical"
         android:text="Price"

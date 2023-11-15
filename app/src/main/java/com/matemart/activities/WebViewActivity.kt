@@ -1,5 +1,6 @@
 package com.matemart.activities
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ class WebViewActivity : AppCompatActivity() {
         binding?.webView?.settings?.javaScriptEnabled = true // enable javascript
 
 
+        binding?.llheaderlay?.ivBack?.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         binding?.webView?.webViewClient = object : WebViewClient() {
             override fun onReceivedError(
                 view: WebView?,
@@ -41,12 +43,20 @@ class WebViewActivity : AppCompatActivity() {
 
                     val uri: Uri = Uri.parse(request?.url.toString())
 
+                    binding?.llheaderlay?.title?.text = view?.title
+
                     // Extract query parameters
 
                     // Extract query parameters
                     val order_number: String? = uri.getQueryParameter("order_number")
                     val amount: String? = uri.getQueryParameter("amount")
                     val date: String? = uri.getQueryParameter("date")
+
+                    startActivity(Intent(this@WebViewActivity,PaymentSuccessActivity::class.java)
+                        .putExtra("order_number",order_number)
+                        .putExtra("amount",amount)
+                        .putExtra("date",date))
+                    finish()
 
                     Log.e("checkURLLLLL", "shouldOverrideUrlLoading Successss: order_number="+order_number+"     amount="+amount+"      date="+date )
 
@@ -58,6 +68,9 @@ class WebViewActivity : AppCompatActivity() {
                     val order_number: String? = uri.getQueryParameter("order_number")
                     val amount: String? = uri.getQueryParameter("amount")
                     val date: String? = uri.getQueryParameter("date")
+
+                    startActivity(Intent(this@WebViewActivity,PaymentFailedActivity::class.java))
+                    finish()
                     Log.e("checkURLLLLL", "shouldOverrideUrlLoading  Failed  : order_number="+order_number+"     amount="+amount+"      date="+date )
 
                     return true

@@ -14,10 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemChangeListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.gson.JsonObject
 import com.matemart.R
+import com.matemart.adapter.ImagePreviewSliderAdapter
 import com.matemart.adapter.RatingBarListAdapter
 import com.matemart.adapter.ReviewListAdapter
 import com.matemart.adapter.VariationOuterAdapter
@@ -32,7 +35,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
-    onVariationChangeListener {
+    onVariationChangeListener, ImagePreviewSliderAdapter.OnItemClickListener {
     var p_id: Int = 0
     var product_detail_id: Int = 0
     private var tableRowHeader: TableRow? = null
@@ -44,7 +47,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
     var adapterRating: RatingBarListAdapter? = null
     var adapterVariationOuter: VariationOuterAdapter? = null
 
-    companion object{
+    companion object {
         val finalSelectedVariation = HashMap<String, String>()
     }
 
@@ -70,6 +73,10 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         product_detail_id = intent.getIntExtra("product_detail_id", 0)
 
         getProductDetail(p_id, product_detail_id)
+
+        binding.ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         binding.tvAllReview.setOnClickListener {
             startActivity(
@@ -124,13 +131,32 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         )
 
 
+                        binding.rcImageList.apply {
+                            val adapter = ImagePreviewSliderAdapter(
+                                this@ProductDetailsActivity,
+                                data.product.images,
+                                this@ProductDetailsActivity
+                            )
+                            layoutManager =
+                                LinearLayoutManager(this@ProductDetailsActivity, HORIZONTAL, false)
+                            binding.rcImageList.adapter = adapter
+
+                            var obj = object : ItemChangeListener {
+                                override fun onItemChanged(position: Int) {
+                                    adapter.setSelectedPosition(position)
+                                }
+                            }
+                        }
+
+
                         adapterVariationOuter = VariationOuterAdapter(
                             this@ProductDetailsActivity,
                             data.variation,
                             data.filtervariation_data,
                             data.variation_data.variations,
-                        this@ProductDetailsActivity
+                            this@ProductDetailsActivity
                         )
+
                         binding.rcVariationMain.layoutManager = LinearLayoutManager(
                             this@ProductDetailsActivity,
                             RecyclerView.VERTICAL,
@@ -197,7 +223,11 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
     }
 
 
-    private fun getFilteredProductDetail(p_id: Int, product_detail_id: Int,variation: HashMap<String, String>) {
+    private fun getFilteredProductDetail(
+        p_id: Int,
+        product_detail_id: Int,
+        variation: HashMap<String, String>
+    ) {
         var jsonObject = JsonObject()
         jsonObject.addProperty("product_detail_id", product_detail_id)
         jsonObject.addProperty("p_id", p_id)
@@ -211,7 +241,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         jsonObject.add("variation", variationJsonObject)
 
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
-        var call: Call<GetProductDetailsResponse> = apiInterface.getSingleProductDetail(jsonObject)!!
+        var call: Call<GetProductDetailsResponse> =
+            apiInterface.getSingleProductDetail(jsonObject)!!
 
         call.enqueue(object : Callback<GetProductDetailsResponse> {
             override fun onResponse(
@@ -295,8 +326,6 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             "${data.rating}  Ratings And ${data.review_total} Reviews"
 
                     }
-
-
                 } else {
                     Toast.makeText(
                         this@ProductDetailsActivity,
@@ -308,7 +337,6 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
             override fun onFailure(call: Call<GetProductDetailsResponse>, t: Throwable) {
                 t.printStackTrace()
-                Log.e("lllllllllll", "onFailure: " + t.message)
                 Toast.makeText(
                     this@ProductDetailsActivity,
                     t.toString(),
@@ -322,109 +350,21 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
     }
 
 
-    private fun createTableHeader() {
-        tableLayout?.removeAllViews()
-        createTableRow("Name", "Price", "QTY", "Amount", -1)
-    }
-
-
-    private fun createTableRow(
-        Name: String,
-        Price: String,
-        QTY: String,
-        Amount: String,
-        index: Int
-    ) {
-        val tableRow = TableRow(this)
-        val lp = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT,
-            TableRow.LayoutParams.WRAP_CONTENT
-        )
-        tableRow.layoutParams = lp
-        val textViewSN = TextView(this)
-        val textViewCity = TextView(this)
-        val textViewAirport = TextView(this)
-        val textViewCode = TextView(this)
-        val textViewCountry = TextView(this)
-        textViewSN.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT,
-            TableRow.LayoutParams.MATCH_PARENT,
-            0f
-        )
-        textViewCity.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT,
-            TableRow.LayoutParams.MATCH_PARENT,
-            0.3f
-        )
-        textViewAirport.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT,
-            TableRow.LayoutParams.MATCH_PARENT,
-            1.5f
-        )
-        textViewCode.layoutParams = TableRow.LayoutParams(
-            TableRow.LayoutParams.MATCH_PARENT,
-            TableRow.LayoutParams.MATCH_PARENT,
-            0f
-        )
-
-        textViewSN.gravity = Gravity.CENTER
-        textViewCity.gravity = Gravity.CENTER
-        textViewAirport.gravity = Gravity.CENTER
-        textViewCode.gravity = Gravity.CENTER
-        textViewAirport.maxLines = 3
-        textViewCity.maxLines = 2
-        textViewCode.maxLines = 2
-        textViewSN.setPadding(5, 15, 5, 15)
-        textViewCity.setPadding(5, 15, 5, 15)
-        textViewAirport.setPadding(5, 15, 5, 15)
-        textViewCode.setPadding(5, 15, 5, 15)
-        textViewSN.text = Name
-        textViewCity.text = Price
-        textViewAirport.text = QTY
-        textViewCode.text = Amount
-//        textViewSN.setBackgroundResource(R.drawable.cell_shape_white)
-//        textViewCity.setBackgroundResource(R.drawable.cell_shape_grey)
-//        textViewAirport.setBackgroundResource(R.drawable.cell_shape_white)
-//        textViewCode.setBackgroundResource(R.drawable.cell_shape_grey)
-//        textViewCountry.setBackgroundResource(R.drawable.cell_shape_white)
-        tableRow.addView(textViewSN)
-        tableRow.addView(textViewCity)
-        tableRow.addView(textViewAirport)
-        tableRow.addView(textViewCode)
-        tableRow.addView(textViewCountry)
-        if (index == -1) {
-            tableRowHeader = tableRow
-            textViewSN.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.font_size_small).toInt().toFloat()
-            )
-            textViewCity.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.font_size_small).toInt().toFloat()
-            )
-            textViewAirport.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.font_size_small).toInt().toFloat()
-            )
-            textViewCode.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.font_size_small).toInt().toFloat()
-            )
-            textViewCountry.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.font_size_small).toInt().toFloat()
-            )
-
-        }
-        tableLayout!!.addView(tableRow, index + 1)
-    }
-
     override fun ItemClick(cardPosition: Int, position: Int) {
     }
 
     override fun onVariationChanged(variation: HashMap<String, String>) {
-        Log.e("mmmmmmmmmmmmm", "onVariationChanged: "+variation.toString() )
+        Log.e("mmmmmmmmmmmmm", "onVariationChanged: " + variation.toString())
         getFilteredProductDetail(p_id, product_detail_id, variation)
+    }
+
+    override fun onItemClick(position: Int, itemList: List<String>) {
+
+        val intent = Intent(this@ProductDetailsActivity, ImagePreviewActivity::class.java)
+        intent.putStringArrayListExtra("imageUrl",  ArrayList(itemList))
+        intent.putExtra("position",position)
+        startActivity(intent)
+
     }
 
 

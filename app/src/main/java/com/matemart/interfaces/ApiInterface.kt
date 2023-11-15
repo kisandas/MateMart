@@ -6,6 +6,7 @@ import com.matemart.model.*
 import com.matemart.model.login.UserResponse
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,6 +22,10 @@ interface ApiInterface {
     @GET("laboures-filter")
     fun getLabourFilter(): Call<ResGetLabourFilter>?
 
+    @GET("guest-user")
+    fun getGuestUser(): Call<GuestUserModel>?
+
+
     @POST("laboures")
     fun getAllLabour(@Body jsonObject: JsonObject): Call<ResGetLabour>?
 
@@ -30,6 +35,9 @@ interface ApiInterface {
 
     @POST("single-architect")
     fun getSingleArchitect(@Body jsonObject: JsonObject): Call<ResGetSingleArchitect>?
+
+    @POST("refresh-token")
+    fun refreshTokenForPush(@Body jsonObject: JsonObject): Call<CommonResponse>?
 
     @GET("profile-details")
     fun getUserProfile(): Call<ResGetProfileDetails>?
@@ -113,8 +121,19 @@ interface ApiInterface {
     @POST("compare-product")
     fun getCompareProductDetail(@Body jsonObject: JsonObject): Call<CompareProductDetailResponse>?
 
+    @POST("compare-product-with-brand")
+    fun getCompareBrand(@Body jsonObject: JsonObject): Call<CompareBrandFilter>?
+
+
     @POST("single-product-filter")
     fun getSingleProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?
+
+
+    @POST("get-filter")
+    fun getAllFilter(@Body jsonObject: JsonObject): Call<FilterModelClass>?
+
+    @POST("filter-products")
+    fun getFilteredProduct(@Body jsonObject: JsonObject): Call<ResponseProductList>?
 
 
     @POST("razorpay-url")

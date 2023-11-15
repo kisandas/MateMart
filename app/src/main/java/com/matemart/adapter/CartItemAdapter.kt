@@ -13,6 +13,7 @@ import com.example.example.RemoveCartResponse
 import com.google.gson.JsonObject
 import com.makeramen.roundedimageview.RoundedImageView
 import com.matemart.R
+import com.matemart.activities.AddOrRemoveCartListener
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.CartDataModel
 import com.matemart.utils.Service
@@ -22,7 +23,7 @@ import retrofit2.Response
 
 class CartItemAdapter(
     private val viewList: ArrayList<CartDataModel>?,
-    private val mContext: Context
+    private val mContext: Context,private val cartListener: AddOrRemoveCartListener
 ) : RecyclerView.Adapter<CartItemAdapter.ItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -69,7 +70,7 @@ class CartItemAdapter(
                       holder.iv_minus.visibility = View.VISIBLE
                       holder.tv_count.visibility = View.VISIBLE
                       holder.tv_count.text = "" + count[0]
-                      addToCart(item, count[0])
+                      cartListener.onAddCartAdded(item,count[0])
                       //                    call ApI for Add into cart
                   }
               } else {
@@ -87,102 +88,23 @@ class CartItemAdapter(
             if (count[0] < 1) {
                 holder.iv_minus.visibility = View.GONE
                 holder.tv_count.visibility = View.GONE
-                removeFromCart(item)
+
+                cartListener.onCartRemoved(item)
 //                    call ApI for Remove from cart
             } else {
-                addToCart(item, count[0])
+                cartListener.onAddCartAdded(item,count[0])
+//                addToCart(item, count[0])
             }
 
             holder.tv_count.text = "" + count[0]
         }
         holder.ivClose.setOnClickListener {
-            removeFromCart(item)
+            cartListener.onCartRemoved(item)
+//            removeFromCart(item)
         }
     }
 
-    private fun addToCart(item: CartDataModel, count: Int) {
-        var jsonObject: JsonObject = JsonObject()
-        jsonObject.addProperty("product_detail_id", item.productDetailId)
-        jsonObject.addProperty("qty", count)
-        jsonObject.addProperty("sample", 0)
 
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, mContext)
-        var call: Call<AddCartResponse> = apiInterface.addIntoCart(jsonObject)!!
-
-        call.enqueue(object : Callback<AddCartResponse> {
-            override fun onResponse(
-                call: Call<AddCartResponse>,
-                response: Response<AddCartResponse>
-            ) {
-                if (response.body()?.statuscode == 11) {
-                    Toast.makeText(
-                        mContext,
-                        "Item Added to Cart",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        mContext,
-                        "Something went wrong",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<AddCartResponse>, t: Throwable) {
-                Toast.makeText(
-                    mContext,
-                    "Something went wrong",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            }
-
-        })
-
-    }
-
-
-    private fun removeFromCart(item: CartDataModel) {
-        var jsonObject: JsonObject = JsonObject()
-        jsonObject.addProperty("product_detail_id", item.productDetailId)
-
-
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, mContext)
-        var call: Call<RemoveCartResponse> = apiInterface.removeFromCart(jsonObject)!!
-
-        call.enqueue(object : Callback<RemoveCartResponse> {
-            override fun onResponse(
-                call: Call<RemoveCartResponse>,
-                response: Response<RemoveCartResponse>
-            ) {
-                if (response.body()?.statuscode == 11) {
-                    Toast.makeText(
-                        mContext,
-                        "Item Removed from Cart",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        mContext,
-                        "Something went wrong",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<RemoveCartResponse>, t: Throwable) {
-                Toast.makeText(
-                    mContext,
-                    "Something went wrong",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            }
-
-        })
-
-    }
 
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

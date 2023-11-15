@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,12 +52,10 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
         Glide.with(mContext).load(viewList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(holder.iv_category_image);
         holder.tv_lable.setText(viewList.get(position).getTitle());
-        if (viewList.get(position).getColor() != null) {
-            try {
-                holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(viewList.get(position).getColor())));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        if (position> 0 && viewList.get(position).getColor() != null ) {
+            Log.e("cvccccccccccc", "onBindViewHolder: "+ viewList.get(position).getColor());
+//            holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(viewList.get(position).getColor())));
+
         }
 
 //        holder.tv_sub_lable.setText(viewList.get(position).getSubLabel());

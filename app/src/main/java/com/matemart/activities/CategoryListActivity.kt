@@ -1,6 +1,7 @@
 package com.matemart.activities
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,6 +23,7 @@ import retrofit2.Response
 class CategoryListActivity : AppCompatActivity() {
 
     lateinit var rvCategories: RecyclerView
+    lateinit var ivBack: ImageView
     lateinit var adapter: CategoryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,12 +31,18 @@ class CategoryListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_category_list)
 
         rvCategories = findViewById(R.id.rvCategories)
+        ivBack = findViewById(R.id.iv_back)
 
         val layoutManager =
             GridLayoutManager(this, 2)
         rvCategories.layoutManager = layoutManager
         adapter = CategoryListAdapter(list, this,false)
         rvCategories.adapter = adapter
+
+
+        ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         getAllCategory()
     }
 

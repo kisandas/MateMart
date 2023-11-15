@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class Utils {
 
-
+public static String LOGIN_MESSAGE ="Please do logIn First!";
     public static String ERROR_MESSAGE = "Oops!! Something went wrong. Please try again after some time!";
     public static String ERROR_TITLE = "Something went wrong!";
 

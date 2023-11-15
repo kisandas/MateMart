@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_filter"
-    tools:context=".activities.FilterProductActivity">
+    tools:context=".activities.FilterActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:background="@drawable/bg_view_shadow"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,7 +35,7 @@
             android:layout_weight="0.8"
             android:fontFamily="@font/font_inter_bold"
             android:maxLines="1"
-            android:text="Reviews"
+            android:text="Filters"
             android:textColor="@color/theme_blue_38B449"
             android:textSize="18sp" />
 
@@ -46,43 +45,63 @@
     <RelativeLayout
         android:id="@+id/rel_main_filter"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.88"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/relativeLayout_view_filter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/linearLayout_text_filter">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/filterKey"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:background="@drawable/default_background"
+                android:paddingRight="1dp"
+                />
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.7">
+                <EditText
+                    android:id="@+id/etSearchProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/gray_f4f4f4"
+                    android:paddingVertical="@dimen/_10sdp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:maxLines="1"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:textColorHint="@color/dark_gray_b3b3b3"
+                    android:hint="Search here.." />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_filter"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/rec_filter"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.35" />
+                    android:id="@+id/filterValue"
+                    android:layout_width="match_parent"
 
-                <FrameLayout
-                    android:id="@+id/frameLayout_filter"
-                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@+id/recyclerView_filter"
-                    app:layout_constraintStart_toEndOf="@+id/recyclerView_filter"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.65" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </RelativeLayout>
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout_text_filter"
@@ -98,38 +117,42 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="65dp"
+                android:gravity="center_vertical"
+                android:padding="4dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2.6">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/textView_close_filter"
+                    android:id="@+id/tvReset"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Close"
-                    android:textColor="@color/textView_filter"
+                    android:background="@drawable/bg_round_corner_with_stroke_blue_radius_6"
+                    android:text="Reset"
+                    android:textColor="@color/theme_blue_38B449"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="4dp"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/view_filter" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/textView_apply_filter"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:layout_weight="1.6"
                     android:gravity="center"
                     android:text="Apply"
-                    android:textColor="@color/textView_filter"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/bg_round_corner_with_blue_radius_6"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

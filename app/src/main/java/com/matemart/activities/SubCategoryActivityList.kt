@@ -2,6 +2,7 @@ package com.matemart.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ class SubCategoryActivityList : AppCompatActivity() {
 
     lateinit var tvTitle: TextView
     lateinit var rvSubCategory: RecyclerView
+    lateinit var iv_back: ImageView
     lateinit var adapter: CategoryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,25 +34,29 @@ class SubCategoryActivityList : AppCompatActivity() {
 
         tvTitle = findViewById(R.id.tvTitle)
         rvSubCategory = findViewById(R.id.rvSubCategory)
+        iv_back = findViewById(R.id.iv_back)
+
+        iv_back.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
 
         tvTitle.text = intent.getStringExtra("title")
         val layoutManager =
             GridLayoutManager(this, 2)
         rvSubCategory.layoutManager = layoutManager
-        adapter = CategoryListAdapter(list, this,true)
+        adapter = CategoryListAdapter(list, this, true)
         rvSubCategory.adapter = adapter
-        getSubCategory(intent.getIntExtra("c_id",0))
+        getSubCategory(intent.getIntExtra("c_id", 0))
     }
 
     var list: ArrayList<CategoryModel> = arrayListOf()
-    private fun getSubCategory(c_id : Int) {
+    private fun getSubCategory(c_id: Int) {
         var jsonObject = JsonObject()
         jsonObject.addProperty("c_id", c_id)
-        Log.e("mmmmmm", "getSubCategory: "+jsonObject.toString() )
+        Log.e("mmmmmm", "getSubCategory: " + jsonObject.toString())
 
 
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@SubCategoryActivityList)
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SubCategoryActivityList)
         var call: Call<ResponseCategory> = apiInterface.getSubCategory(jsonObject)!!
 
         call.enqueue(object : Callback<ResponseCategory> {
@@ -58,7 +64,7 @@ class SubCategoryActivityList : AppCompatActivity() {
                 call: Call<ResponseCategory>,
                 response: Response<ResponseCategory>
             ) {
-                if (response.body()?.statuscode ==11) {
+                if (response.body()?.statuscode == 11) {
                     response.body()?.data?.let { list.addAll(it) }
                     adapter!!.notifyDataSetChanged()
                 } else {

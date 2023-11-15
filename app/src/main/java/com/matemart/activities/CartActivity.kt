@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.example.RemoveCartResponse
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -22,10 +23,7 @@ import com.matemart.databinding.ActivityCartBinding
 import com.matemart.fragments.ChoosePictureBottomSheetFragment
 import com.matemart.fragments.CitySelectionBottomSheetFragment
 import com.matemart.interfaces.ApiInterface
-import com.matemart.model.AllOrderResponseResponse
-import com.matemart.model.CartDataModel
-import com.matemart.model.CartResponseModel
-import com.matemart.model.RazorPayURLResponse
+import com.matemart.model.*
 import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
 import com.matemart.utils.SharedPrefHelper
@@ -34,7 +32,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class CartActivity : AppCompatActivity() {
+class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
     private var binding: ActivityCartBinding? = null
     var paymentMode = 0
 
@@ -140,7 +138,7 @@ class CartActivity : AppCompatActivity() {
             } else if (paymentMode == 2) {
 //                Payment Receipt
 
-//                uploadPaymentReciept()
+                uploadPaymentReciept()
             } else if (paymentMode == 3) {
 //                Cash on Delivery
 
@@ -172,7 +170,8 @@ class CartActivity : AppCompatActivity() {
                             binding?.llEmptyView?.visibility = GONE
                             binding?.llCartItemLayout?.visibility = VISIBLE
                             var cartList = ArrayList(it)
-                            val adapter = CartItemAdapter(cartList, this@CartActivity)
+                            val adapter =
+                                CartItemAdapter(cartList, this@CartActivity, this@CartActivity)
                             val layoutManager = LinearLayoutManager(this@CartActivity)
                             binding?.llNonEmptyCart?.rcCart?.layoutManager = layoutManager
                             binding?.llNonEmptyCart?.rcCart?.setAdapter(adapter)
@@ -205,7 +204,10 @@ class CartActivity : AppCompatActivity() {
                                 String.format("%.2f", (total_gst + total)).toDouble().toString()
                             cartListItem = cartList.size
                             binding?.llNonEmptyCart?.btnConfirmOrder?.text =
-                                "Buy " + cartList.size + " items for " +  String.format("%.2f", (total_gst + total)).toDouble().toString()
+                                "Buy " + cartList.size + " items for " + String.format(
+                                    "%.2f",
+                                    (total_gst + total)
+                                ).toDouble().toString()
                             amount = String.format("%.2f", (total_gst + total)).toDouble()
                         }
 
@@ -284,11 +286,19 @@ class CartActivity : AppCompatActivity() {
 
     fun uploadPaymentReciept() {
 
-        cdd = ChoosePictureBottomSheetFragment(
-            "receipt",
-            40
-        )
-        cdd!!.show(supportFragmentManager, "TAG2")
+        ImagePicker.with(this@CartActivity)
+            .compress(1024) //Final image size will be less than 1 MB(Optional)
+            .maxResultSize(
+                1080,
+                1080
+            ) //Final image resolution will be less than 1080 x 1080(Optional)
+            .start()
+
+//        cdd = ChoosePictureBottomSheetFragment(
+//            "receipt",
+//            40
+//        )
+//        cdd!!.show(supportFragmentManager, "TAG2")
 
 //        ImagePicker.with(this@CartActivity)
 //            .crop(1f, 1f) //Crop image(Optional), Check Customization for more option
@@ -303,7 +313,8 @@ class CartActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == requestCode && resultCode == Activity.RESULT_OK) {
+        Log.e("checkkkkkkkkkjj", "onActivityResult: "+data?.data.toString() )
+        if (requestCode == REQUEST_CODE_COUPON && resultCode == Activity.RESULT_OK) {
             discountAmount = data?.getIntExtra("discountAmount", 0)!!
             Log.e("discountAmount", "onActivityResult: " + discountAmount)
             binding!!.llNonEmptyCart.tvCouponDiscount.text = "-$discountAmount"
@@ -314,6 +325,12 @@ class CartActivity : AppCompatActivity() {
             binding?.llNonEmptyCart?.btnConfirmOrder?.text =
                 "Buy $cartListItem items for ₹$amount"
             // Handle the result here
+        }else{
+
+
+            startActivity(Intent(this@CartActivity,PreviewReceiptActivity::class.java).putExtra("imageUri",data!!.data.toString()))
+
+
         }
     }
 
@@ -412,5 +429,108 @@ class CartActivity : AppCompatActivity() {
         })
     }
 
+    override fun onAddCartAdded(data: CartDataModel, qty: Int) {
+        addToCart(data, qty)
+    }
+
+    override fun onCartRemoved(data: CartDataModel) {
+        removeFromCart(data)
+    }
+
+
+    private fun removeFromCart(item: CartDataModel) {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("product_detail_id", item.productDetailId)
+
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@CartActivity)
+        var call: Call<RemoveCartResponse> = apiInterface.removeFromCart(jsonObject)!!
+
+        call.enqueue(object : Callback<RemoveCartResponse> {
+            override fun onResponse(
+                call: Call<RemoveCartResponse>,
+                response: Response<RemoveCartResponse>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    Toast.makeText(
+                        this@CartActivity,
+                        "Item Removed from Cart",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    getCartData()
+                } else {
+                    Toast.makeText(
+                        this@CartActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RemoveCartResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@CartActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
+    }
+
+    private fun addToCart(item: CartDataModel, count: Int) {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("product_detail_id", item.productDetailId)
+        jsonObject.addProperty("qty", count)
+        jsonObject.addProperty("sample", 0)
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@CartActivity)
+        var call: Call<AddCartResponse> = apiInterface.addIntoCart(jsonObject)!!
+
+        call.enqueue(object : Callback<AddCartResponse> {
+            override fun onResponse(
+                call: Call<AddCartResponse>,
+                response: Response<AddCartResponse>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    Toast.makeText(
+                        this@CartActivity,
+                        "Item Added to Cart",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    getCartData()
+                } else {
+                    Toast.makeText(
+                        this@CartActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AddCartResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@CartActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
+    }
+
+
+}
+
+interface AddOrRemoveCartListener {
+    fun onAddCartAdded(data: CartDataModel, qty: Int)
+
+    fun onCartRemoved(data: CartDataModel)
 }
 

@@ -32,11 +32,13 @@ import com.matemart.utils.ImageSlider;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements WishListUpdateListner {
 
     ArrayList<HomeDetailModel> cardList;
     private Context mContext;
+
     public MainStoreAdapter(ArrayList<HomeDetailModel> cardList, Context context) {
         this.cardList = cardList;
         this.mContext = context;
@@ -132,7 +134,7 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     ((ItemHomeProductListHolder) holder).tv_title.setText(cardList.get(position).getTitle());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
                     ((ItemHomeProductListHolder) holder).rcHomeProductList.setLayoutManager(layoutManager);
-                    ProductItemAdapter adapter = new ProductItemAdapter(new ArrayList(cardList.get(position).getViewList()), mContext,this);
+                    ProductItemAdapter adapter = new ProductItemAdapter(new ArrayList(cardList.get(position).getViewList()), mContext, this);
                     ((ItemHomeProductListHolder) holder).rcHomeProductList.setAdapter(adapter);
 
                     if (cardList.get(position).getViewAll() != null && cardList.get(position).getViewAll().getTotal_record() > 0) {
@@ -145,7 +147,9 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     ((ItemHomeProductListHolder) holder).tv_viewAll.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class).putExtra("clickId",cardList.get(position).getViewAll().getClickId()).putExtra("title",cardList.get(position).getTitle()));
+                            mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class)
+                                    .putExtra("clickId", cardList.get(position).getViewAll().getClickId())
+                                    .putExtra("title", cardList.get(position).getTitle()));
                         }
                     });
 
@@ -174,7 +178,7 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     ((ItemTopCategoryHolder) holder).tv_view_all.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            mContext.startActivity(new Intent(mContext, CategoryListActivity.class).putExtra("clickId",cardList.get(position).getViewAll().getClickId()).putExtra("title",cardList.get(position).getTitle()));
+                            mContext.startActivity(new Intent(mContext, CategoryListActivity.class).putExtra("clickId", cardList.get(position).getViewAll().getClickId()).putExtra("title", cardList.get(position).getTitle()));
 
                         }
                     });
@@ -217,10 +221,20 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(width, height);
                         param.addRule(RelativeLayout.BELOW, R.id.tv_title);
                         param.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
+                        param.topMargin = 10;
 
                         ((ItemBannerViewHolder) holder).iv_banner.setLayoutParams(param);
                         Glide.with(mContext).load(cardList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(((ItemBannerViewHolder) holder).iv_banner);
+                    }
+                });
+
+                ((ItemBannerViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (cardList.get(position).getClickId() != null && !cardList.get(position).getClickId().isEmpty())
+                            mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class)
+                                    .putExtra("clickId", cardList.get(position).getClickId())
+                                    .putExtra("title", cardList.get(position).getTitle()));
                     }
                 });
 
@@ -261,8 +275,11 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 ((ItemBanner2ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        openWebURLInBrowser(cardList.get(position).getImage());
+                    public void onClick(View v) {
+                        if (!Objects.equals(cardList.get(position).getClickId(), "null") && cardList.get(position).getClickId() != null && !cardList.get(position).getViewAll().getClickId().isEmpty())
+                            mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class)
+                                    .putExtra("clickId", cardList.get(position).getClickId())
+                                    .putExtra("title", cardList.get(position).getTitle()));
                     }
                 });
 
@@ -270,6 +287,16 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
     }
+
+    public static Object convertStringToIntOrReturnOriginal(String input) {
+        try {
+            int intValue = Integer.parseInt(input);
+            return intValue; // Return the integer value
+        } catch (NumberFormatException e) {
+            return input; // Return the original string
+        }
+    }
+
 
     @Override
     public int getItemCount() {

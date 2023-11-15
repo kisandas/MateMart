@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_140sdp"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_10sdp"
-    app:cardElevation="@dimen/_4sdp">
+    android:layout_width="175dp"
+    android:layout_height="270dp"
+    android:layout_marginHorizontal="6dp"
+    android:layout_marginVertical="8dp"
+    android:maxHeight="180dp"
+    app:cardCornerRadius="@dimen/_10sdp">
 
     <RelativeLayout
         android:id="@+id/rlMainProduct"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_product_details">
 
         <ImageView
             android:id="@+id/iv_product_image"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:src="@drawable/sample" />
+
         <ImageView
             android:id="@+id/iv_remove_whishlist"
             android:layout_width="@dimen/_24sdp"
@@ -52,7 +55,7 @@
                 android:lines="2"
                 android:text="Slim panal light 6Watt round"
                 android:textColor="@color/dark_gray_4d4d4d"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvRating"
@@ -81,68 +84,82 @@
             android:textColor="@color/red_c70000"
             android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/tv_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_text_left_stock"
-            android:layout_marginLeft="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:fontFamily="@font/font_inter_extra_bold"
-            android:text="₹1620"
-            android:textColor="@color/theme_blue_38B449"
-            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/tv_original_price"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_amount"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="6dp"
             android:layout_marginLeft="@dimen/_4sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
-            android:fontFamily="@font/font_inter_regular"
-            android:text="₹1620"
-            android:textColor="@color/dark_gray_b3b3b3"
-            android:textSize="13sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_original_price"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/font_inter_extra_bold"
+                android:text="₹1620"
+                android:textColor="@color/theme_blue_38B449"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_original_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+
+                android:fontFamily="@font/font_inter_regular"
+                android:foreground="@drawable/striking_text"
+                android:paddingHorizontal="2dp"
+                android:text="₹1620"
+                android:textColor="@color/dark_gray_b3b3b3"
+                android:textSize="13sp" />
+
+
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/qtyLayout"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_78sdp"
-            android:layout_below="@id/ll_product_name"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginVertical="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:paddingBottom="6dp"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_minus"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@+id/tv_count"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
+                android:layout_above="@+id/tv_count"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_remove_cart" />
 
             <TextView
                 android:id="@+id/tv_count"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@+id/iv_plus"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
-                android:layout_marginVertical="@dimen/_5sdp"
+                android:layout_above="@+id/iv_plus"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="@dimen/_4sdp"
                 android:fontFamily="@font/font_inter_bold"
                 android:gravity="center"
-                android:text="45"
+                android:text="0"
                 android:textColor="@color/theme_blue_38B449"
                 android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_plus"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_add_cart" />
         </RelativeLayout>
 
@@ -150,24 +167,24 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_bg_alpha"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.6"
         android:background="@color/gray_171717"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/rl_bg_alpha"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvOutOfStock"
@@ -177,10 +194,10 @@
             android:background="@drawable/bg_round_corner_radius_4"
             android:backgroundTint="@color/light_red_ffefca"
             android:fontFamily="@font/font_inter_bold"
+            android:gravity="center"
             android:paddingHorizontal="@dimen/_8sdp"
             android:paddingVertical="@dimen/_2sdp"
             android:text="Out Of Stock"
-            android:gravity="center"
             android:textColor="@color/red_c70000"
             android:textSize="16sp" />
 
@@ -193,10 +210,10 @@
             android:layout_marginBottom="@dimen/_16sdp"
             android:background="@drawable/bg_round_corner_with_stroke_radius_16"
             android:fontFamily="@font/font_inter_semibold"
+            android:gravity="center"
             android:paddingHorizontal="@dimen/_8sdp"
             android:paddingVertical="@dimen/_6sdp"
             android:text="View Similar Product"
-            android:gravity="center"
             android:textColor="@color/theme_blue_38B449"
             android:textSize="11sp" />
     </RelativeLayout>

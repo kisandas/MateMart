@@ -65,7 +65,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         holder.tv_lable.setText(categoryList.get(position).getTitle());
         if (categoryList.get(position).getColor() != null && !isSubCategory) {
             try {
-                holder.iv_category_image.setBackgroundColor(Color.parseColor(categoryList.get(position).getColor()));
+//                holder.iv_category_image.setBackgroundColor(Color.parseColor(categoryList.get(position).getColor()));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
