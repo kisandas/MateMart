@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import com.matemart.R
 import com.matemart.activities.SearchProductFromCategoryActivity.Companion.actualMap
+import com.matemart.activities.SearchProductFromCategoryActivity.Companion.maxPrice
+import com.matemart.activities.SearchProductFromCategoryActivity.Companion.minPrice
 import com.matemart.adapter.FilterKeyAdapter
 import com.matemart.adapter.FilterValueAdapter
 import com.matemart.databinding.ActivityFilterBinding
@@ -141,7 +143,7 @@ class FilterActivity : AppCompatActivity() {
 
 
     fun filterList(query: String) {
-        val filteredList = currentValue.filter { item -> item.name?.contains(query, ignoreCase = true) == true }
+        val filteredList = currentValue.filter { item -> item.name.toString().contains(query, ignoreCase = true) }
         valueAdapter.setData(filteredList,currentKey)
     }
 

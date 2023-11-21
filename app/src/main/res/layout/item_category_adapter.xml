@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             android:scaleType="centerInside"
-            android:paddingHorizontal="@dimen/_25sdp"
-            android:paddingVertical="@dimen/_25sdp"
+          android:padding="@dimen/_16sdp"
             android:src="@drawable/sample" />
 
 

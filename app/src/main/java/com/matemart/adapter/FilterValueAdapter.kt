@@ -1,13 +1,19 @@
 package com.matemart.adapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.matemart.R
+import com.matemart.activities.SearchProductFromCategoryActivity.Companion.actualMap
+import com.matemart.activities.SearchProductFromCategoryActivity.Companion.maxPrice
+import com.matemart.activities.SearchProductFromCategoryActivity.Companion.minPrice
 import com.matemart.model.FilterBody
 
 
@@ -15,14 +21,28 @@ class FilterValueAdapter(
     private var valueList: ArrayList<FilterBody>,
     private var keyValue: String,
     private val onClickValue: (key: String, data: FilterBody, isChecked: Boolean) -> Unit
-) : RecyclerView.Adapter<FilterValueAdapter.ViewHolder>() {
+) : RecyclerView.Adapter< RecyclerView.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
-        val view = layoutInflater.inflate(R.layout.item_rc_value_inner, parent, false)
-        return ViewHolder(view)
+        val view :View
+        if(viewType == 0) {
+            view = layoutInflater.inflate(R.layout.item_rc_value_inner, parent, false)
+            return ViewHolder(view)
+        }else{
+            view = layoutInflater.inflate(R.layout.item_rc_price_value_inner, parent, false)
+            return PriceViewHolder(view)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(holder is ViewHolder) {
+            (holder).bindData(valueList[position])
+        }else{
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -37,13 +57,10 @@ class FilterValueAdapter(
         notifyDataSetChanged()
         Log.e("checkSizeeeee", "set size: " +  this.valueList.size)
 
-//
     }
 
     // This method is called when binding the data to the views being created in RecyclerView
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindData(valueList[position])
-    }
+
 
     // This is your ViewHolder class that helps to populate data to the view
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -58,7 +75,7 @@ class FilterValueAdapter(
 
         fun bindData(filterBody: FilterBody) {
 
-            tvState.text = filterBody.name
+            tvState.text = filterBody.name.toString()
 
             icCheckBox.isChecked =filterBody.isDisabled
 
@@ -76,5 +93,94 @@ class FilterValueAdapter(
                 onClickValue(keyValue,filterBody, isChecked)
             }
         }
+    }
+
+
+
+    inner class PriceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val etMinPrice: EditText
+        val etMaxPrice: EditText
+
+        init {
+            etMinPrice = itemView.findViewById(R.id.etMinPrice)
+            etMaxPrice = itemView.findViewById(R.id.etMaxPrice)
+
+
+            etMinPrice.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                        // This method is called before the text is changed
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        // This method is called when the text is being changed
+                        val text = s.toString()
+                        updateActualMap(etMinPrice.text.toString(), etMaxPrice.text.toString())
+
+
+                        // Do something with the changed text
+                        // For example, you might want to update a variable with the new minimum price
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        // This method is called after the text has been changed
+                    }
+                })
+
+            etMaxPrice.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // This method is called before the text is changed
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // This method is called when the text is being changed
+                    val text = s.toString()
+                    updateActualMap(etMinPrice.text.toString(), etMaxPrice.text.toString())
+
+                    // Do something with the changed text
+                    // For example, you might want to update a variable with the new minimum price
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // This method is called after the text has been changed
+                }
+            })
+        }
+
+        private fun updateActualMap(text1: String, text2: String) {
+            val doubleText1 = text1.toDoubleOrNull()
+            val doubleText2 = text2.toDoubleOrNull()
+
+
+            // Check for null or empty conditions before converting to doubles
+            if (text1.isNotEmpty() && doubleText1 != null && text2.isNotEmpty() && doubleText2 != null) {
+
+                minPrice = text1.toDouble()
+                maxPrice = text2.toDouble()
+//                val filterBodyList = mutableListOf<FilterBody>()
+//
+//                // Ensure the list size remains fixed at 2 elements
+//                if (filterBodyList.size < 2) {
+//                    filterBodyList.add(FilterBody(doubleText1)) // Replace FilterBody with your actual class
+//                    filterBodyList.add(FilterBody(doubleText2)) // Replace FilterBody with your actual class
+//                } else {
+//                    filterBodyList[0] = FilterBody(doubleText1)
+//                    filterBodyList[1] = FilterBody(doubleText2)
+//                }
+//
+//                // Update actualMap with the "price" key and the filterBodyList
+//                actualMap?.put("price", filterBodyList)
+            }
+        }
+
+
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if(keyValue == "price"){
+            return 1
+        }else{
+            return 0
+        }
+
     }
 }

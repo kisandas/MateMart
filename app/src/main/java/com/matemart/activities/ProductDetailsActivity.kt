@@ -6,6 +6,9 @@ import android.text.Html
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemChangeListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.example.example.RemoveCartResponse
 import com.google.gson.JsonObject
 import com.matemart.R
 import com.matemart.adapter.ImagePreviewSliderAdapter
@@ -27,9 +31,11 @@ import com.matemart.adapter.VariationOuterAdapter
 import com.matemart.databinding.ActivityProductDetailsBinding
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.SliderItemClickListner
+import com.matemart.model.AddCartResponse
 import com.matemart.model.GetProductDetailsResponse
-import com.matemart.utils.ReadMoreOption
-import com.matemart.utils.Service
+import com.matemart.model.Product
+import com.matemart.model.ViewListModel
+import com.matemart.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,6 +53,10 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
     var adapterRating: RatingBarListAdapter? = null
     var adapterVariationOuter: VariationOuterAdapter? = null
 
+    val count = intArrayOf(0)
+
+    var product :Product ? = null
+
     companion object {
         val finalSelectedVariation = HashMap<String, String>()
     }
@@ -59,7 +69,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
 
         readMoreOption = ReadMoreOption.Builder(this)
-            .textLength(2, ReadMoreOption.TYPE_LINE) // OR
+            .textLength(3, ReadMoreOption.TYPE_LINE) // OR
             //.textLength(300, ReadMoreOption.TYPE_CHARACTER)
             .moreLabel(getString(R.string.read_more))
             .lessLabel(getString(R.string.read_less))
@@ -77,6 +87,69 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         binding.ivBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+
+        binding.ivPlus.setOnClickListener {
+
+            if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                    .read(SharedPrefHelper.IS_USER_GUEST, false)
+            ) {
+                Toast.makeText(
+                    this@ProductDetailsActivity,
+                    Utils.LOGIN_MESSAGE,
+                    Toast.LENGTH_LONG
+                ).show()
+
+                var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
+
+                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
+                pref.write(SharedPrefHelper.EMAIL, "")
+                pref.write(SharedPrefHelper.USER_ID, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
+                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
+                pref.write(SharedPrefHelper.KEY_CCID, "")
+                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+
+
+                startActivity(Intent(this@ProductDetailsActivity, LoginActivity::class.java))
+
+            }else {
+                product?.let {
+                    if (count[0] < product?.total_quantity!!) {
+                        count[0]++
+                        if (count[0] > 0) {
+                            binding.ivMinus.visibility = View.VISIBLE
+                            binding.tvCount.visibility = View.VISIBLE
+                            binding.tvCount.text = "" + count[0]
+                            addToCart(product!!, count[0])
+                            //                    call ApI for Add into cart
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@ProductDetailsActivity,
+                            "Only " + product!!.total_quantity + " items available",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+
+        binding.ivMinus.setOnClickListener {
+            count[0]--
+            product?.let {
+                if (count[0] < 1) {
+                    binding.ivMinus.visibility = View.GONE
+                    binding.tvCount.visibility = View.GONE
+                    removeFromCart(product!!)
+//                    call ApI for Remove from cart
+                } else {
+                    addToCart(product!!, count[0])
+                }
+
+                binding.tvCount.text = "" + count[0]
+            }
+        }
+
 
         binding.tvAllReview.setOnClickListener {
             startActivity(
@@ -110,8 +183,14 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                     if (data != null) {
 
                         binding.tvProductName.text = data.product.p_name
-                        binding.tvPrice.text = data.product.saleprice
-                        binding.tvSalePrice.text = data.product.price
+                        binding.tvPrice.text = data.product.price
+                        binding.tvSalePrice.text = data.product.saleprice
+                        product = data.product
+
+
+                        if (data.product.cart != null) {
+                            count[0] = data.product.cart.qty
+                        }
 
                         val imageList = ArrayList<SlideModel>()
                         for (item in data.product.images) {
@@ -130,23 +209,33 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             this@ProductDetailsActivity
                         )
 
+                        binding.imageSlider.setItemClickListener(object:SliderItemClickListner{
+                            override fun ItemClick(cardPosition: Int, position: Int) {
 
-                        binding.rcImageList.apply {
-                            val adapter = ImagePreviewSliderAdapter(
-                                this@ProductDetailsActivity,
-                                data.product.images,
-                                this@ProductDetailsActivity
-                            )
-                            layoutManager =
-                                LinearLayoutManager(this@ProductDetailsActivity, HORIZONTAL, false)
-                            binding.rcImageList.adapter = adapter
-
-                            var obj = object : ItemChangeListener {
-                                override fun onItemChanged(position: Int) {
-                                    adapter.setSelectedPosition(position)
-                                }
+                                val intent = Intent(this@ProductDetailsActivity, ImagePreviewActivity::class.java)
+                                intent.putStringArrayListExtra("imageUrl",ArrayList(data.product.images))
+                                intent.putExtra("position", position)
+                                startActivity(intent)
                             }
-                        }
+                        })
+
+
+//                        binding.rcImageList.apply {
+//                            val adapter = ImagePreviewSliderAdapter(
+//                                this@ProductDetailsActivity,
+//                                data.product.images,
+//                                this@ProductDetailsActivity
+//                            )
+//                            layoutManager =
+//                                LinearLayoutManager(this@ProductDetailsActivity, HORIZONTAL, false)
+//                            binding.rcImageList.adapter = adapter
+//
+//                            var obj = object : ItemChangeListener {
+//                                override fun onItemChanged(position: Int) {
+//                                    adapter.setSelectedPosition(position)
+//                                }
+//                            }
+//                        }
 
 
                         adapterVariationOuter = VariationOuterAdapter(
@@ -165,13 +254,16 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         binding.rcVariationMain.adapter = adapterVariationOuter
 
 
-                        val description = data.product.description
-
+                        val description = data.product.description+"\n"
+                        val detail_description = data.product.detail_desc+"\n"
 
                         readMoreOption.addReadMoreTo(
                             binding.tvDescription, Html.fromHtml(description)
                         )
 
+                        readMoreOption.addReadMoreTo(
+                            binding.tvDetailDescription, Html.fromHtml(detail_description)
+                        )
 
                         adapterReview = ReviewListAdapter(this@ProductDetailsActivity, data.review)
                         binding.rcReviews.layoutManager = LinearLayoutManager(
@@ -180,6 +272,18 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             false
                         )
                         binding.rcReviews.adapter = adapterReview
+
+                        if(data.review.isEmpty()){
+                            binding.rcReviews.visibility = GONE
+                            binding.tvAllReview.visibility = GONE
+                            binding.viewReview.visibility = GONE
+                            binding.llReview.visibility = GONE
+                        }else{
+                            binding.rcReviews.visibility = VISIBLE
+                            binding.tvAllReview.visibility = VISIBLE
+                            binding.viewReview.visibility = VISIBLE
+                            binding.llReview.visibility = VISIBLE
+                        }
 
                         adapterRating = RatingBarListAdapter(
                             this@ProductDetailsActivity,
@@ -193,7 +297,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         )
                         binding.rcRating.adapter = adapterRating
 
-
+                        binding.tvTitle.text = data.product.p_name
                         binding.tvTotalRating.text =
                             "${data.rating}  Ratings And ${data.review_total} Reviews"
 
@@ -220,6 +324,89 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                     .show()
             }
         })
+    }
+
+    private fun addToCart(item: Product, count: Int) {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("product_detail_id", item.product_detail_id)
+        jsonObject.addProperty("qty", count)
+        jsonObject.addProperty("sample", 0)
+
+        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
+        var call: Call<AddCartResponse> = apiInterface.addIntoCart(jsonObject)!!
+
+        call.enqueue(object : Callback<AddCartResponse> {
+            override fun onResponse(
+                call: Call<AddCartResponse>,
+                response: Response<AddCartResponse>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    Toast.makeText(
+                        this@ProductDetailsActivity,
+                        response.body()?.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this@ProductDetailsActivity,
+                        response.body()?.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AddCartResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@ProductDetailsActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
+    }
+
+    private fun removeFromCart(item: Product) {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("product_detail_id", item.product_detail_id)
+
+
+        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
+        var call: Call<RemoveCartResponse> = apiInterface.removeFromCart(jsonObject)!!
+
+        call.enqueue(object : Callback<RemoveCartResponse> {
+            override fun onResponse(
+                call: Call<RemoveCartResponse>,
+                response: Response<RemoveCartResponse>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    Toast.makeText(
+                        this@ProductDetailsActivity,
+                        "Item Removed from Cart",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this@ProductDetailsActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RemoveCartResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@ProductDetailsActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
     }
 
 
@@ -256,8 +443,14 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                     if (data != null) {
 
                         binding.tvProductName.text = data.product.p_name
-                        binding.tvPrice.text = data.product.saleprice
-                        binding.tvSalePrice.text = data.product.price
+                        binding.tvPrice.text = data.product.price
+                        binding.tvSalePrice.text = data.product.saleprice
+
+                        product = data.product
+
+                        if (data.product.cart != null) {
+                            count[0] = data.product.cart.qty
+                        }
 
                         val imageList = ArrayList<SlideModel>()
                         for (item in data.product.images) {
@@ -292,7 +485,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         binding.rcVariationMain.adapter = adapterVariationOuter
 
 
-                        val description = data.product.description
+                        val description = data.product.description+"\n"
+                        val detailDescription = data.product.detail_desc+"\n"
 
                         Log.e("ccccccccc", "onResponse: " + description)
 
@@ -300,6 +494,9 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             binding.tvDescription, Html.fromHtml(description)
                         )
 
+                        readMoreOption.addReadMoreTo(
+                            binding.tvDetailDescription, Html.fromHtml(detailDescription)
+                        )
 
                         adapterReview = ReviewListAdapter(this@ProductDetailsActivity, data.review)
                         binding.rcReviews.layoutManager = LinearLayoutManager(
@@ -360,10 +557,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
     override fun onItemClick(position: Int, itemList: List<String>) {
 
-        val intent = Intent(this@ProductDetailsActivity, ImagePreviewActivity::class.java)
-        intent.putStringArrayListExtra("imageUrl",  ArrayList(itemList))
-        intent.putExtra("position",position)
-        startActivity(intent)
+
 
     }
 

@@ -3,8 +3,8 @@
     android:layout_width="wrap_content"
     android:id="@+id/llParentView"
     android:orientation="vertical"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="2dp"
     android:layout_height="wrap_content">
 
     <com.google.android.material.checkbox.MaterialCheckBox
@@ -17,6 +17,6 @@
         android:fontFamily="@font/font_inter_regular"
         android:text=""
         android:button="@null"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
 </LinearLayout>

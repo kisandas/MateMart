@@ -32,6 +32,8 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
     companion object{
         var actualMap: LinkedHashMap<String, List<FilterBody>>? = LinkedHashMap()
+        var minPrice:Double = 0.0
+        var maxPrice:Double = 0.0
     }
 
     lateinit var rcProductList: RecyclerView
@@ -40,7 +42,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
     var list: ArrayList<ViewListModel> = arrayListOf()
     lateinit var adapter: ProductItemAdapter
     lateinit var ivFilter: ImageView
-    var actualMap: HashMap<String, List<FilterBody>> = LinkedHashMap()
+
     var clickID = ""
     var c_id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +53,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
         ivFilter = findViewById(R.id.ivFilter)
         ivBack = findViewById(R.id.iv_back)
 
-        actualMap.clear()
+        actualMap?.clear()
 
         val searchEditText = findViewById<EditText>(R.id.etSearchProduct)
 
@@ -132,9 +134,12 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 //            Log.e("actualMap++++++++", "onActivityResult: "+ actualMap)
 
             if (actualMap != null) {
-                val obj = convertToJSON(actualMap)
+                Log.e("checkOBJJJ", "onActivityResult: actualMap    "+actualMap.toString() )
+                val obj = convertToJSON(actualMap!!)
 
-                Log.e("checkOBJJJ", "onActivityResult: 3333333333333" )
+
+
+                Log.e("checkOBJJJ", "onActivityResult: 3333333333333    "+obj.toString() )
                 if (clickID != null && clickID != "null" && clickID.isNotEmpty()) {
                     obj.addProperty("clickId", clickID)
                 }else{
@@ -160,11 +165,20 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
             for (filterBody in valueList) {
                 if (filterBody.isDisabled)
-                    nameArray.add(filterBody.name)
+                    nameArray.add(filterBody.name.toString())
             }
 
             if (nameArray.size() > 0)
                 jsonObject.add(key, nameArray)
+
+
+        }
+
+        if(minPrice != 0.0 || maxPrice != 0.0){
+            val priceArray = JsonArray()
+            priceArray.add(minPrice)
+            priceArray.add(maxPrice)
+            jsonObject.add("price",priceArray)
         }
 
         return jsonObject
@@ -251,6 +265,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
         var apiInterface: ApiInterface =
             Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
+        Log.e("checkkjjkjkj", "getFilteredData: "+jsonObject.toString() )
         var call: Call<ResponseProductList> = apiInterface.getFilteredProduct(jsonObject)!!
 
         call.enqueue(object : Callback<ResponseProductList> {

@@ -37,15 +37,17 @@ class RatingBarListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return 5
 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.binding.Rating.text = list[position].rating
-        holder.binding.ratingCount.text = list[position].count.toString()
-        holder.binding.progressRating.max = totalRating.toInt()
-        holder.binding.progressRating.progress = list[position].count
+        holder.binding.Rating.text = "${position+1}"
+        if(list.isNotEmpty()) {
+            holder.binding.ratingCount.text = list[position].count.toString()
+            holder.binding.progressRating.max = totalRating.toInt()
+            holder.binding.progressRating.progress = list[position].count
+        }
 
     }
 

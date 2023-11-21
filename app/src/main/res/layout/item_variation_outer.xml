@@ -13,7 +13,7 @@
         android:fontFamily="@font/font_inter_medium"
         android:text="Color"
         android:textColor="@color/dark_gray_4d4d4d"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcVariation"

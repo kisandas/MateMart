@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.matemart.R
 
-class ImagePreviewSliderAdapter(private val context: Context, private val itemList: List<String>, private val itemClickListener: OnItemClickListener) :
+class ImagePreviewSliderAdapter(private val context: Context, private val itemList: List<String>,private val position:Int, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<ImagePreviewSliderAdapter.ViewHolder>() {
 
-    private var selectedPosition = 0
+    private var selectedPosition = position
 
     interface OnItemClickListener {
         fun onItemClick(position: Int,itemList:List<String>)

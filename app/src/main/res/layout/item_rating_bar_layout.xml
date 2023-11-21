@@ -34,7 +34,7 @@
         android:layout_weight="0.2"
         android:fontFamily="@font/font_inter_medium"
         android:gravity="end"
-        android:text="0344"
+        android:text="0"
         android:textColor="@color/dark_gray_4d4d4d"
         android:textSize="12sp" />
 

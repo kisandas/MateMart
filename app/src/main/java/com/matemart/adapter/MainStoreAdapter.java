@@ -22,6 +22,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.matemart.R;
 import com.matemart.activities.CategoryListActivity;
+import com.matemart.activities.ProductDetailsActivity;
 import com.matemart.activities.SearchProductFromCategoryActivity;
 import com.matemart.activities.SubCategoryActivityList;
 import com.matemart.interfaces.SliderItemClickListner;
@@ -231,10 +232,19 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((ItemBannerViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (cardList.get(position).getClickId() != null && !cardList.get(position).getClickId().isEmpty())
-                            mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class)
-                                    .putExtra("clickId", cardList.get(position).getClickId())
-                                    .putExtra("title", cardList.get(position).getTitle()));
+                         if (cardList.get(position).getClickId() != null && !cardList.get(position).getClickId().isEmpty()) {
+                             if(cardList.get(position).getIndexId() == 7){
+                                 mContext.startActivity(new Intent(mContext, ProductDetailsActivity.class)
+                                         .putExtra("p_id", Integer.parseInt(cardList.get(position).getClickId()))
+                                 );
+
+                             }else{
+                                 mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class)
+                                         .putExtra("clickId", cardList.get(position).getClickId())
+                                         .putExtra("title", cardList.get(position).getTitle()));
+                             }
+
+                        }
                     }
                 });
 
@@ -276,7 +286,7 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ((ItemBanner2ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!Objects.equals(cardList.get(position).getClickId(), "null") && cardList.get(position).getClickId() != null && !cardList.get(position).getViewAll().getClickId().isEmpty())
+                        if (cardList.get(position).getClickId() != "null" && cardList.get(position).getClickId() != null && !cardList.get(position).getClickId().isEmpty())
                             mContext.startActivity(new Intent(mContext, SearchProductFromCategoryActivity.class)
                                     .putExtra("clickId", cardList.get(position).getClickId())
                                     .putExtra("title", cardList.get(position).getTitle()));

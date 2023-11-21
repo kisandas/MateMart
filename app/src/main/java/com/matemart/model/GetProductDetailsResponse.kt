@@ -31,6 +31,7 @@ data class Product(
     val product_detail_id: Int,
     val p_name: String,
     val description: String,
+    val detail_desc: String,
     val saleprice: String,
     val price: String,
     val total_quantity: Int,

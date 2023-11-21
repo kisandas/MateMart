@@ -10,6 +10,6 @@ data class FilterModelClass(
 ) : Serializable
 
 data class FilterBody(
-    val name: String? ="",
+    val name: Any? ="",
     var isDisabled: Boolean = false
 ) : Serializable

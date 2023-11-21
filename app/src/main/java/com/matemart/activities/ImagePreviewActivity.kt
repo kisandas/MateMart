@@ -42,6 +42,7 @@ class ImagePreviewActivity : AppCompatActivity() , ImagePreviewSliderAdapter.OnI
                 ImagePreviewSliderAdapter(
                     this@ImagePreviewActivity,
                     it,
+                    position,
                     this@ImagePreviewActivity
                 )
             }
@@ -53,7 +54,7 @@ class ImagePreviewActivity : AppCompatActivity() , ImagePreviewSliderAdapter.OnI
 
         if(!itemList.isNullOrEmpty()){
             Glide.with(this)
-                .load(itemList[0])
+                .load(itemList[position])
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
         }
