@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.StrictMode
+import android.text.InputFilter
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.JsonObject
 import com.makeramen.roundedimageview.RoundedImageView
+import com.matemart.api.Constants
 import com.matemart.databinding.ActivityProfileBinding
 import com.matemart.fragments.ChoosePictureBottomSheetFragment
 import com.matemart.fragments.VerifyOtpBottomSheet
@@ -25,19 +27,16 @@ import com.matemart.model.ResSendOtp
 import com.matemart.model.ResUploadProfileImage
 import com.matemart.model.UserProfile
 import com.matemart.utils.Service
-import com.matemart.R
-import com.matemart.api.Constants
 import de.hdodenhof.circleimageview.CircleImageView
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
+
 
 /**
  * ProfileActivity.class is Activity for ProfileActivity Check and Update.
@@ -439,7 +438,39 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
             binding.edtLastName.setText(lastname)
-            binding.edtPhone.setText(userProfile.mo_no)
+            var mobileNo : String
+            if(userProfile.mo_no?.startsWith("+91") == true){
+                mobileNo  = userProfile.mo_no?.removePrefix("+91").toString()
+            }else{
+                mobileNo  = userProfile.mo_no.toString()
+            }
+
+            val phoneNumberFilter =
+                InputFilter { source, start, end, dest, dstart, dend -> // Removing any non-digit characters
+                    val filteredStringBuilder = StringBuilder()
+                    for (i in start until end) {
+                        val character = source[i]
+                        if (Character.isDigit(character)) {
+                            filteredStringBuilder.append(character)
+                        }
+                    }
+
+                    // Format the number as "00000 00000"
+                    if (filteredStringBuilder.length >= 5) {
+                        // Inserting a space after the 5th digit
+                        filteredStringBuilder.insert(5, " ")
+                    }
+
+                    // Limiting the input to 10 digits
+                    if (filteredStringBuilder.length > 11) {
+                        filteredStringBuilder.delete(11, filteredStringBuilder.length)
+                    }
+                    filteredStringBuilder.toString()
+                }
+
+            binding.edtPhone.filters = arrayOf(phoneNumberFilter)
+
+            binding.edtPhone.setText(mobileNo)
             binding.edtEmail.setText(userProfile.email)
             Glide.with(this@ProfileActivity)
                 .load(userProfile.profile_image).into(binding.ivProfilePic)

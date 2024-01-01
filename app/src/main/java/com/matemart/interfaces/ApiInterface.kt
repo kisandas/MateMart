@@ -90,6 +90,10 @@ interface ApiInterface {
     @POST("recently-search")
     fun getRecentSearch(@Body jsonObject: JsonObject): Call<ResponseRecentSearch>?
 
+    @POST("product-search")
+    fun getProductFromSearch(@Body jsonObject: JsonObject): Call<ResponseProductList>?
+
+
     @GET("get-cart")
     fun getCartData(): Call<CartResponseModel>?
 
@@ -129,8 +133,12 @@ interface ApiInterface {
     fun getSingleProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?
 
 
-    @POST("get-filter")
+    @POST("filter")
     fun getAllFilter(@Body jsonObject: JsonObject): Call<FilterModelClass>?
+
+    @POST("get-filter")
+    fun getSelectedAllFilter(@Body jsonObject: JsonObject): Call<FilterModelClass>?
+
 
     @POST("filter-products")
     fun getFilteredProduct(@Body jsonObject: JsonObject): Call<ResponseProductList>?

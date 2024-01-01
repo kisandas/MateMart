@@ -32,6 +32,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
     companion object{
         var actualMap: LinkedHashMap<String, List<FilterBody>>? = LinkedHashMap()
+        var selectedMap: LinkedHashMap<String, List<FilterBody>>? = LinkedHashMap()
         var minPrice:Double = 0.0
         var maxPrice:Double = 0.0
     }
@@ -54,6 +55,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
         ivBack = findViewById(R.id.iv_back)
 
         actualMap?.clear()
+
 
         val searchEditText = findViewById<EditText>(R.id.etSearchProduct)
 

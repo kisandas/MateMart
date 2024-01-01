@@ -52,11 +52,21 @@ class ProductItemAdapter(
         Glide.with(mContext).load(item.image).placeholder(R.drawable.img_loading_image)
             .into(holder.iv_product_image)
         holder.tvProductName.text = item.p_name
-        holder.tvRating.text = item.average_rating
-        holder.tv_text_left_stock.text = "" + item.total_quantity
-        holder.tv_amount.text = "₹"+item.saleprice
-        holder.tv_original_price.text = "₹"+item.price
-        val count = intArrayOf(0)
+        holder.tvRating.text = "${item.average_rating}"
+        if (item.total_quantity!! < 10) {
+            holder.tv_text_left_stock.visibility = VISIBLE
+            holder.tv_text_left_stock.text = "Only " + item.total_quantity + " in Stock"
+        } else {
+            holder.tv_text_left_stock.visibility = GONE
+        }
+
+        holder.tv_amount.text = "₹" + item.saleprice
+        holder.tvBrandValue.text = item.b_name
+        holder.tv_original_price.text = "₹" + item.price
+//        val count = intArrayOf(0)
+        if (item.total_quantity!! <= 10) {
+            holder.tv_text_left_stock.text = "Only " + item.total_quantity + " in stock"
+        }
         if (item.total_quantity!! <= 0) {
             holder.ll_bg_alpha.visibility = View.VISIBLE
             holder.rl_bg_alpha.visibility = View.VISIBLE
@@ -64,19 +74,17 @@ class ProductItemAdapter(
             holder.ll_bg_alpha.visibility = View.GONE
             holder.rl_bg_alpha.visibility = View.GONE
         }
-        if (item.total_quantity!! <= 10) {
-            holder.tv_text_left_stock.text = "Only " + item.total_quantity + " in stock"
-        }
+
         holder.iv_minus.visibility = View.GONE
         holder.tv_count.visibility = View.GONE
 
-        if (item.cart != null) {
-            count[0] = item.cart!!.qty!!
-        }
+//        if (item.cart != null) {
+//            count[0] = item.cart!!.qty!!
+//        }
 
-        if(item.is_compare == 1){
+        if (item.is_compare == 1) {
             holder.qtyLayout.visibility = GONE
-        }else{
+        } else {
             holder.qtyLayout.visibility = VISIBLE
         }
 
@@ -88,11 +96,11 @@ class ProductItemAdapter(
             holder.iv_remove_whishlist.visibility = VISIBLE
         }
 
-        if (count[0] > 0) {
-            holder.iv_minus.visibility = View.VISIBLE
-            holder.tv_count.visibility = View.VISIBLE
-            holder.tv_count.text = "" + count[0]
-        }
+//        if (count[0] > 0) {
+//            holder.iv_minus.visibility = View.VISIBLE
+//            holder.tv_count.visibility = View.VISIBLE
+//            holder.tv_count.text = "" + count[0]
+//        }
 
         holder.iv_like_unlike_product.setOnClickListener {
 
@@ -118,7 +126,7 @@ class ProductItemAdapter(
 
                 mContext.startActivity(Intent(mContext, LoginActivity::class.java))
 
-            }else {
+            } else {
                 updateWishList(item.p_id!!, 1, holder)
             }
         }
@@ -146,67 +154,67 @@ class ProductItemAdapter(
 
                 mContext.startActivity(Intent(mContext, LoginActivity::class.java))
 
-            }else {
+            } else {
                 updateWishList(item.p_id!!, 0, holder)
             }
         }
 
-        holder.iv_plus.setOnClickListener {
-
-            if (SharedPrefHelper.getInstance(MyApplication.getInstance())
-                    .read(SharedPrefHelper.IS_USER_GUEST, false)
-            ) {
-                Toast.makeText(
-                    mContext,
-                    Utils.LOGIN_MESSAGE,
-                    Toast.LENGTH_LONG
-                ).show()
-
-                var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
-
-                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
-                pref.write(SharedPrefHelper.EMAIL, "")
-                pref.write(SharedPrefHelper.USER_ID, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
-                pref.write(SharedPrefHelper.KEY_CCID, "")
-                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
-
-
-                mContext.startActivity(Intent(mContext, LoginActivity::class.java))
-
-            }else {
-                if (count[0] < item.total_quantity!!) {
-                    count[0]++
-                    if (count[0] > 0) {
-                        holder.iv_minus.visibility = View.VISIBLE
-                        holder.tv_count.visibility = View.VISIBLE
-                        holder.tv_count.text = "" + count[0]
-                        addToCart(item, count[0])
-                        //                    call ApI for Add into cart
-                    }
-                } else {
-                    Toast.makeText(
-                        mContext,
-                        "Only " + item.total_quantity + " items available",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-        holder.iv_minus.setOnClickListener {
-            count[0]--
-            if (count[0] < 1) {
-                holder.iv_minus.visibility = View.GONE
-                holder.tv_count.visibility = View.GONE
-                removeFromCart(item)
-//                    call ApI for Remove from cart
-            } else {
-                addToCart(item, count[0])
-            }
-
-            holder.tv_count.text = "" + count[0]
-        }
+//        holder.iv_plus.setOnClickListener {
+//
+//            if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+//                    .read(SharedPrefHelper.IS_USER_GUEST, false)
+//            ) {
+//                Toast.makeText(
+//                    mContext,
+//                    Utils.LOGIN_MESSAGE,
+//                    Toast.LENGTH_LONG
+//                ).show()
+//
+//                var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
+//
+//                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
+//                pref.write(SharedPrefHelper.EMAIL, "")
+//                pref.write(SharedPrefHelper.USER_ID, "")
+//                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
+//                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
+//                pref.write(SharedPrefHelper.KEY_CCID, "")
+//                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+//
+//
+//                mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+//
+//            } else {
+//                if (count[0] < item.total_quantity!!) {
+//                    count[0]++
+//                    if (count[0] > 0) {
+//                        holder.iv_minus.visibility = View.VISIBLE
+//                        holder.tv_count.visibility = View.VISIBLE
+//                        holder.tv_count.text = "" + count[0]
+//                        addToCart(item, count[0])
+//                        //                    call ApI for Add into cart
+//                    }
+//                } else {
+//                    Toast.makeText(
+//                        mContext,
+//                        "Only " + item.total_quantity + " items available",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
+//        holder.iv_minus.setOnClickListener {
+//            count[0]--
+//            if (count[0] < 1) {
+//                holder.iv_minus.visibility = View.GONE
+//                holder.tv_count.visibility = View.GONE
+//                removeFromCart(item)
+////                    call ApI for Remove from cart
+//            } else {
+//                addToCart(item, count[0])
+//            }
+//
+//            holder.tv_count.text = "" + count[0]
+//        }
         holder.itemView.setOnClickListener {
 
 
@@ -230,10 +238,10 @@ class ProductItemAdapter(
 //                }
         }
 
-        if(item.is_compare == 1){
+        if (item.is_compare == 1) {
             holder.qtyLayout.visibility = GONE
-        }else{
-            holder.qtyLayout.visibility = VISIBLE
+        } else {
+            holder.qtyLayout.visibility = GONE
         }
     }
 
@@ -367,6 +375,7 @@ class ProductItemAdapter(
         var tvRating: TextView
         var tv_text_left_stock: TextView
         var tv_amount: TextView
+        var tvBrandValue: TextView
         var tv_original_price: TextView
         var iv_minus: ImageView
         var iv_plus: ImageView
@@ -385,6 +394,7 @@ class ProductItemAdapter(
             iv_remove_whishlist = itemView.findViewById(R.id.iv_remove_whishlist)
             iv_like_unlike_product = itemView.findViewById(R.id.iv_like_unlike_product)
             tvProductName = itemView.findViewById(R.id.tvProductName)
+            tvBrandValue = itemView.findViewById(R.id.tvBrandValue)
             tvRating = itemView.findViewById(R.id.tvRating)
             tv_text_left_stock = itemView.findViewById(R.id.tv_text_left_stock)
             tv_amount = itemView.findViewById(R.id.tv_amount)

@@ -14,5 +14,6 @@ class UserProfile : java.io.Serializable {
     var created_at: String? = null
     var updated_at: String? = null
     var deleted_at: String? = null
+    var cart_badge_count: Int? = 0
 }
 

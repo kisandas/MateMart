@@ -41,9 +41,38 @@
 
             <ImageView
                 android:layout_width="@dimen/_24sdp"
+                android:padding="4dp"
                 android:layout_height="@dimen/_24sdp"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:src="@drawable/ic_share" />
+
+            <RelativeLayout
+                android:id="@+id/rlCart"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_24sdp">
+                <ImageView
+                    android:layout_width="@dimen/_24sdp"
+                    android:padding="4dp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:src="@drawable/ic_cart_unselected"
+                    app:tint="#393F42" />
+
+                <TextView
+                    android:id="@+id/tvCartCount"
+                    android:text="5"
+                    android:fontFamily="@font/font_inter_semibold"
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_circle_themecolor"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    tools:ignore="SmallSp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -111,7 +140,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_text_left_stock"
-
                     android:fontFamily="@font/font_inter_regular"
                     android:text="Brand:"
                     android:textColor="@color/dark_gray_4d4d4d"
@@ -197,6 +225,33 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_inter_regular"
                     android:text="₹1620"
+                    android:textColor="@color/dark_gray_b3b3b3"
+                    android:textSize="13sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:text="Detail Description"
+                    android:textColor="@color/theme_blue_38B449"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDetailDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:text="Detail Description"
                     android:textColor="@color/dark_gray_b3b3b3"
                     android:textSize="13sp" />
 

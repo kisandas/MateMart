@@ -55,7 +55,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
     val count = intArrayOf(0)
 
-    var product :Product ? = null
+    var product: Product? = null
 
     companion object {
         val finalSelectedVariation = HashMap<String, String>()
@@ -83,9 +83,31 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         product_detail_id = intent.getIntExtra("product_detail_id", 0)
 
         getProductDetail(p_id, product_detail_id)
+        var badgeCount = "0"
+        if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 0 && SharedPrefHelper.getInstance(
+                MyApplication.getInstance()
+            )
+                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 99
+        ) {
+            badgeCount = "99+"
+
+        } else if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 0
+        ) {
+            badgeCount = SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.BADGE_COUNT, 0).toString()
+        }
+
+
+        binding.tvCartCount.text = badgeCount
 
         binding.ivBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.rlCart.setOnClickListener {
+            startActivity(Intent(this@ProductDetailsActivity, CartActivity::class.java))
         }
 
         binding.ivPlus.setOnClickListener {
@@ -112,15 +134,16 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                 startActivity(Intent(this@ProductDetailsActivity, LoginActivity::class.java))
 
-            }else {
+            } else {
                 product?.let {
                     if (count[0] < product?.total_quantity!!) {
                         count[0]++
+                        binding.tvTotalAmount.text = "₹ " + (count[0] * it.saleprice.toDouble())
                         if (count[0] > 0) {
                             binding.ivMinus.visibility = View.VISIBLE
                             binding.tvCount.visibility = View.VISIBLE
                             binding.tvCount.text = "" + count[0]
-                            addToCart(product!!, count[0])
+//                            addToCart(product!!, count[0])
                             //                    call ApI for Add into cart
                         }
                     } else {
@@ -137,17 +160,23 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         binding.ivMinus.setOnClickListener {
             count[0]--
             product?.let {
+
+                binding.tvTotalAmount.text = "₹ " + (count[0] * it.saleprice.toDouble())
                 if (count[0] < 1) {
                     binding.ivMinus.visibility = View.GONE
                     binding.tvCount.visibility = View.GONE
-                    removeFromCart(product!!)
+//                    removeFromCart(product!!)
 //                    call ApI for Remove from cart
                 } else {
-                    addToCart(product!!, count[0])
+//                    addToCart(product!!, count[0])
                 }
 
                 binding.tvCount.text = "" + count[0]
             }
+        }
+
+        binding.llAddToCart.setOnClickListener {
+            product?.let { it1 -> addToCart(it1, count[0]) }
         }
 
 
@@ -187,9 +216,24 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         binding.tvSalePrice.text = data.product.saleprice
                         product = data.product
 
-
                         if (data.product.cart != null) {
                             count[0] = data.product.cart.qty
+                            binding.tvCount.text = data.product.cart.qty.toString()
+
+                            if (count[0] <= 0) {
+                                binding.ivPlus.visibility = VISIBLE
+                                binding.ivMinus.visibility = GONE
+                                binding.tvCount.visibility = GONE
+
+                            } else {
+                                binding.ivPlus.visibility = VISIBLE
+                                binding.ivMinus.visibility = VISIBLE
+                                binding.tvCount.visibility = VISIBLE
+                            }
+                        } else {
+                            binding.ivPlus.visibility = VISIBLE
+                            binding.ivMinus.visibility = GONE
+                            binding.tvCount.visibility = GONE
                         }
 
                         val imageList = ArrayList<SlideModel>()
@@ -209,11 +253,17 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             this@ProductDetailsActivity
                         )
 
-                        binding.imageSlider.setItemClickListener(object:SliderItemClickListner{
+                        binding.imageSlider.setItemClickListener(object : SliderItemClickListner {
                             override fun ItemClick(cardPosition: Int, position: Int) {
 
-                                val intent = Intent(this@ProductDetailsActivity, ImagePreviewActivity::class.java)
-                                intent.putStringArrayListExtra("imageUrl",ArrayList(data.product.images))
+                                val intent = Intent(
+                                    this@ProductDetailsActivity,
+                                    ImagePreviewActivity::class.java
+                                )
+                                intent.putStringArrayListExtra(
+                                    "imageUrl",
+                                    ArrayList(data.product.images)
+                                )
                                 intent.putExtra("position", position)
                                 startActivity(intent)
                             }
@@ -237,25 +287,32 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 //                            }
 //                        }
 
+                        if (data.variation.isEmpty()) {
+                            binding.rcVariationMain.visibility = GONE
+                        } else if (data.variation.containsKey("No Variation")) {
+                            binding.rcVariationMain.visibility = GONE
+                        } else {
+                            binding.rcVariationMain.visibility = VISIBLE
+                            adapterVariationOuter = VariationOuterAdapter(
+                                this@ProductDetailsActivity,
+                                data.variation,
+                                data.filtervariation_data,
+                                data.variation_data.variations,
+                                this@ProductDetailsActivity
+                            )
 
-                        adapterVariationOuter = VariationOuterAdapter(
-                            this@ProductDetailsActivity,
-                            data.variation,
-                            data.filtervariation_data,
-                            data.variation_data.variations,
-                            this@ProductDetailsActivity
-                        )
+                            binding.rcVariationMain.layoutManager = LinearLayoutManager(
+                                this@ProductDetailsActivity,
+                                RecyclerView.VERTICAL,
+                                false
+                            )
+                            binding.rcVariationMain.adapter = adapterVariationOuter
 
-                        binding.rcVariationMain.layoutManager = LinearLayoutManager(
-                            this@ProductDetailsActivity,
-                            RecyclerView.VERTICAL,
-                            false
-                        )
-                        binding.rcVariationMain.adapter = adapterVariationOuter
+                        }
 
 
-                        val description = data.product.description+"\n"
-                        val detail_description = data.product.detail_desc+"\n"
+                        val description = data.product.description + "\n"
+                        val detail_description = data.product.detail_desc + "\n"
 
                         readMoreOption.addReadMoreTo(
                             binding.tvDescription, Html.fromHtml(description)
@@ -273,12 +330,12 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         )
                         binding.rcReviews.adapter = adapterReview
 
-                        if(data.review.isEmpty()){
+                        if (data.review.isEmpty()) {
                             binding.rcReviews.visibility = GONE
                             binding.tvAllReview.visibility = GONE
                             binding.viewReview.visibility = GONE
                             binding.llReview.visibility = GONE
-                        }else{
+                        } else {
                             binding.rcReviews.visibility = VISIBLE
                             binding.tvAllReview.visibility = VISIBLE
                             binding.viewReview.visibility = VISIBLE
@@ -332,7 +389,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         jsonObject.addProperty("qty", count)
         jsonObject.addProperty("sample", 0)
 
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
         var call: Call<AddCartResponse> = apiInterface.addIntoCart(jsonObject)!!
 
         call.enqueue(object : Callback<AddCartResponse> {
@@ -373,7 +431,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         jsonObject.addProperty("product_detail_id", item.product_detail_id)
 
 
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
         var call: Call<RemoveCartResponse> = apiInterface.removeFromCart(jsonObject)!!
 
         call.enqueue(object : Callback<RemoveCartResponse> {
@@ -485,8 +544,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         binding.rcVariationMain.adapter = adapterVariationOuter
 
 
-                        val description = data.product.description+"\n"
-                        val detailDescription = data.product.detail_desc+"\n"
+                        val description = data.product.description + "\n"
+                        val detailDescription = data.product.detail_desc + "\n"
 
                         Log.e("ccccccccc", "onResponse: " + description)
 
@@ -556,7 +615,6 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
     }
 
     override fun onItemClick(position: Int, itemList: List<String>) {
-
 
 
     }

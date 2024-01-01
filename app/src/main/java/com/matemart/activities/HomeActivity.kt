@@ -6,11 +6,13 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -19,18 +21,25 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.matemart.R
 import com.matemart.databinding.ActivityHomeBinding
+import com.matemart.interfaces.ApiInterface
+import com.matemart.model.ResGetProfileDetails
 import com.matemart.utils.MyApplication
+import com.matemart.utils.Service
 import com.matemart.utils.SharedPrefHelper
 import com.matemart.utils.Utils
 import com.matemart.utils.Utils.LOGIN_MESSAGE
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private var binding: ActivityHomeBinding? = null
+    var navView : BottomNavigationView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-        val navView = findViewById<BottomNavigationView>(R.id.nav_view)
+         navView = findViewById(R.id.nav_view)
         val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(
             R.id.navigation_home,
             R.id.navigation_order,
@@ -41,12 +50,12 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val navController = findNavController(this, R.id.nav_host_fragment_activity_home)
         //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         setupWithNavController(binding!!.navView, navController)
-        Utils.showBadge(this, navView, R.id.navigation_home, "")
-        Utils.showBadge(this, navView, R.id.navigation_order, "")
+//        Utils.showBadge(this, navView, R.id.navigation_home, "")
+//        Utils.showBadge(this, navView, R.id.navigation_order, "")
         Utils.showBadge(this, navView, R.id.navigation_cart, "")
-        Utils.showBadge(this, navView, R.id.navigation_profile, "")
+//        Utils.showBadge(this, navView, R.id.navigation_profile, "")
 
-        navView.setOnNavigationItemSelectedListener(this);
+        navView?.setOnNavigationItemSelectedListener(this);
 
         if (Build.VERSION.SDK_INT > 32) {
             Dexter.withContext(this@HomeActivity)
@@ -174,4 +183,65 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
 
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        getUserProfile()
+    }
+
+    private fun getUserProfile() {
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@HomeActivity)
+        var call: Call<ResGetProfileDetails> = apiInterface.getUserProfile()!!
+
+        call.enqueue(object : Callback<ResGetProfileDetails> {
+            override fun onResponse(
+                call: Call<ResGetProfileDetails>, response: Response<ResGetProfileDetails>
+            ) {
+
+                if (response.isSuccessful) {
+                    if (response.body()?.statuscode == 11) {
+                        response.body()?.data?.let {
+
+                            it.cart_badge_count?.let { it1 ->
+                                SharedPrefHelper.getInstance(MyApplication.getInstance())
+                                    .write(SharedPrefHelper.BADGE_COUNT, it1)
+                                if (it1 > 0 && it1>99) {
+                                    Utils.showBadge(
+                                        this@HomeActivity,
+                                        navView,
+                                        R.id.navigation_cart,
+                                       "99+"
+                                    )
+                                }else if(it1>0){
+                                    Utils.showBadge(
+                                        this@HomeActivity,
+                                        navView,
+                                        R.id.navigation_cart,
+                                        it1.toString()
+                                    )
+                                }
+                            }
+
+                        }
+                    }
+
+
+                } else {
+                    Toast.makeText(
+                        this@HomeActivity, "Something went wrong", Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResGetProfileDetails>, t: Throwable) {
+                Log.e("jjjjjjjjjjj", "onFailure: " + t.message)
+                Toast.makeText(this@HomeActivity, "Something went wrong", Toast.LENGTH_LONG).show()
+            }
+
+        })
+
+    }
+
 }

@@ -23,6 +23,8 @@ class AddReviewActivity : AppCompatActivity() {
         binding = ActivityAddReviewBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
 
+        binding!!.btnSubmit.setOnClickListener {  }
+
 
     }
 

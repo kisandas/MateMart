@@ -17,8 +17,9 @@ class ViewListModel : java.io.Serializable {
     var sku_id: String? = null
     var out_of_stock_status: String? = null
     var is_available: String? = null
+    var b_name: String? = null
     var is_wishlist: Int? = null
-    var average_rating: String? = null
+    var average_rating: Double? = 0.0
     var priority: String? = null
     var wishlist:List<WishListModel> = emptyList()
     var cart: CartItem?= null

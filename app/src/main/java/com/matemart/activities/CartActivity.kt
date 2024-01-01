@@ -44,7 +44,7 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
     var amount = 0.0
     var cartListItem = 0
     var PromoCode = ""
-    var discountAmount = 0
+    var discountAmount = 0.0
 
     var ProductList: ArrayList<CartDataModel>? = arrayListOf()
     var cdd: ChoosePictureBottomSheetFragment? = null
@@ -193,18 +193,22 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
                                     )!!
                                 )
                             }
+                            binding!!.llNonEmptyCart.tvCouponDiscount.text = "- ₹$coupon_discount"
+                            binding?.llNonEmptyCart?.tvDiscount?.text = "- ₹$discount_amount"
+                            binding?.llNonEmptyCart?.tvServiceCharge?.text = "- ₹$servicecharge"
 
                             binding?.llNonEmptyCart?.tvSubtotal?.text =
-                                String.format("%.2f", total).toDouble().toString()
+                                "₹"+String.format("%.2f", total).toDouble().toString()
+
                             binding?.llNonEmptyCart?.tvTax?.text =
-                                String.format("%.2f", total_gst).toDouble().toString()
+                                "₹"+String.format("%.2f", total_gst).toDouble().toString()
 
 
                             binding?.llNonEmptyCart?.tvPayableAmount?.text =
                                 String.format("%.2f", (total_gst + total)).toDouble().toString()
                             cartListItem = cartList.size
                             binding?.llNonEmptyCart?.btnConfirmOrder?.text =
-                                "Buy " + cartList.size + " items for " + String.format(
+                                "Buy " + cartList.size + " items for ₹" + String.format(
                                     "%.2f",
                                     (total_gst + total)
                                 ).toDouble().toString()
@@ -313,11 +317,12 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.e("checkkkkkkkkkjj", "onActivityResult: "+data?.data.toString() )
+        Log.e("checkkkkkkkkkjj", "onActivityResult: requestCode: "+requestCode +"    resultCode:"+resultCode +"   data" )
+        Log.e("checkkkkkkkkkjj", "onActivityResult: "+data.toString())
         if (requestCode == REQUEST_CODE_COUPON && resultCode == Activity.RESULT_OK) {
-            discountAmount = data?.getIntExtra("discountAmount", 0)!!
+            discountAmount = data?.getDoubleExtra("discountAmount", 0.0)!!
             Log.e("discountAmount", "onActivityResult: " + discountAmount)
-            binding!!.llNonEmptyCart.tvCouponDiscount.text = "-$discountAmount"
+            binding!!.llNonEmptyCart.tvCouponDiscount.text = "- ₹$discountAmount"
 
             PromoCode = data.getStringExtra("promoCode").toString()
             amount = amount.minus(discountAmount)
@@ -325,7 +330,7 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
             binding?.llNonEmptyCart?.btnConfirmOrder?.text =
                 "Buy $cartListItem items for ₹$amount"
             // Handle the result here
-        }else{
+        }else if(data != null){
 
 
             startActivity(Intent(this@CartActivity,PreviewReceiptActivity::class.java).putExtra("imageUri",data!!.data.toString()))

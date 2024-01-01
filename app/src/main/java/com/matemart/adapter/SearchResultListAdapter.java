@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.example.CategoryModel;
 import com.matemart.R;
+import com.matemart.activities.ItemClickListener;
 import com.matemart.activities.SearchProductFromCategoryActivity;
 import com.matemart.activities.SubCategoryActivityList;
 import com.matemart.interfaces.SearchItemListner;
@@ -27,9 +28,9 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<SearchResultLi
 
     private ArrayList<String> categoryList;
     private Context mContext;
-    SearchItemListner listner;
+    ItemClickListener listner;
 
-    public SearchResultListAdapter(ArrayList<String> categoryList, Context context, SearchItemListner listner) {
+    public SearchResultListAdapter(ArrayList<String> categoryList, Context context, ItemClickListener listner) {
         this.categoryList = categoryList;
         this.mContext = context;
         this.listner = listner;
@@ -58,7 +59,7 @@ public class SearchResultListAdapter extends RecyclerView.Adapter<SearchResultLi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listner.onSearchClicked(categoryList.get(position),"word");
+                listner.onSearchItemClick(categoryList.get(position));
 //                if (viewList.get(position).getClickID() != null && !viewList.get(position).getClickID().equalsIgnoreCase("null") && !viewList.get(position).getClickID().isEmpty()) {
 //                    Utils.getMediaData(mContext, pref.getString(KEY_CCID), pref.getString(KEY_PROFILE_ID), pref.getString(KEY_THEME_ID), viewList.get(position).getClickID(), holder, false, true);
 //                }

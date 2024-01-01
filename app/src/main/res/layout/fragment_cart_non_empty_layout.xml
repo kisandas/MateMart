@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/font_inter_bold"
             android:maxLines="3"
-            android:text="Deliver to: vdh "
+            android:text="vdh "
             android:textColor="@color/theme_blue_38B449"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/tv_deliver_to"
@@ -358,7 +358,7 @@ Vile Parle (east),400057"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_medium"
                         android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="200"
+                        android:text="0"
                         android:textColor="@color/dark_gray_4d4d4d"
                         android:textSize="15sp" />
 
@@ -388,7 +388,7 @@ Vile Parle (east),400057"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_medium"
                         android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="200"
+                        android:text="0"
                         android:textColor="@color/dark_gray_4d4d4d"
                         android:textSize="15sp" />
 
@@ -418,7 +418,7 @@ Vile Parle (east),400057"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_medium"
                         android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="200"
+                        android:text="0"
                         android:textColor="@color/dark_gray_4d4d4d"
                         android:textSize="15sp" />
 
@@ -448,7 +448,7 @@ Vile Parle (east),400057"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_medium"
                         android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="200"
+                        android:text="0"
                         android:textColor="@color/dark_gray_4d4d4d"
                         android:textSize="15sp" />
 
@@ -478,7 +478,7 @@ Vile Parle (east),400057"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_medium"
                         android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="200"
+                        android:text="0"
                         android:textColor="@color/dark_gray_4d4d4d"
                         android:textSize="15sp" />
 
@@ -517,7 +517,7 @@ Vile Parle (east),400057"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font_inter_bold"
                         android:paddingHorizontal="@dimen/_4sdp"
-                        android:text="200"
+                        android:text="0"
                         android:textColor="@color/dark_gray_4d4d4d"
                         android:textSize="15sp" />
 

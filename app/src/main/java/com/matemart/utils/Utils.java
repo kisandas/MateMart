@@ -7,8 +7,11 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.IdRes;
@@ -85,6 +88,17 @@ public static String LOGIN_MESSAGE ="Please do logIn First!";
 
         TextView text = badge.findViewById(R.id.badge_text_view);
         text.setText(value);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.gravity = Gravity.END | Gravity.TOP; // Position badge at the top end of the view
+
+        int pixelsTop = (int) (context.getResources().getDisplayMetrics().density * 6); // Adjust the value for desired margin
+        int pixelsRight = (int) (context.getResources().getDisplayMetrics().density * 18); // Adjust the value for desired margin
+        layoutParams.setMargins(0, pixelsTop, pixelsRight, 0); // Set margins (left, top, right, bottom)
+        badge.setLayoutParams(layoutParams);
         itemView.addView(badge);
     }
 

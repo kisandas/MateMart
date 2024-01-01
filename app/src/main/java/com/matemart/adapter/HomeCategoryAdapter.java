@@ -52,9 +52,9 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
         Glide.with(mContext).load(viewList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(holder.iv_category_image);
         holder.tv_lable.setText(viewList.get(position).getTitle());
-        if (position> 0 && viewList.get(position).getColor() != null ) {
+        if (position>= 0 && viewList.get(position).getColor() != null ) {
             Log.e("cvccccccccccc", "onBindViewHolder: "+ viewList.get(position).getColor());
-//            holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(viewList.get(position).getColor())));
+            holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(viewList.get(position).getColor())));
 
         }
 

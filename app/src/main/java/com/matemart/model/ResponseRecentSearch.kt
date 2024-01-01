@@ -1,6 +1,5 @@
 package com.matemart.model
 
-import com.example.example.RecentSearchData
 import com.google.gson.annotations.SerializedName
 
 data class ResponseRecentSearch(

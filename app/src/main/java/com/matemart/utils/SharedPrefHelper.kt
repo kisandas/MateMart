@@ -26,6 +26,7 @@ class SharedPrefHelper private constructor(application: MyApplication) {
         const val KEY_LOGGED_IN = "key_logged_in"
         const val KEY_ACCESS_TOKEN = "key_access_token"
         const val USER_NAME = "u_name"
+        const val BADGE_COUNT = "Badge_Count"
         const val KEY_MEMBER = "KEY_MEMBER"
         const val KEY_FCM_TOKEN = "KEY_FCM_TOKEN"
         const val IS_GUEST = "IS_GUEST"

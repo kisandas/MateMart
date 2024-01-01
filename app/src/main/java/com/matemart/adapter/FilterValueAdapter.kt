@@ -11,9 +11,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.matemart.R
-import com.matemart.activities.SearchProductFromCategoryActivity.Companion.actualMap
 import com.matemart.activities.SearchProductFromCategoryActivity.Companion.maxPrice
 import com.matemart.activities.SearchProductFromCategoryActivity.Companion.minPrice
+import com.matemart.activities.SearchProductFromCategoryActivity.Companion.selectedMap
 import com.matemart.model.FilterBody
 
 
@@ -21,26 +21,26 @@ class FilterValueAdapter(
     private var valueList: ArrayList<FilterBody>,
     private var keyValue: String,
     private val onClickValue: (key: String, data: FilterBody, isChecked: Boolean) -> Unit
-) : RecyclerView.Adapter< RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
 
-        val view :View
-        if(viewType == 0) {
+        val view: View
+        if (viewType == 0) {
             view = layoutInflater.inflate(R.layout.item_rc_value_inner, parent, false)
             return ViewHolder(view)
-        }else{
+        } else {
             view = layoutInflater.inflate(R.layout.item_rc_price_value_inner, parent, false)
             return PriceViewHolder(view)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is ViewHolder) {
-            (holder).bindData(valueList[position])
-        }else{
+        if (holder is ViewHolder) {
+            (holder).bindData(valueList[position],position)
+        } else {
 
         }
     }
@@ -51,11 +51,11 @@ class FilterValueAdapter(
 
     fun setData(valueList: List<FilterBody>, keyValue: String) {
         this.valueList.clear()
-        Log.e("checkSizeeeee", "clear size: "+this.valueList.size )
+        Log.e("checkSizeeeee", "clear size: " + this.valueList.size)
         this.valueList.addAll(valueList)
         this.keyValue = keyValue
         notifyDataSetChanged()
-        Log.e("checkSizeeeee", "set size: " +  this.valueList.size)
+        Log.e("checkSizeeeee", "set size: " + this.valueList.size)
 
     }
 
@@ -73,28 +73,61 @@ class FilterValueAdapter(
 
         }
 
-        fun bindData(filterBody: FilterBody) {
+        fun bindData(filterBody: FilterBody,position: Int) {
 
             tvState.text = filterBody.name.toString()
 
-            icCheckBox.isChecked =filterBody.isDisabled
+            Log.e("---------", "bindData: " + selectedMap?.get(keyValue).toString())
+            selectedMap?.get(keyValue)?.let { itemList ->
+                var found = false // Track if a match is found
+
+                for (item in itemList) {
+                    if (item.name == filterBody.name) {
+                        found = true // Set found to true if a match is found
+                        break // Exit the loop once a match is found
+                    }
+                }
+
+                // Modify the checkbox status after the loop
+                icCheckBox.isChecked = found
+            }
+            if (valueList[position].isDisabled) {
+                icCheckBox.isClickable = false
+                icCheckBox.isEnabled = false
+                tvState.isClickable = false
+                tvState.isEnabled = false
+            } else {
+                icCheckBox.isClickable = true
+                icCheckBox.isEnabled = true
+                tvState.isClickable = true
+                tvState.isEnabled = true
+            }
 
             tvState.setOnClickListener {
-                icCheckBox.isChecked = !icCheckBox.isChecked
-                valueList[adapterPosition].isDisabled = icCheckBox.isChecked
+                Log.e("kishannnn", "bindData: "+valueList[position].isDisabled )
+                if (valueList[position].isDisabled) {
+
+                } else {
+                    icCheckBox.isChecked = !icCheckBox.isChecked
+//                    valueList[position].isDisabled = icCheckBox.isChecked
+                }
+
             }
             itemView.setOnClickListener {
-                icCheckBox.isChecked = !icCheckBox.isChecked
-                valueList[adapterPosition].isDisabled = icCheckBox.isChecked
+                if (valueList[position].isDisabled) {
+
+                } else {
+                    icCheckBox.isChecked = !icCheckBox.isChecked
+//                    valueList[position].isDisabled = icCheckBox.isChecked
+                }
             }
             icCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                Log.e("checkkkk----==========>1111", "position clicked: " + keyValue.toString())
-                onClickValue(keyValue,filterBody, isChecked)
+                Log.e("checkkkk----==========>1111", "position clicked: " + isChecked)
+                onClickValue(keyValue, filterBody, isChecked)
             }
         }
     }
-
 
 
     inner class PriceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -107,27 +140,37 @@ class FilterValueAdapter(
 
 
             etMinPrice.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                        // This method is called before the text is changed
-                    }
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // This method is called before the text is changed
+                }
 
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        // This method is called when the text is being changed
-                        val text = s.toString()
-                        updateActualMap(etMinPrice.text.toString(), etMaxPrice.text.toString())
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // This method is called when the text is being changed
+                    val text = s.toString()
+                    updateActualMap(etMinPrice.text.toString(), etMaxPrice.text.toString())
 
 
-                        // Do something with the changed text
-                        // For example, you might want to update a variable with the new minimum price
-                    }
+                    // Do something with the changed text
+                    // For example, you might want to update a variable with the new minimum price
+                }
 
-                    override fun afterTextChanged(s: Editable?) {
-                        // This method is called after the text has been changed
-                    }
-                })
+                override fun afterTextChanged(s: Editable?) {
+                    // This method is called after the text has been changed
+                }
+            })
 
             etMaxPrice.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                     // This method is called before the text is changed
                 }
 
@@ -176,9 +219,9 @@ class FilterValueAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(keyValue == "price"){
+        if (keyValue == "price") {
             return 1
-        }else{
+        } else {
             return 0
         }
 

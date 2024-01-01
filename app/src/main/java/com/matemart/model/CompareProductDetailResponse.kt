@@ -17,8 +17,8 @@ data class CompareVariationData(
 
     @SerializedName("product") var product: CompareProduct? = CompareProduct(),
     @SerializedName("review_total") var reviewTotal: Int? = null,
-    @SerializedName("rating") var rating: Int? = null,
-    @SerializedName("avg_rating") var avgRating: Int? = null,
+    @SerializedName("rating") var rating: Double? = null,
+    @SerializedName("avg_rating") var avgRating: Double? = null,
     @SerializedName("ratings") var ratings: ArrayList<String> = arrayListOf(),
     @SerializedName("review") var review: ArrayList<String> = arrayListOf(),
     @SerializedName("variation") var variation: ArrayList<CompareVariation> = arrayListOf()
@@ -42,6 +42,7 @@ data class CompareProduct(
     @SerializedName("p_id") var pId: Int? = null,
     @SerializedName("p_name") var pName: String? = null,
     @SerializedName("description") var description: String? = null,
+    @SerializedName("detail_desc") var detail_desc: String? = null,
     @SerializedName("saleprice") var saleprice: String? = null,
     @SerializedName("price") var price: String? = null,
     @SerializedName("total_quantity") var totalQuantity: Int? = null,

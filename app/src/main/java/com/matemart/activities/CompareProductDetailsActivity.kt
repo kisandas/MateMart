@@ -63,6 +63,10 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
 
         getProductDetail(p_id, product_detail_id)
 
+        binding.rlCart.setOnClickListener {
+            startActivity(Intent(this@CompareProductDetailsActivity,CartActivity::class.java))
+        }
+
         binding.btnAddToCart.setOnClickListener { addToCartItem() }
         binding.llCompareHeader.visibility = GONE
 
@@ -207,11 +211,14 @@ class CompareProductDetailsActivity : AppCompatActivity(), SliderItemClickListne
 
 
                         val description = data.product?.description
-
+                        val detailDescription = data.product?.detail_desc+"\n"
 
                         readMoreOption.addReadMoreTo(
                             binding.tvDescription,
                             Html.fromHtml(description)
+                        )
+                        readMoreOption.addReadMoreTo(
+                            binding.tvDetailDescription, Html.fromHtml(detailDescription)
                         )
 
                     }
