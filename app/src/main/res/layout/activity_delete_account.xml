@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/header_common_title_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_alert" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:fontFamily="@font/font_inter_bold"
+                    android:maxLines="1"
+                    android:text="Delete your account"
+                    android:textColor="@color/red_c70000"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvSubTitletitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:maxLines="1"
+                    android:text="We're sorry to see you go"
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_inter_bold"
+            android:maxLines="1"
+            android:text="Before you go..."
+            android:textColor="@color/theme_blue_38B449"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/view_filter" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_circle"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/dark_gray_4d4d4d"
+            android:fontFamily="@font/font_inter_regular"
+            android:maxLines="1"
+            android:layout_marginTop="8dp"
+            android:text="Your Wishlist history remove"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_circle"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableTint="@color/dark_gray_4d4d4d"
+            android:fontFamily="@font/font_inter_regular"
+            android:maxLines="1"
+            android:text="Your added cart item remove"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_circle"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableTint="@color/dark_gray_4d4d4d"
+            android:fontFamily="@font/font_inter_regular"
+            android:maxLines="1"
+            android:text="Your added address remove"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_bold"
+                android:maxLines="1"
+                android:text="Type your reason"
+                android:textColor="@color/theme_blue_38B449"
+                android:textSize="15sp" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_inter_regular"
+                android:maxLines="1"
+                android:text=" (Optional)"
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <com.loopeer.shadow.ShadowView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/_10sdp"
+            android:layout_marginTop="8dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cornerRadius="@dimen/_8sdp"
+            app:shadowMargin="@dimen/_4sdp"
+            app:shadowRadius="@dimen/_8sdp">
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/font_inter_medium"
+                android:gravity="start"
+                android:hint="Write here..."
+                android:minHeight="@dimen/_100sdp"
+                android:padding="@dimen/_10sdp"
+                android:text=""
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textColorHint="@color/hint_gray_c6c6c6"
+                android:textSize="13sp" />
+
+        </com.loopeer.shadow.ShadowView>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/view_filter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_inter_medium"
+            android:text="Phone Number"
+            android:textColor="@color/theme_blue_38B449"
+            android:textFontWeight="800"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@drawable/bg_edit_text"
+            android:fontFamily="@font/font_inter_medium"
+            android:hint="Enter Your Phone Number"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:text=""
+            android:inputType="phone"
+            android:textColor="@color/dark_gray_4d4d4d"
+            android:textColorHint="@color/hint_gray_c6c6c6"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="40dp"
+        android:layout_marginVertical="@dimen/_16sdp"
+        android:background="@drawable/bg_btn_blue"
+        android:backgroundTint="@color/red_c70000"
+        android:fontFamily="@font/font_inter_bold"
+        android:gravity="center"
+        android:text="Delete My Account"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</LinearLayout>

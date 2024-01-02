@@ -4,44 +4,36 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TableLayout
 import android.widget.TableRow
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.interfaces.ItemChangeListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.example.RemoveCartResponse
 import com.google.gson.JsonObject
 import com.matemart.R
-import com.matemart.adapter.ImagePreviewSliderAdapter
-import com.matemart.adapter.RatingBarListAdapter
-import com.matemart.adapter.ReviewListAdapter
-import com.matemart.adapter.VariationOuterAdapter
+import com.matemart.adapter.*
+import com.matemart.adapter.MainStoreAdapter.ItemHomeProductListHolder
 import com.matemart.databinding.ActivityProductDetailsBinding
 import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.SliderItemClickListner
-import com.matemart.model.AddCartResponse
-import com.matemart.model.GetProductDetailsResponse
-import com.matemart.model.Product
-import com.matemart.model.ViewListModel
+import com.matemart.interfaces.WishListUpdateListner
+import com.matemart.model.*
 import com.matemart.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
-    onVariationChangeListener, ImagePreviewSliderAdapter.OnItemClickListener {
+    onVariationChangeListener, ImagePreviewSliderAdapter.OnItemClickListener ,
+    WishListUpdateListner {
     var p_id: Int = 0
     var product_detail_id: Int = 0
     private var tableRowHeader: TableRow? = null
@@ -197,6 +189,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         jsonObject.addProperty("product_detail_id", product_detail_id)
         jsonObject.addProperty("p_id", p_id)
 
+        getSimilarProduct(p_id)
+
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
         var call: Call<GetProductDetailsResponse> = apiInterface.getProductDetail(jsonObject)!!
 
@@ -214,6 +208,11 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         binding.tvProductName.text = data.product.p_name
                         binding.tvPrice.text = data.product.price
                         binding.tvSalePrice.text = data.product.saleprice
+
+                        var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
+                        var discountPercentage = (discountPrice/data.product.price.toDouble())*100
+                        binding.tvPercentageOff.text = "${discountPercentage.toInt()}% OFF"
+
                         product = data.product
 
                         if (data.product.cart != null) {
@@ -501,10 +500,15 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                     if (data != null) {
 
+                        getSimilarProduct(data.product.p_id)
+
                         binding.tvProductName.text = data.product.p_name
                         binding.tvPrice.text = data.product.price
                         binding.tvSalePrice.text = data.product.saleprice
 
+                        var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
+                        var discountPercentage = (discountPrice/data.product.price.toDouble())*100
+                        binding.tvPercentageOff.text = "$discountPercentage% OFF"
                         product = data.product
 
                         if (data.product.cart != null) {
@@ -612,10 +616,72 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
     override fun onVariationChanged(variation: HashMap<String, String>) {
         Log.e("mmmmmmmmmmmmm", "onVariationChanged: " + variation.toString())
         getFilteredProductDetail(p_id, product_detail_id, variation)
+
     }
 
     override fun onItemClick(position: Int, itemList: List<String>) {
 
+
+    }
+
+
+    private fun getSimilarProduct(
+        p_id: Int
+    ) {
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("p_id", p_id)
+
+
+        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
+        var call: Call<ResponseProductList> =
+            apiInterface.getSimilarProduct(jsonObject)!!
+
+        call.enqueue(object : Callback<ResponseProductList> {
+            override fun onResponse(
+                call: Call<ResponseProductList>,
+                response: Response<ResponseProductList>
+            ) {
+                if (response.body()?.statuscode == 11) {
+
+                    val data = response.body()?.data
+
+                    if (data != null) {
+                        val layoutManager =
+                            LinearLayoutManager(this@ProductDetailsActivity, LinearLayoutManager.HORIZONTAL, false)
+                        binding.rcSimilarProducts.layoutManager =
+                            layoutManager
+                        val adapter = ProductItemAdapter(
+                            data,
+                            this@ProductDetailsActivity,
+                            this@ProductDetailsActivity
+                        )
+                        binding.rcSimilarProducts.adapter = adapter
+
+                    }
+                } else {
+                    Toast.makeText(
+                        this@ProductDetailsActivity,
+                        response.body()?.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseProductList>, t: Throwable) {
+                t.printStackTrace()
+                Toast.makeText(
+                    this@ProductDetailsActivity,
+                    t.toString(),
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
+    }
+
+    override fun onUpdate() {
 
     }
 

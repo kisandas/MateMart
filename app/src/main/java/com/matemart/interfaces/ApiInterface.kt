@@ -122,6 +122,10 @@ interface ApiInterface {
     @POST("product-details")
     fun getProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?
 
+
+   @POST("similar-products")
+    fun getSimilarProduct(@Body jsonObject: JsonObject): Call<ResponseProductList>?
+
     @POST("compare-product")
     fun getCompareProductDetail(@Body jsonObject: JsonObject): Call<CompareProductDetailResponse>?
 
@@ -171,6 +175,9 @@ interface ApiInterface {
 
     @POST("order-tracking")
     fun getOrderTracking(@Body request: JsonObject): Call<ResponseOrderTrackingModel>?
+
+    @POST("delete-user")
+    fun deleteUser(@Body request: JsonObject): Call<DeleteResponse>?
 
     @POST("user-logout")
     fun logoutUser(): Call<LogoutResponse>?

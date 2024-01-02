@@ -33,7 +33,4 @@ class ArchitectContactDetailBottomSheet(
         dialog.setContentView(view)
     }
 
-
-
-
 }

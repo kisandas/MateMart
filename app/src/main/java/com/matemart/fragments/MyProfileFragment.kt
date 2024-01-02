@@ -55,7 +55,8 @@ class MyProfileFragment : Fragment() {
     }
 
     fun getUserProfile() {
-        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, requireContext())
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, requireContext())
         var call: Call<ResGetProfileDetails> = apiInterface.getUserProfile()!!
 
         call.enqueue(object : Callback<ResGetProfileDetails> {
@@ -126,7 +127,7 @@ class MyProfileFragment : Fragment() {
         binding!!.include2.ivBack.visibility = INVISIBLE
 
         binding!!.btnLogin.setOnClickListener {
-            startActivity(Intent(requireContext(),LoginActivity::class.java))
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
         SharedPrefHelper.getInstance(MyApplication.getInstance())
             .read(SharedPrefHelper.KEY_ACCESS_TOKEN)
@@ -198,6 +199,14 @@ class MyProfileFragment : Fragment() {
         binding!!.btnLogout.setOnClickListener {
             logoutUser()
         }
+
+        binding!!.tvDeleteAccount.setOnClickListener {
+            deleteAccount()
+        }
+    }
+
+    private fun deleteAccount() {
+        startActivity(Intent(requireContext(), AccountDeleteActivity::class.java))
     }
 
     override fun onDestroyView() {

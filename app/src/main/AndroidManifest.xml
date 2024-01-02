@@ -53,6 +53,10 @@
         <activity
             android:name=".activities.ImagePreviewActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".activities.AccountDeleteActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.PolicyDetailsActivity"
             android:exported="false" />

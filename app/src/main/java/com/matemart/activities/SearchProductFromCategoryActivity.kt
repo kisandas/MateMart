@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +22,10 @@ import com.matemart.interfaces.ApiInterface
 import com.matemart.interfaces.WishListUpdateListner
 import com.matemart.model.FilterBody
 import com.matemart.model.ViewListModel
+import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
+import com.matemart.utils.SharedPrefHelper
+import okhttp3.internal.notify
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -66,8 +70,11 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // Called when the text changes, you can call the filterList function here
-                val query = s.toString()
-                filterList(query)
+//                val query = s.toString()
+//                filterList(query)
+                if(s.toString().length>3){
+                    getProductFromSearch(s.toString())
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -116,6 +123,76 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
     fun filterList(query: String) {
         val filteredList = list.filter { item -> item.p_name?.contains(query, ignoreCase = true) == true }
         adapter.updateList(filteredList)
+    }
+
+
+    fun getProductFromSearch(word: String) {
+
+        val jsonObject = convertToJSON(actualMap!!)
+        jsonObject.addProperty(
+            "u_id", SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.USER_ID, 0)
+        )
+        jsonObject.addProperty("word", word)
+        if (clickID != "null" && clickID.isNotEmpty()) {
+            jsonObject.addProperty("clickId", clickID)
+        }else{
+            jsonObject.addProperty("clickId", "Category")
+        }
+
+        if (c_id != -1) {
+            jsonObject.addProperty("c_id", c_id)
+        }
+
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
+        var call: Call<ResponseProductList> = apiInterface.getProductFromSearch(jsonObject)!!
+
+        call.enqueue(object : Callback<ResponseProductList> {
+            override fun onResponse(
+                call: Call<ResponseProductList>,
+                response: Response<ResponseProductList>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    response.body()?.data?.let {
+
+                        list.clear()
+                        list.addAll(it)
+                        adapter.notifyDataSetChanged()
+
+//                        productListAdapter.notifyDataSetChanged()
+//
+//                        if(list.isNotEmpty()){
+//                            rvProductList.visibility = View.VISIBLE
+//                            ll_RecentSearch.visibility = View.GONE
+//                            ll_trendingSearch.visibility = View.GONE
+//                            ll_emptyLayout.visibility = View.GONE
+//                        }else{
+//                            rvProductList.visibility = View.GONE
+//                        }
+
+                    }
+                } else {
+                    Toast.makeText(
+                        this@SearchProductFromCategoryActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseProductList>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("checkkFailed", "onFailure: " + t.message)
+                Toast.makeText(
+                    this@SearchProductFromCategoryActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+        })
     }
 
 

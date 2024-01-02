@@ -23,6 +23,8 @@ import com.matemart.model.ViewListModel;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapter.ItemViewHolder> {
 
     private ArrayList<ViewListModel> viewList;
@@ -54,7 +56,9 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         holder.tv_lable.setText(viewList.get(position).getTitle());
         if (position>= 0 && viewList.get(position).getColor() != null ) {
             Log.e("cvccccccccccc", "onBindViewHolder: "+ viewList.get(position).getColor());
+
             holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(viewList.get(position).getColor())));
+            holder.iv_category_image.setBorderColor(Color.parseColor(viewList.get(position).getColor()));
 
         }
 
@@ -75,7 +79,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView iv_category_image;
+        CircleImageView iv_category_image;
         TextView tv_lable;
 
         public ItemViewHolder(View itemView) {

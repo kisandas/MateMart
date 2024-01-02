@@ -379,7 +379,7 @@
                         android:src="@drawable/ic_account" />
 
                     <TextView
-                        android:id="@+id/tv_invoice_downloads"
+                        android:id="@+id/tvDeleteAccount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
