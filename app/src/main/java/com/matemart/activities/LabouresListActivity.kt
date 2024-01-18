@@ -39,7 +39,7 @@ class LabouresListActivity : AppCompatActivity(), DismissBottomSheet {
             finish()
         }
         binding.headerlay.title.text = "Laboures"
-        adapter = LabourListAdapter(labourList)
+        adapter = LabourListAdapter(this@LabouresListActivity,labourList)
         binding.list.adapter = adapter
         getFilter()
         getLabour(0)

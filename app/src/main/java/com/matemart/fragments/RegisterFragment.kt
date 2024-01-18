@@ -111,7 +111,17 @@ class RegisterFragment : BaseFragment() {
         viewModel.register(binding.tvCountryCode.text.toString() + binding.etNumber.text.toString(),binding.etName.text.toString())
         viewModel.loginResponse.observe(viewLifecycleOwner) {
             Log.e("checkLogin-->", "checkValidation: " + it.data.toString())
-            successResponse(it.data as LoginResponse)
+
+            if (it?.data?.statuscode == 11) {
+                successResponse(it.data as LoginResponse)
+            } else {
+                Toaster.Builder(requireActivity())
+                    .setTitle("ERROR")
+                    .setDescription(it?.data?.message)
+                    .setDuration(5000)
+                    .setStatus(Toaster.Status.ERROR)
+                    .show()
+            }
         }
 
     }

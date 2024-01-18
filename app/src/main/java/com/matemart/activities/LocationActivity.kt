@@ -31,6 +31,8 @@ import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
 import com.matemart.utils.SharedPrefHelper
 import com.matemart.utils.Utils
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -139,7 +141,7 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
             }
         })
         btn_save!!.setOnClickListener(View.OnClickListener {
-            if (et_state!!.text.toString().trim { it <= ' ' }.isEmpty()) {
+            if (et_state!!.text.toString().isEmpty()) {
                 Toast.makeText(
                     this@LocationActivity,
                     "Please Enter State First",
@@ -148,7 +150,7 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
                 et_state!!.requestFocus()
                 return@OnClickListener
             }
-            if (et_city!!.text.toString().trim { it <= ' ' }.isEmpty()) {
+            if (et_city!!.text.toString().isEmpty()) {
                 Toast.makeText(this@LocationActivity, "Please Enter City First", Toast.LENGTH_SHORT)
                     .show()
                 et_city!!.requestFocus()
@@ -183,14 +185,18 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
 
 
     fun updateProfile(state: String, city: String, pincode: String) {
-        var jsonObject = JsonObject()
-        jsonObject.addProperty("state", state)
-        jsonObject.addProperty("city", city)
-        jsonObject.addProperty("pincode", pincode)
+        var jsonObject = JSONObject()
+        jsonObject.put("state", state)
+        jsonObject.put("city", city)
+        jsonObject.put("pincode", pincode)
 
+
+
+        val mediaType = "application/json; charset=utf-8".toMediaType()
+        val requestBody = jsonObject.toString().toRequestBody(mediaType)
 
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
-        var call: Call<ResGetProfileDetails> = apiInterface.updateUserProfile(jsonObject)!!
+        var call: Call<ResGetProfileDetails> = apiInterface.updateUserProfile(requestBody)!!
 
         call.enqueue(object : Callback<ResGetProfileDetails> {
             override fun onResponse(

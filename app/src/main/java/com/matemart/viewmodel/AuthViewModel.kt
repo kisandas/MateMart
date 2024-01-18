@@ -22,7 +22,7 @@ class AuthViewModel @Inject constructor(private val repository: ApiRepository) :
 
     val loading = MutableLiveData<Boolean>()
 
-//    //Api
+    //    //Api
 //    val signupEmailResponse = MutableLiveData<WebResponse<RegisterResponse>>()
 //    val verifyEmailResponse = MutableLiveData<WebResponse<EmailVerificationResponse>>()
 //    val updatePasswordResponse = MutableLiveData<WebResponse<RegisterResponse>>()
@@ -181,13 +181,24 @@ class AuthViewModel @Inject constructor(private val repository: ApiRepository) :
         val response = repository.login(requestBody)
         if (response.isSuccessful) {
             val result = response.body()
-            loginResponse.postValue(
-                WebResponse(
-                    Status.SUCCESS,
-                    result,
-                    result?.message
+            if (response.body()?.statuscode == 11) {
+                loginResponse.postValue(
+                    WebResponse(
+                        Status.SUCCESS,
+                        result,
+                        result?.message
+                    )
                 )
-            )
+            } else {
+                loginResponse.postValue(
+                    WebResponse(
+                        Status.FAILURE,
+                        result,
+                        result?.message
+                    )
+                )
+            }
+
         } else if (response.code() == 404 || response.code() == 400) {
             val result = response.errorBody()?.string()
             result?.let {
@@ -213,7 +224,7 @@ class AuthViewModel @Inject constructor(private val repository: ApiRepository) :
     }
 
     //Register api call
-    fun register(mo_no: String,uname:String) = viewModelScope.launch {
+    fun register(mo_no: String, uname: String) = viewModelScope.launch {
 
         loading.postValue(true)
         val jsonData = JSONObject()
@@ -231,13 +242,23 @@ class AuthViewModel @Inject constructor(private val repository: ApiRepository) :
         val response = repository.register(requestBody)
         if (response.isSuccessful) {
             val result = response.body()
-            loginResponse.postValue(
-                WebResponse(
-                    Status.SUCCESS,
-                    result,
-                    result?.message
+            if (response.body()?.statuscode == 11) {
+                loginResponse.postValue(
+                    WebResponse(
+                        Status.SUCCESS,
+                        result,
+                        result?.message
+                    )
                 )
-            )
+            } else {
+                loginResponse.postValue(
+                    WebResponse(
+                        Status.FAILURE,
+                        result,
+                        result?.message
+                    )
+                )
+            }
         } else if (response.code() == 404 || response.code() == 400) {
             val result = response.errorBody()?.string()
             result?.let {
@@ -262,8 +283,8 @@ class AuthViewModel @Inject constructor(private val repository: ApiRepository) :
         loading.postValue(false)
     }
 
-//    Verify OTP
-    fun verify_otp(token: String,verification_code:String) = viewModelScope.launch {
+    //    Verify OTP
+    fun verify_otp(token: String, verification_code: String) = viewModelScope.launch {
 
         loading.postValue(true)
         val jsonData = JSONObject()
@@ -281,13 +302,23 @@ class AuthViewModel @Inject constructor(private val repository: ApiRepository) :
         val response = repository.verify_otp(requestBody)
         if (response.isSuccessful) {
             val result = response.body()
-            userResponse.postValue(
-                WebResponse(
-                    Status.SUCCESS,
-                    result,
-                    result?.message
+            if (response.body()?.statuscode == 11) {
+                userResponse.postValue(
+                    WebResponse(
+                        Status.SUCCESS,
+                        result,
+                        result?.message
+                    )
                 )
-            )
+            } else {
+                userResponse.postValue(
+                    WebResponse(
+                        Status.FAILURE,
+                        result,
+                        result?.message
+                    )
+                )
+            }
         } else if (response.code() == 404 || response.code() == 400) {
             val result = response.errorBody()?.string()
             result?.let {

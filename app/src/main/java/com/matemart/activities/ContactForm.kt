@@ -9,6 +9,7 @@ import com.matemart.databinding.ActivityArchitecturalProffessionalDetailsBinding
 import com.matemart.databinding.ActivityContactFormBinding
 import com.matemart.fragments.ArchitectContactDetailBottomSheet
 import com.matemart.fragments.CitySelectionBottomSheetFragment
+import com.matemart.fragments.onDismissListener
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.ResGetArchitectContact
 import com.matemart.utils.MyApplication
@@ -18,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ContactForm : AppCompatActivity() {
+class ContactForm : AppCompatActivity() , onDismissListener {
 
     lateinit var binding: ActivityContactFormBinding
     lateinit var pref: SharedPrefHelper
@@ -32,6 +33,12 @@ class ContactForm : AppCompatActivity() {
         var Type = intent.getStringExtra("type")
         var pro_id = intent.getIntExtra("pro_id", 0)
 
+        binding.headerLay.ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.headerLay.title.text = "Your Details"
+
 
         binding.etName.setText(pref.read(SharedPrefHelper.USER_NAME, "").toString())
         binding.etMobile.setText(pref.read(SharedPrefHelper.KEY_LOGIN_NUMBER, "").toString())
@@ -40,6 +47,8 @@ class ContactForm : AppCompatActivity() {
             if (binding.etDescription.text.toString().isNotEmpty()) {
                 if (Type == "Architect") {
                     getArchitectDetails(pro_id)
+                }else if(Type =="labour"){
+                    getLabourDetails(pro_id)
                 }
 
 
@@ -72,7 +81,7 @@ class ContactForm : AppCompatActivity() {
 
                     if (response.body()?.data != null) {
                         var cddCity = ArchitectContactDetailBottomSheet(
-                            "Architect", response.body()?.data!!
+                            "Architect", response.body()?.data!!,this@ContactForm
                         )
                         cddCity.show(supportFragmentManager, "TAG2")
                     }
@@ -96,6 +105,62 @@ class ContactForm : AppCompatActivity() {
 
         })
 
+    }
+
+
+    private fun getLabourDetails(pro_id: Int) {
+
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("id", pro_id)
+        jsonObject.addProperty("name", pref.read(SharedPrefHelper.USER_NAME, "").toString())
+
+        jsonObject.addProperty(
+            "mobile_no",
+            pref.read(SharedPrefHelper.KEY_LOGIN_NUMBER, "").toString()
+        )
+        jsonObject.addProperty("occupation", binding.etOccupation.text.toString())
+        jsonObject.addProperty("purpose", binding.etDescription.text.toString())
+        var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
+        var call: Call<ResGetArchitectContact> = apiInterface.getLabourDetails(jsonObject)!!
+
+        call.enqueue(object : Callback<ResGetArchitectContact> {
+            override fun onResponse(
+                call: Call<ResGetArchitectContact>,
+                response: Response<ResGetArchitectContact>
+            ) {
+                if (response.isSuccessful) {
+
+                    if (response.body()?.data != null) {
+                        var cddCity = ArchitectContactDetailBottomSheet(
+                            "Type", response.body()?.data!!,this@ContactForm
+                        )
+                        cddCity.show(supportFragmentManager, "TAG2")
+                    }
+                } else {
+                    Toast.makeText(
+                        this@ContactForm,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResGetArchitectContact>, t: Throwable) {
+                Toast.makeText(
+                    this@ContactForm,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
+    }
+
+
+    override fun onDismissed() {
+      finish()
     }
 
 }

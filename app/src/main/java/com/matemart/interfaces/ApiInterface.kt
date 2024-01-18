@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.matemart.model.*
 import com.matemart.model.login.UserResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -43,7 +44,7 @@ interface ApiInterface {
     fun getUserProfile(): Call<ResGetProfileDetails>?
 
     @POST("update-profile")
-    fun updateUserProfile(@Body jsonObject: JsonObject): Call<ResGetProfileDetails>?
+    fun updateUserProfile(@Body body: RequestBody): Call<ResGetProfileDetails>?
 
     @Multipart
     @POST("profile-photo")
@@ -51,6 +52,10 @@ interface ApiInterface {
 
     @POST("details-architect")
     fun getArchitectDetails(@Body jsonObject: JsonObject): Call<ResGetArchitectContact>?
+
+    @POST("single-laboures")
+    fun getLabourDetails(@Body jsonObject: JsonObject): Call<ResGetArchitectContact>?
+
 
     @POST("send-otp")
     fun sendOtp(@Body jsonObject: JsonObject): Call<ResSendOtp>?
@@ -176,8 +181,8 @@ interface ApiInterface {
     @POST("order-tracking")
     fun getOrderTracking(@Body request: JsonObject): Call<ResponseOrderTrackingModel>?
 
-    @POST("delete-user")
-    fun deleteUser(@Body request: JsonObject): Call<DeleteResponse>?
+    @POST("verify-otp-user-delete")
+    fun deleteUser(@Body request: JsonObject): Call<CommonResponse>?
 
     @POST("user-logout")
     fun logoutUser(): Call<LogoutResponse>?
@@ -188,4 +193,10 @@ interface ApiInterface {
 
     @GET("{ifscCode}")
     fun getIFSCDetails(@Path("ifscCode") ifscCode: String): Call<ResponseBody>
+
+    @POST("post-requirement")
+    fun postYourRequirements(
+        @Part requirement_image: MultipartBody.Part,
+        @Body body: RequestBody
+    ): Call<CommonResponse>
 }

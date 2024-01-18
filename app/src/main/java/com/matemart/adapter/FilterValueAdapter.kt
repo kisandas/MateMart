@@ -77,7 +77,6 @@ class FilterValueAdapter(
 
             tvState.text = filterBody.name.toString()
 
-            Log.e("---------", "bindData: " + selectedMap?.get(keyValue).toString())
             selectedMap?.get(keyValue)?.let { itemList ->
                 var found = false // Track if a match is found
 
@@ -91,7 +90,8 @@ class FilterValueAdapter(
                 // Modify the checkbox status after the loop
                 icCheckBox.isChecked = found
             }
-            if (valueList[position].isDisabled) {
+            Log.e("chhhhhhhhhhhhhh", "bindData: "+filterBody.name +"        state: "+filterBody.is_disabled)
+            if (filterBody.is_disabled) {
                 icCheckBox.isClickable = false
                 icCheckBox.isEnabled = false
                 tvState.isClickable = false
@@ -104,27 +104,34 @@ class FilterValueAdapter(
             }
 
             tvState.setOnClickListener {
-                Log.e("kishannnn", "bindData: "+valueList[position].isDisabled )
-                if (valueList[position].isDisabled) {
+                if (filterBody.is_disabled) {
 
                 } else {
                     icCheckBox.isChecked = !icCheckBox.isChecked
-//                    valueList[position].isDisabled = icCheckBox.isChecked
+                    onClickValue(keyValue, filterBody, icCheckBox.isChecked)
                 }
 
             }
-            itemView.setOnClickListener {
-                if (valueList[position].isDisabled) {
+
+            icCheckBox.setOnClickListener {
+                if (filterBody.is_disabled) {
 
                 } else {
                     icCheckBox.isChecked = !icCheckBox.isChecked
-//                    valueList[position].isDisabled = icCheckBox.isChecked
+                    onClickValue(keyValue, filterBody, icCheckBox.isChecked)
+                }
+            }
+            itemView.setOnClickListener {
+                if (filterBody.is_disabled) {
+
+                } else {
+                    icCheckBox.isChecked = !icCheckBox.isChecked
+                    onClickValue(keyValue, filterBody, icCheckBox.isChecked)
                 }
             }
             icCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                Log.e("checkkkk----==========>1111", "position clicked: " + isChecked)
-                onClickValue(keyValue, filterBody, isChecked)
+//                onClickValue(keyValue, filterBody, icCheckBox.isChecked)
             }
         }
     }

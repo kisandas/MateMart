@@ -11,5 +11,5 @@ data class FilterModelClass(
 
 data class FilterBody(
     val name: Any? ="",
-    var isDisabled: Boolean = false
+    var is_disabled: Boolean = false
 ) : Serializable

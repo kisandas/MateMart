@@ -57,8 +57,8 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
         if (position>= 0 && viewList.get(position).getColor() != null ) {
             Log.e("cvccccccccccc", "onBindViewHolder: "+ viewList.get(position).getColor());
 
-            holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(viewList.get(position).getColor())));
-            holder.iv_category_image.setBorderColor(Color.parseColor(viewList.get(position).getColor()));
+            holder.iv_category_image.setBackgroundTintList(ColorStateList.valueOf(mContext.getColor(R.color.theme_blue_38B449)));
+            holder.iv_category_image.setBorderColor(mContext.getColor(R.color.theme_blue_38B449));
 
         }
 

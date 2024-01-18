@@ -72,16 +72,17 @@ class FilterKeyAdapter(private val context:Context,
                 val position = adapterPosition
 
 
+                onClick(
+                    keyValue,
+                    ArrayList(keyList[keyValue]!!)
+                )
                 // Update selected position
                 if (position != RecyclerView.NO_POSITION) {
                     selectedPosition = position
                     notifyDataSetChanged() // Refresh the view to apply the selector
                 }
 //                tvState.background =context.getDrawable(R.drawable.white_drawable)
-                onClick(
-                    keyValue,
-                    ArrayList(keyList[keyValue]!!)
-                )
+
             }
             tvState.isChecked = adapterPosition == selectedPosition
         }

@@ -96,6 +96,8 @@ class WebViewActivity : AppCompatActivity() {
             }
         }
 
+
+        binding?.llheaderlay?.ivBack?.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         url?.let { binding?.webView?.loadUrl(it) }
 
     }

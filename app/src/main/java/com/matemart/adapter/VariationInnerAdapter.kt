@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.matemart.R
 import com.matemart.activities.ProductDetailsActivity.Companion.finalSelectedVariation
@@ -70,6 +71,9 @@ class VariationInnerAdapter(
                 if(selectedVariationsHashMap.containsValue(list[position])){
                     holder.binding.tvVariationName.isChecked = true
                     finalSelectedVariation[keyName] = list[position]
+
+
+
                 }else{
                     holder.binding.tvVariationName.isChecked = false
                 }

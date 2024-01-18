@@ -34,12 +34,12 @@ import retrofit2.Response
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private var binding: ActivityHomeBinding? = null
-    var navView : BottomNavigationView? = null
+    var navView: BottomNavigationView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-         navView = findViewById(R.id.nav_view)
+        navView = findViewById(R.id.nav_view)
         val appBarConfiguration: AppBarConfiguration = AppBarConfiguration.Builder(
             R.id.navigation_home,
             R.id.navigation_order,
@@ -204,26 +204,36 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     if (response.body()?.statuscode == 11) {
                         response.body()?.data?.let {
 
-                            it.cart_badge_count?.let { it1 ->
+                            if (it.cart_badge_count !== null && it.cart_badge_count!! > 0) {
                                 SharedPrefHelper.getInstance(MyApplication.getInstance())
-                                    .write(SharedPrefHelper.BADGE_COUNT, it1)
-                                if (it1 > 0 && it1>99) {
+                                    .write(SharedPrefHelper.BADGE_COUNT, it.cart_badge_count!!)
+                                if (it.cart_badge_count!! > 0 && it.cart_badge_count!! > 99) {
                                     Utils.showBadge(
                                         this@HomeActivity,
                                         navView,
                                         R.id.navigation_cart,
-                                       "99+"
+                                        "99+"
                                     )
-                                }else if(it1>0){
+                                } else if (it.cart_badge_count!! > 0) {
                                     Utils.showBadge(
                                         this@HomeActivity,
                                         navView,
                                         R.id.navigation_cart,
-                                        it1.toString()
+                                        it.cart_badge_count.toString()
+                                    )
+                                } else {
+                                    Utils.hideBadge(
+                                        navView,
+                                        R.id.navigation_cart
                                     )
                                 }
-                            }
 
+                            } else {
+                                Utils.hideBadge(
+                                    navView,
+                                    R.id.navigation_cart
+                                )
+                            }
                         }
                     }
 

@@ -265,7 +265,7 @@ class MyOrderDetailActivity : AppCompatActivity(), ItemOrderDetailsListAdapter.I
                 "o_d_id", orderData.oDId
             ).putExtra(
                 "o_id", o_id
-            ).putExtra("product_detail_id", orderData.productDetailId)
+            ).putExtra("product_detail_id", orderData.productDetailId).putExtra("p_id",orderData.productDetail?.pId)
         )
     }
 }

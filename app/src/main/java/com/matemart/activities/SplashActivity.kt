@@ -8,19 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.google.gson.JsonObject
+import com.matemart.BuildConfig
 import com.matemart.R
 import com.matemart.api.Constants
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.AppData
 import com.matemart.model.AppDataResponse
-import com.matemart.model.RazorPayURLResponse
 import com.matemart.model.StateAndCityModel
 import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
 import com.matemart.utils.SharedPrefHelper
 import com.matemart.utils.SharedPrefHelper.Companion.KEY_ACCESS_TOKEN
-import com.matemart.utils.SharedPrefHelper.Companion.KEY_CCID
 import com.matemart.utils.Toast.Toaster
 import org.json.JSONException
 import org.json.JSONObject
@@ -82,7 +80,7 @@ class SplashActivity : AppCompatActivity() {
                             }
 
 
-                            callGetAppDataAPI()
+                            getAPPDataAPI()
 
                             Log.e("checkAccessToken", ": " + pref?.read(KEY_ACCESS_TOKEN))
 
@@ -117,43 +115,73 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
     }
-//
-//        var apiInterface: ApiInterface =
-//            Service.createService(ApiInterface::class.java, this@SplashActivity)
-//        var call: Call<AppDataResponse> = apiInterface.getAppUpdateData()!!
-//
-//        call.enqueue(object : Callback<AppDataResponse> {
-//            override fun onResponse(
-//                call: Call<AppDataResponse>,
-//                response: Response<AppDataResponse>
-//            ) {
-//
-//                Log.e("---------", "onResponse: "+response.toString() )
-////                if (response.body()?.statuscode == 11) {
-////                    APP_DATA = response.body()?.data
-////
-////
-////
-////
-//            }
-//
-//            override fun onFailure(call: Call<AppDataResponse>, t: Throwable) {
-//                Log.e("---------", "onResponse  t: "+t.message )
-//                t.printStackTrace()
-//                Toast.makeText(
-//                    this@SplashActivity,
-//                    "Something went wrong",
-//                    Toast.LENGTH_LONG
-//                )
-//                    .show()
-//            }
-//
-//        })
+
+    fun getAPPDataAPI() {
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SplashActivity)
+        var call: Call<AppDataResponse> = apiInterface.getAppUpdateData()!!
+
+        call.enqueue(object : Callback<AppDataResponse> {
+            override fun onResponse(
+                call: Call<AppDataResponse>,
+                response: Response<AppDataResponse>
+            ) {
+
+                if (response.body()?.statuscode == 11) {
+
+                    if (response.body()?.data?.appVersionData?.release!! > BuildConfig.VERSION_CODE) {
+                        showAppUpdateDialog(response.body()!!)
+                    } else {
+                        if (!pref?.read(KEY_ACCESS_TOKEN).isNullOrEmpty()) {
+                            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+                            finish()
+                        } else {
+                            startActivity(
+                                Intent(
+                                    this@SplashActivity,
+                                    LoginActivity::class.java
+                                )
+                            )
+                            finish()
+                        }
+
+                    }
+
+                } else {
+                    Toaster.Builder(this@SplashActivity)
+                        .setTitle("ERROR")
+                        .setDescription(response.body()?.message)
+                        .setDuration(5000)
+                        .setStatus(Toaster.Status.ERROR)
+                        .show()
+                }
+            }
+
+            override fun onFailure(call: Call<AppDataResponse>, t: Throwable) {
+                t.printStackTrace()
+
+                Toaster.Builder(this@SplashActivity)
+                    .setTitle("ERROR")
+                    .setDescription(t.message)
+                    .setDuration(5000)
+                    .setStatus(Toaster.Status.ERROR)
+                    .show()
+            }
+
+        })
+
+    }
+
+    fun showAppUpdateDialog(body: AppDataResponse) {
+
+        startActivity(Intent(this@SplashActivity,AppUpdateActivity::class.java).putExtra("data",body))
+
+    }
 
 
-
-companion object {
-    var APP_DATA: AppData? = null
-}
+    companion object {
+        var APP_DATA: AppData? = null
+    }
 
 }

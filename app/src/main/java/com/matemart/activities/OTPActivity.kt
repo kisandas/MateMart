@@ -24,7 +24,7 @@ class OTPActivity : BaseActivity() {
     private lateinit var countDownTimer: CountDownTimer
     private var isTimerRunning = false
     private val initialTimeInMillis: Long = 2 * 60 * 1000
-var phoneNo =""
+    var phoneNo = ""
 
     private lateinit var binding: ActivityOtpactivityBinding
     override fun observeViewModel() {
@@ -72,7 +72,7 @@ var phoneNo =""
         pref = SharedPrefHelper.getInstance(MyApplication())
 
         binding.tvResendOtp.setOnClickListener {
-            if(!isTimerRunning) {
+            if (!isTimerRunning) {
                 viewModel.login(phoneNo)
                 resetTimer()
             }
@@ -93,7 +93,17 @@ var phoneNo =""
 
         viewModel.loginResponse.observe(this@OTPActivity) {
             Log.e("checkLogin-->", "checkValidation: " + it.data.toString())
-            successResponse(it.data as LoginResponse)
+//            successResponse(it.data as LoginResponse)
+            if (it?.data?.statuscode == 11) {
+                successResponse(it.data as LoginResponse)
+            } else {
+                Toaster.Builder(this@OTPActivity)
+                    .setTitle("ERROR")
+                    .setDescription(it?.data?.message)
+                    .setDuration(5000)
+                    .setStatus(Toaster.Status.ERROR)
+                    .show()
+            }
         }
 
 
@@ -159,13 +169,15 @@ var phoneNo =""
 
 
         ccid?.let {
+            Log.e("ccchhhhiiiddd", "saveUserInfo: "+it )
             if (!it.isNullOrEmpty()) {
                 pref!!.write(SharedPrefHelper.KEY_CCID, it)
 
-                var accessToken =   pref!!.read(SharedPrefHelper.KEY_LOGIN_NUMBER) + ":" +it
-                val encodedString: String = Base64.getEncoder().encodeToString(accessToken.toByteArray())
+                var accessToken = pref!!.read(SharedPrefHelper.KEY_LOGIN_NUMBER) + ":" + it
+                val encodedString: String =
+                    Base64.getEncoder().encodeToString(accessToken.toByteArray())
 
-                pref!!.write(SharedPrefHelper.KEY_ACCESS_TOKEN,encodedString)
+                pref!!.write(SharedPrefHelper.KEY_ACCESS_TOKEN, encodedString)
             }
         }
 

@@ -211,7 +211,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                         var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
                         var discountPercentage = (discountPrice/data.product.price.toDouble())*100
-                        binding.tvPercentageOff.text = "${discountPercentage.toInt()}% OFF"
+                        binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
 
                         product = data.product
 
@@ -508,7 +508,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                         var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
                         var discountPercentage = (discountPrice/data.product.price.toDouble())*100
-                        binding.tvPercentageOff.text = "$discountPercentage% OFF"
+                        binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
                         product = data.product
 
                         if (data.product.cart != null) {

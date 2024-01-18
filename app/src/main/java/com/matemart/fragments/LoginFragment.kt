@@ -117,7 +117,7 @@ class LoginFragment : BaseFragment() {
 
     }
 
-var phoneNo =""
+    var phoneNo = ""
     private fun checkValidation() {
         if (binding.etNumber.text.toString()
                 .isEmpty() || binding.etNumber.text.toString().length != 10
@@ -134,8 +134,16 @@ var phoneNo =""
         viewModel.login(binding.tvCountryCode.text.toString() + binding.etNumber.text.toString())
         phoneNo = binding.tvCountryCode.text.toString() + binding.etNumber.text.toString()
         viewModel.loginResponse.observe(viewLifecycleOwner) {
-            Log.e("checkLogin-->", "checkValidation: " + it.data.toString())
-            successResponse(it.data as LoginResponse)
+            if (it?.data?.statuscode == 11) {
+                successResponse(it.data as LoginResponse)
+            } else {
+                Toaster.Builder(requireActivity())
+                    .setTitle("ERROR")
+                    .setDescription(it?.data?.message)
+                    .setDuration(5000)
+                    .setStatus(Toaster.Status.ERROR)
+                    .show()
+            }
         }
 
     }
@@ -172,6 +180,11 @@ var phoneNo =""
             .setDuration(5000)
             .setStatus(Toaster.Status.SUCCESS)
             .show()
-        startActivity(Intent(requireActivity(), OTPActivity::class.java).putExtra("phoneNo",phoneNo))
+        startActivity(
+            Intent(requireActivity(), OTPActivity::class.java).putExtra(
+                "phoneNo",
+                phoneNo
+            )
+        )
     }
 }

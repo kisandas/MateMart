@@ -18,9 +18,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
-        android:layout_marginVertical="@dimen/_16sdp"
+        android:layout_marginVertical="8dp"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginHorizontal="12dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_round_top_corner_radius_8"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,6 +30,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcState"
             android:layout_width="match_parent"
+            android:paddingVertical="8dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -99,9 +100,22 @@ public static String LOGIN_MESSAGE ="Please do logIn First!";
         int pixelsRight = (int) (context.getResources().getDisplayMetrics().density * 18); // Adjust the value for desired margin
         layoutParams.setMargins(0, pixelsTop, pixelsRight, 0); // Set margins (left, top, right, bottom)
         badge.setLayoutParams(layoutParams);
+        badge.setTag("badge_" + itemId);
         itemView.addView(badge);
     }
 
+
+    public static void hideBadge(BottomNavigationView bottomNavigationView, @IdRes int itemId) {
+        BottomNavigationItemView itemView = bottomNavigationView.findViewById(itemId);
+
+        // Find badge view by tag
+        View badgeToRemove = itemView.findViewWithTag("badge_" + itemId);
+
+        // If the badge view exists, remove it
+        if (badgeToRemove != null) {
+            ((ViewGroup) itemView).removeView(badgeToRemove);
+        }
+    }
     public static boolean hasPermissions(Context context, String... permissions) {
 
         boolean hasAllPermissions = true;

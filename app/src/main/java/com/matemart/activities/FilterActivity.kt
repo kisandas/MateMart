@@ -106,10 +106,6 @@ class FilterActivity : AppCompatActivity() {
 
         valueAdapter = FilterValueAdapter(ArrayList(), "") { key, data, isSelected ->
 
-            if (actualMap != null && actualMap?.isNotEmpty() == true) {
-//                actualMap?.get(key)?.find { it.name == data.name }?.isDisabled = isSelected
-                keyAdapter.setData(actualMap!!, key)
-            }
 
             var filterList: ArrayList<FilterBody> = arrayListOf()
             val list = selectedMap?.get(key)
@@ -137,9 +133,7 @@ class FilterActivity : AppCompatActivity() {
                 }
             }
             getSelectedFilter(c_id, clickId, key)
-            Log.e("mmmmmm", "onCreate:get-filter " + selectedMap?.get(key) + "   kk")
 
-            Log.e("checkkkk----==========>", "onResponse: " + actualMap.toString())
 
         }
 
@@ -201,17 +195,19 @@ class FilterActivity : AppCompatActivity() {
 
                     var innerMap: LinkedHashMap<String, LinkedHashMap<String, List<FilterBody>>>? =
                         response.body()?.data
-
                     actualMap?.clear()
-
+                    actualMap = null
+                    actualMap = LinkedHashMap()
 
                     if (innerMap != null) {
 
                         innerMap.values.forEachIndexed { index, linkedHashMap ->
-                            actualMap?.put(
-                                linkedHashMap.keys.toList()[0],
-                                linkedHashMap[linkedHashMap.keys.toList()[0]]!!
-                            )
+                            if (linkedHashMap[linkedHashMap.keys.toList()[0]]!!.isNotEmpty()) {
+                                actualMap?.put(
+                                    linkedHashMap.keys.toList()[0],
+                                    linkedHashMap[linkedHashMap.keys.toList()[0]]!!
+                                )
+                            }
 
                         }
 
@@ -256,7 +252,8 @@ class FilterActivity : AppCompatActivity() {
             val nameArray = JsonArray()
 
             for (filterBody in valueList) {
-                nameArray.add(filterBody.name.toString())
+                if (filterBody.name != "price")
+                    nameArray.add(filterBody.name.toString())
             }
 
             if (nameArray.size() > 0)
@@ -298,24 +295,22 @@ class FilterActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
 
-                    var innerMap: LinkedHashMap<String, LinkedHashMap<String, List<FilterBody>>>? = response.body()?.data
+                    var innerMap: LinkedHashMap<String, LinkedHashMap<String, List<FilterBody>>>? =
+                        response.body()?.data
 
                     actualMap?.clear()
-
-
+                    actualMap = null
+                    actualMap = LinkedHashMap()
 
                     if (innerMap != null) {
                         innerMap.values.forEachIndexed { index, linkedHashMap ->
-                            actualMap?.put(
-                                linkedHashMap.keys.toList()[0],
-                                linkedHashMap[linkedHashMap.keys.toList()[0]]!!
-                            )
-                            if (index == 2) {
-                                Log.e(
-                                    "chhhjjhjhjh",
-                                    "onResponse: " + linkedHashMap[linkedHashMap.keys.toList()[0]].toString()
+                            if (linkedHashMap[linkedHashMap.keys.toList()[0]]!!.isNotEmpty()) {
+                                actualMap?.put(
+                                    linkedHashMap.keys.toList()[0],
+                                    linkedHashMap[linkedHashMap.keys.toList()[0]]!!
                                 )
                             }
+
                         }
 
 
@@ -324,10 +319,12 @@ class FilterActivity : AppCompatActivity() {
 
                         keyAdapter.setData(actualMap!!, key)
 
+
                         valueAdapter.setData(
                             ArrayList(actualMap!![key]!!),
                             key
                         )
+                        Log.e("checkkkk----==========>", "onResponse: " + actualMap.toString())
 
 
                     }

@@ -6,8 +6,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,11 +37,11 @@ import retrofit2.Response
 
 class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateListner {
 
-    companion object{
+    companion object {
         var actualMap: LinkedHashMap<String, List<FilterBody>>? = LinkedHashMap()
         var selectedMap: LinkedHashMap<String, List<FilterBody>>? = LinkedHashMap()
-        var minPrice:Double = 0.0
-        var maxPrice:Double = 0.0
+        var minPrice: Double = 0.0
+        var maxPrice: Double = 0.0
     }
 
     lateinit var rcProductList: RecyclerView
@@ -46,6 +49,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
     lateinit var ivBack: ImageView
     var list: ArrayList<ViewListModel> = arrayListOf()
     lateinit var adapter: ProductItemAdapter
+    lateinit var llEmptyView: LinearLayout
     lateinit var ivFilter: ImageView
 
     var clickID = ""
@@ -57,6 +61,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
         tvTitle = findViewById(R.id.tvTitle)
         ivFilter = findViewById(R.id.ivFilter)
         ivBack = findViewById(R.id.iv_back)
+        llEmptyView = findViewById(R.id.llEmptyView)
 
         actualMap?.clear()
 
@@ -72,7 +77,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
                 // Called when the text changes, you can call the filterList function here
 //                val query = s.toString()
 //                filterList(query)
-                if(s.toString().length>3){
+                if (s.toString().length > 3) {
                     getProductFromSearch(s.toString())
                 }
             }
@@ -121,7 +126,8 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
     }
 
     fun filterList(query: String) {
-        val filteredList = list.filter { item -> item.p_name?.contains(query, ignoreCase = true) == true }
+        val filteredList =
+            list.filter { item -> item.p_name?.contains(query, ignoreCase = true) == true }
         adapter.updateList(filteredList)
     }
 
@@ -136,7 +142,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
         jsonObject.addProperty("word", word)
         if (clickID != "null" && clickID.isNotEmpty()) {
             jsonObject.addProperty("clickId", clickID)
-        }else{
+        } else {
             jsonObject.addProperty("clickId", "Category")
         }
 
@@ -159,6 +165,14 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
                         list.clear()
                         list.addAll(it)
+
+                        if (list.isEmpty()) {
+                            llEmptyView.visibility = VISIBLE
+                            rcProductList.visibility = GONE
+                        } else {
+                            llEmptyView.visibility = VISIBLE
+                            rcProductList.visibility = GONE
+                        }
                         adapter.notifyDataSetChanged()
 
 //                        productListAdapter.notifyDataSetChanged()
@@ -213,15 +227,15 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 //            Log.e("actualMap++++++++", "onActivityResult: "+ actualMap)
 
             if (actualMap != null) {
-                Log.e("checkOBJJJ", "onActivityResult: actualMap    "+actualMap.toString() )
+                Log.e("checkOBJJJ", "onActivityResult: actualMap    " + actualMap.toString())
                 val obj = convertToJSON(actualMap!!)
 
 
 
-                Log.e("checkOBJJJ", "onActivityResult: 3333333333333    "+obj.toString() )
+                Log.e("checkOBJJJ", "onActivityResult: 3333333333333    " + obj.toString())
                 if (clickID != null && clickID != "null" && clickID.isNotEmpty()) {
                     obj.addProperty("clickId", clickID)
-                }else{
+                } else {
                     obj.addProperty("clickId", "Category")
                 }
 
@@ -243,7 +257,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
             val nameArray = JsonArray()
 
             for (filterBody in valueList) {
-                if (filterBody.isDisabled)
+                if (filterBody.name != "price")
                     nameArray.add(filterBody.name.toString())
             }
 
@@ -253,11 +267,12 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
         }
 
-        if(minPrice != 0.0 || maxPrice != 0.0){
+        Log.e("jjjjjjjjjjjjjjjjj", "convertToJSON: " + minPrice + "         " + maxPrice)
+        if (minPrice != 0.0 || maxPrice != 0.0) {
             val priceArray = JsonArray()
             priceArray.add(minPrice)
             priceArray.add(maxPrice)
-            jsonObject.add("price",priceArray)
+            jsonObject.add("price", priceArray)
         }
 
         return jsonObject
@@ -278,7 +293,15 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
                 response: Response<ResponseProductList>
             ) {
                 if (response.body()?.statuscode == 11) {
+                    list.clear()
                     response.body()?.data?.let { list.addAll(it) }
+                    if (list.isEmpty()) {
+                        llEmptyView.visibility = VISIBLE
+                        rcProductList.visibility = GONE
+                    } else {
+                        llEmptyView.visibility = VISIBLE
+                        rcProductList.visibility = GONE
+                    }
                     adapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
@@ -316,7 +339,15 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
                 response: Response<ResponseProductList>
             ) {
                 if (response.body()?.statuscode == 11) {
+                    list.clear()
                     response.body()?.data?.let { list.addAll(it) }
+                    if (list.isEmpty()) {
+                        llEmptyView.visibility = VISIBLE
+                        rcProductList.visibility = GONE
+                    } else {
+                        llEmptyView.visibility = VISIBLE
+                        rcProductList.visibility = GONE
+                    }
                     adapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
@@ -344,7 +375,7 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
 
         var apiInterface: ApiInterface =
             Service.createService(ApiInterface::class.java, this@SearchProductFromCategoryActivity)
-        Log.e("checkkjjkjkj", "getFilteredData: "+jsonObject.toString() )
+        Log.e("checkkjjkjkj", "getFilteredData: " + jsonObject.toString())
         var call: Call<ResponseProductList> = apiInterface.getFilteredProduct(jsonObject)!!
 
         call.enqueue(object : Callback<ResponseProductList> {
@@ -356,6 +387,14 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
                     response.body()?.data?.let {
                         list.clear()
                         list.addAll(it)
+                    }
+
+                    if (list.isEmpty()) {
+                        llEmptyView.visibility = VISIBLE
+                        rcProductList.visibility = GONE
+                    } else {
+                        llEmptyView.visibility = VISIBLE
+                        rcProductList.visibility = GONE
                     }
                     adapter.notifyDataSetChanged()
                 } else {

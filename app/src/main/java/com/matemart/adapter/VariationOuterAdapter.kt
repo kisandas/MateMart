@@ -53,10 +53,26 @@ class VariationOuterAdapter(
                 RecyclerView.HORIZONTAL,
                 false
             )
+
+
+            val sortedList = valueList.sortedWith(Comparator { str1, str2 ->
+                when {
+                    str1.all { it.isDigit() } && str2.all { it.isDigit() } -> {
+                        str2.toInt() - str1.toInt() // Reverse order for numbers
+                    }
+                    str1.all { it.isLetter() } && str2.all { it.isLetter() } -> {
+                        str2.compareTo(str1, ignoreCase = true) // Reverse order for strings
+                    }
+                    else -> {
+                        if (str1.all { it.isDigit() }) -1 else 1 // Reverse order for mixed types
+                    }
+                }
+            })
+
             holder.binding.rcVariation.adapter = VariationInnerAdapter(
                 context,
                 key,
-                valueList,
+                sortedList,
                 enabledVariationsHashMap,
                 selectedVariationsHashMap,listener
             )

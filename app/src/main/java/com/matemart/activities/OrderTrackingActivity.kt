@@ -28,6 +28,7 @@ class OrderTrackingActivity : AppCompatActivity() {
     var product_detail_id = 0
     var o_d_id = 0
     var o_id = 0
+    var p_id = 0
 
     var orderStatusList: ArrayList<OrderStatusModel> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class OrderTrackingActivity : AppCompatActivity() {
         o_d_id = intent.getIntExtra("o_d_id", 0)
         o_id = intent.getIntExtra("o_id", 0)
         product_detail_id = intent.getIntExtra("product_detail_id", 0)
+        p_id = intent.getIntExtra("p_id", 0)
 
 
 
@@ -58,6 +60,7 @@ class OrderTrackingActivity : AppCompatActivity() {
         }
 
         binding!!.include.tvAddReview.setOnClickListener {
+            startActivity(Intent(this@OrderTrackingActivity,AddReviewActivity::class.java).putExtra("p_id",p_id))
 
         }
     }

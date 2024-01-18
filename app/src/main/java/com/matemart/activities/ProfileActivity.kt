@@ -28,9 +28,12 @@ import com.matemart.model.ResUploadProfileImage
 import com.matemart.model.UserProfile
 import com.matemart.utils.Service
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -144,10 +147,10 @@ class ProfileActivity : AppCompatActivity() {
 
                     var verifyOtpBottomSheet: VerifyOtpBottomSheet? =
                         response.body()!!.data!!.token?.let {
-                            VerifyOtpBottomSheet(
+                            VerifyOtpBottomSheet("mobile","",
                                 binding.tvCountryCode.text.toString() + binding.edtPhone.text.toString(),
                                 it, object : VerifyOtpBottomSheet.Update {
-                                    override fun onUpdate() {
+                                    override fun onUpdate(type:String) {
                                         getUserProfile()
                                         binding.edtPhone.isEnabled = false
                                         binding.sendOtp.text = change
@@ -213,10 +216,10 @@ class ProfileActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     var verifyOtpBottomSheet: VerifyOtpBottomSheet? =
                         response.body()!!.data!!.token?.let {
-                            VerifyOtpBottomSheet(
+                            VerifyOtpBottomSheet("mobile","",
                                 binding.tvCountryCode.text.toString() + binding.edtPhone.text.toString(),
                                 it, object : VerifyOtpBottomSheet.Update {
-                                    override fun onUpdate() {
+                                    override fun onUpdate(type:String) {
                                         getUserProfile()
                                         binding.edtPhone.isEnabled = false
                                         binding.sendOtp.text = change
@@ -347,16 +350,18 @@ class ProfileActivity : AppCompatActivity() {
 
 
     fun updateProfile() {
-        var jsonObject: JsonObject = JsonObject()
-        jsonObject.addProperty(
+        var jsonObject:JSONObject = JSONObject()
+        jsonObject.put(
             "uname",
             binding.edtFirstName.text.toString() + " " + binding.edtLastName.text.toString()
         )
-        jsonObject.addProperty("email", binding.edtEmail.text.toString())
+        jsonObject.put("email", binding.edtEmail.text.toString())
 
+        val mediaType = "application/json; charset=utf-8".toMediaType()
+        val requestBody = jsonObject.toString().toRequestBody(mediaType)
 
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
-        var call: Call<ResGetProfileDetails> = apiInterface.updateUserProfile(jsonObject)!!
+        var call: Call<ResGetProfileDetails> = apiInterface.updateUserProfile(requestBody)!!
 
         call.enqueue(object : Callback<ResGetProfileDetails> {
             override fun onResponse(

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
+import com.matemart.activities.LoginActivity
 import com.matemart.activities.SplashActivity
 
 
@@ -76,7 +77,6 @@ class SharedPrefHelper private constructor(application: MyApplication) {
 
 
     fun read(key: String?): String {
-
         return sharedPref.getString(key, "")!!
     }
 
@@ -132,7 +132,24 @@ class SharedPrefHelper private constructor(application: MyApplication) {
 
     fun logoutProfile(context: Context) {
         sharedPref.all.clear()
-        val intent = Intent(context, SplashActivity::class.java)
+        val prefsEditor: Editor = sharedPref.edit()
+        prefsEditor.putString(KEY_LOGIN_NUMBER, "")
+        prefsEditor.putString(USER_NAME, "")
+        prefsEditor.putInt(BADGE_COUNT, 0)
+        prefsEditor.putBoolean(IS_USER_GUEST,false)
+        prefsEditor.putString(KEY_CCID, "")
+        prefsEditor.putString(KEY_LOGIN_TOKEN, "")
+        prefsEditor.putString(FIREBASE_TOKEN, "")
+        prefsEditor.putString(USER_ID, "")
+        prefsEditor.putString(KEY_ACCESS_TOKEN, "")
+        prefsEditor.putInt(ADDRESS_ID, 0)
+        prefsEditor.putString(KEY_STATE, "")
+        prefsEditor.putString(KEY_CITY, "")
+        prefsEditor.putString(KEY_PINCODE, "")
+        prefsEditor.putString(EMAIL, "")
+        prefsEditor.putBoolean(KEY_LOGGED_IN,false)
+        prefsEditor.apply()
+        val intent = Intent(context, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
     }

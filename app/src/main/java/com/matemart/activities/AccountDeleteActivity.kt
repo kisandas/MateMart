@@ -5,18 +5,28 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.matemart.R
+import com.matemart.annotations.Status
+import com.matemart.api.WebResponse
 import com.matemart.databinding.ActivityAddReviewBinding
 import com.matemart.databinding.ActivityDeleteAccountBinding
 import com.matemart.databinding.ActivityMyOrderDetailBinding
 import com.matemart.fragments.DeleteAccountBottomSheetFragment
+import com.matemart.fragments.VerifyOtpBottomSheet
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.CommonResponse
 import com.matemart.model.DeleteResponse
+import com.matemart.model.ResSendOtp
+import com.matemart.model.login.LoginResponse
 import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
 import com.matemart.utils.SharedPrefHelper
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,8 +45,8 @@ class AccountDeleteActivity : AppCompatActivity(), onDeleteClickListener {
         binding!!.include2.title.text = "Delete Account"
         binding!!.include2.ivBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         binding!!.btnDelete.setOnClickListener {
-            Log.e("ccccccccccccc", "onCreate: "+mobileNo )
-            Log.e("ccccccccccccc", "onCreate: "+binding!!.etPhone.text.toString() )
+            Log.e("ccccccccccccc", "onCreate: " + mobileNo)
+            Log.e("ccccccccccccc", "onCreate: " + binding!!.etPhone.text.toString())
             if (binding!!.etPhone.text.toString() == mobileNo) {
                 val cdd = DeleteAccountBottomSheetFragment("delete", this)
                 cdd.show(supportFragmentManager, "TAG3")
@@ -52,24 +62,24 @@ class AccountDeleteActivity : AppCompatActivity(), onDeleteClickListener {
 
     }
 
-    fun deleteUserAccount() {
+    fun sendOTPForDelete() {
 
         var jsonObject = JsonObject()
 //        jsonObject.addProperty("product_detail_id", product_detail_id)
         jsonObject.addProperty(
-            "id", SharedPrefHelper.getInstance(MyApplication.getInstance())
-                .read(SharedPrefHelper.USER_ID, 0)
+            "mo_no", SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.KEY_LOGIN_NUMBER )
         )
 
 
         var apiInterface: ApiInterface =
             Service.createService(ApiInterface::class.java, this@AccountDeleteActivity)
-        var call: Call<DeleteResponse> = apiInterface.deleteUser(jsonObject)!!
+        var call: Call<ResSendOtp> = apiInterface.sendOtp(jsonObject)!!
 
-        call.enqueue(object : Callback<DeleteResponse> {
+        call.enqueue(object : Callback<ResSendOtp> {
             override fun onResponse(
-                call: Call<DeleteResponse>,
-                response: Response<DeleteResponse>
+                call: Call<ResSendOtp>,
+                response: Response<ResSendOtp>
             ) {
                 if (response.body()?.statuscode == 11) {
                     Toast.makeText(
@@ -77,8 +87,21 @@ class AccountDeleteActivity : AppCompatActivity(), onDeleteClickListener {
                         "" + response.body()?.message,
                         Toast.LENGTH_LONG
                     ).show()
-                    SharedPrefHelper.getInstance(MyApplication.getInstance())
-                        .logoutProfile(this@AccountDeleteActivity)
+
+                    VerifyOtpBottomSheet("deleteAccount",
+                        binding!!.etReason.text.toString().trim(),
+                        SharedPrefHelper.getInstance(MyApplication.getInstance())
+                            .read(SharedPrefHelper.KEY_LOGIN_NUMBER),
+                        response.body()?.data?.token.toString(),
+                        object : VerifyOtpBottomSheet.Update {
+                            override fun onUpdate(type: String) {
+                                if (type == "deleteAccount") {
+                                    deleteAccountAPICall()
+                                }
+                            }
+
+                        }).show(supportFragmentManager,"deleteAccount")
+
 
                 } else {
                     Toast.makeText(
@@ -89,7 +112,7 @@ class AccountDeleteActivity : AppCompatActivity(), onDeleteClickListener {
                 }
             }
 
-            override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResSendOtp>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("checkkFailed", "onFailure: " + t.message)
                 Toast.makeText(
@@ -103,9 +126,15 @@ class AccountDeleteActivity : AppCompatActivity(), onDeleteClickListener {
 
     }
 
-    override fun onDeleteClicked() {
-        deleteUserAccount()
+    private fun deleteAccountAPICall() {
+
     }
+
+
+    override fun onDeleteClicked() {
+        sendOTPForDelete()
+    }
+
 
 }
 

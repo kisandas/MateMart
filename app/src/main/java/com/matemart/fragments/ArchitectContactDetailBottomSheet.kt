@@ -2,6 +2,7 @@ package com.matemart.fragments
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -17,10 +18,11 @@ import com.matemart.model.ArchitectContact
 import java.util.ArrayList
 
 class ArchitectContactDetailBottomSheet(
-    var type: String,var contact: ArchitectContact
+    var type: String, var contact: ArchitectContact,var listener:onDismissListener
 ) : BottomSheetDialogFragment() {
 
     var adapter: StateSelectionAdapter? = null
+
     @SuppressLint("RestrictedApi")
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
@@ -33,4 +35,13 @@ class ArchitectContactDetailBottomSheet(
         dialog.setContentView(view)
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        listener.onDismissed()
+    }
+
+}
+
+interface onDismissListener{
+    fun onDismissed()
 }
