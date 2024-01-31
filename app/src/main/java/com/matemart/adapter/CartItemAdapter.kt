@@ -40,7 +40,7 @@ class CartItemAdapter(
         @SuppressLint("RecyclerView") position: Int
     ) {
         val item = viewList!![position]
-        Glide.with(mContext).load(item.productImage).placeholder(R.drawable.img_loading_image)
+        Glide.with(mContext).load(item.productImage).placeholder(R.drawable.place_holder_image)
             .into(holder.iv_product_image)
         holder.tv_product_name.text = item.pName
         holder.tv_price.text = "₹${item.saleprice}"

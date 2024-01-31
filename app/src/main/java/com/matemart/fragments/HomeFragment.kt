@@ -52,12 +52,11 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
 
-        if(pref?.read(SharedPrefHelper.IS_USER_GUEST,false) == true){
+        if (pref?.read(SharedPrefHelper.IS_USER_GUEST, false) == true) {
             binding?.header?.ivLocation?.visibility = GONE
             binding?.header?.ivNotification?.visibility = GONE
         }
     }
-
 
 
     override fun onDestroyView() {
@@ -117,19 +116,19 @@ class HomeFragment : Fragment() {
             Service.createService(ApiInterface::class.java, requireContext())
         var call: Call<CommonResponse> = apiInterface.refreshTokenForPush(jsonObject)!!
 
-        Log.e("hhhhhhhhjjh", "refreshToken: "+jsonObject.toString() )
+        Log.e("hhhhhhhhjjh", "refreshToken: " + jsonObject.toString())
 
         call.enqueue(object : Callback<CommonResponse> {
             override fun onResponse(
                 call: Call<CommonResponse>,
                 response: Response<CommonResponse>
             ) {
-                Log.e("hhhhhhhhjjh", "response: "+response.body().toString() )
+                Log.e("hhhhhhhhjjh", "response: " + response.body().toString())
 
             }
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
-                Log.e("hhhhhhhhjjh", "errrrrrrr: "+t.message.toString() )
+                Log.e("hhhhhhhhjjh", "errrrrrrr: " + t.message.toString())
             }
 
         })
@@ -153,7 +152,8 @@ class HomeFragment : Fragment() {
                         response.body()?.data?.let {
 
                             Glide.with(requireContext()).load(it.profile_image).placeholder(
-                                R.drawable.ic_user_place_holder)
+                                R.drawable.ic_user_place_holder
+                            )
                                 .into(binding?.header?.ivProfile as ImageView)
                             binding?.header?.tvName?.text = it.uname
 
@@ -214,24 +214,11 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
 
-                requireActivity().startActivity(
-                    Intent(
-                        requireContext(),
-                        LoginActivity::class.java
-                    )
-                )
-                requireActivity().finishAffinity()
 
                 var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
 
-                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
-                pref.write(SharedPrefHelper.EMAIL, "")
-                pref.write(SharedPrefHelper.USER_ID, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
-                pref.write(SharedPrefHelper.KEY_CCID, "")
-                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
-
+                pref.logoutProfile(requireContext())
+                requireActivity().finishAffinity()
             }
 
             override fun onFailure(call: Call<LogoutResponse>, t: Throwable) {

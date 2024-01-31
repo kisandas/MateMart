@@ -168,7 +168,7 @@ class LocationActivity : AppCompatActivity(), DismissBottomSheet {
 
             if(isDataLoaded){
                 startActivity(Intent(this@LocationActivity, HomeActivity::class.java))
-                finish()
+                finishAffinity()
             }else{
                 updateProfile(
                     et_state!!.text.toString(),

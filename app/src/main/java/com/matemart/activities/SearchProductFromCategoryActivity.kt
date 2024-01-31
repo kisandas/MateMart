@@ -299,8 +299,8 @@ class SearchProductFromCategoryActivity : AppCompatActivity(), WishListUpdateLis
                         llEmptyView.visibility = VISIBLE
                         rcProductList.visibility = GONE
                     } else {
-                        llEmptyView.visibility = VISIBLE
-                        rcProductList.visibility = GONE
+                        llEmptyView.visibility = GONE
+                        rcProductList.visibility = VISIBLE
                     }
                     adapter.notifyDataSetChanged()
                 } else {

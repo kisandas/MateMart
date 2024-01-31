@@ -24,15 +24,18 @@ object Service {
     }
 
     fun getOnlyClient(context: Context?): OkHttpClient.Builder {
-        return OkHttpClient.Builder().addInterceptor(getUnAuthorised(context))
+        return OkHttpClient.Builder().addInterceptor { chain ->
+            val original = chain.request()
+            val request = original.newBuilder()
+                .header("Content-Type", "application/json")
+                .header("matemart-app-platform", "Android")
+                .header("matemart-app-version", "1.0")
+                .method(original.method, original.body)
+                .build()
+            chain.proceed(request)
+        }
     }
 
-    fun getAnotherUserHttpClient(context: Context?, token: String?): OkHttpClient.Builder {
-        return OkHttpClient.Builder().addInterceptor(client)
-            .addInterceptor(
-                getAnotherUnAuthorised(context, token)
-            )
-    }
 
     fun getUnAuthorised(context: Context?): Interceptor {
         return Interceptor { chain ->
@@ -41,41 +44,23 @@ object Service {
             val request = original.newBuilder()
                 .header("Authorization", "Bearer "+SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN))
                 .header("matemart-app-platform", "Android")
-                .header("matemart-app-version", BuildConfig.VERSION_CODE.toString())
+                .header("matemart-app-version", "1.0")
                 .method(original.method, original.body)
                 .build()
             val response = chain.proceed(request)
-            Log.d("MyApp", "Code : " + response.code)
+            Log.d("MyApp------", "Code : " + response.code)
             if (response.code == 401) {
                 if (context != null) {
                     SharedPrefHelper.getInstance(MyApplication()).logoutProfile(context)
                 }
                 return@Interceptor response
+            }else{
+                response
             }
-            response
+
         }
     }
 
-    fun getAnotherUnAuthorised(context: Context?, token: String?): Interceptor {
-        return Interceptor { chain ->
-            val original = chain.request()
-            val request = original.newBuilder()
-                .header("Authorization", "Bearer" + SharedPrefHelper.getInstance(MyApplication()).read(SharedPrefHelper.KEY_ACCESS_TOKEN))
-                .header("matemart-app-platform", "Android")
-                .header("matemart-app-version", BuildConfig.VERSION_CODE.toString())
-                .method(original.method, original.body)
-                .build()
-            val response = chain.proceed(request)
-            Log.d("MyApp", "Code : " + response.code)
-            if (response.code == 401) {
-                if (context != null) {
-                    SharedPrefHelper.getInstance(MyApplication()).logoutProfile(context)
-                }
-                return@Interceptor response
-            }
-            response
-        }
-    }
 
     var httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
 

@@ -35,6 +35,7 @@ data class Product(
     val saleprice: String,
     val price: String,
     val total_quantity: Int,
+    val discount: Int,
     val url: String,
     val is_available: Int,
     val is_compare: Int,

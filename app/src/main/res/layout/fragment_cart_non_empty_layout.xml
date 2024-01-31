@@ -191,46 +191,13 @@ Vile Parle (east),400057"
             app:layout_constraintTop_toBottomOf="@id/tv_payment_method">
 
 
-            <LinearLayout
-                android:id="@+id/ll_razorPay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edit_text"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_2"
-                tools:ignore="RtlSymmetry">
 
-                <ImageView
-                    android:layout_width="@dimen/_24sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_coupon" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_8sdp"
-                    android:layout_weight="0.1"
-                    android:fontFamily="@font/font_inter_regular"
-                    android:text="RazorPay  "
-                    android:textColor="@color/dark_gray_4d4d4d"
-                    android:textSize="15sp" />
-
-                <RadioButton
-                    android:id="@+id/rbRazorPay"
-                    android:layout_width="@dimen/_37sdp"
-                    android:layout_height="@dimen/_37sdp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_paymentReceipt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_8sdp"
+
                 android:background="@drawable/bg_edit_text"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_12sdp"
@@ -241,7 +208,7 @@ Vile Parle (east),400057"
                 <ImageView
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_coupon" />
+                    android:src="@drawable/receipt" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -269,6 +236,7 @@ Vile Parle (east),400057"
                 android:background="@drawable/bg_edit_text"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/_12sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_2"
                 tools:ignore="RtlSymmetry">
@@ -276,7 +244,7 @@ Vile Parle (east),400057"
                 <ImageView
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_coupon" />
+                    android:src="@drawable/cash_on_delivery" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -290,6 +258,43 @@ Vile Parle (east),400057"
 
                 <RadioButton
                     android:id="@+id/rbCashOnDelivery"
+                    android:layout_width="@dimen/_37sdp"
+                    android:layout_height="@dimen/_37sdp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_razorPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_2"
+                tools:ignore="RtlSymmetry">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/cc_avanue" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:layout_weight="0.1"
+                    android:visibility="invisible"
+                    android:fontFamily="@font/font_inter_regular"
+                    android:text="RazorPay  "
+                    android:textColor="@color/dark_gray_4d4d4d"
+                    android:textSize="15sp" />
+
+                <RadioButton
+                    android:id="@+id/rbRazorPay"
                     android:layout_width="@dimen/_37sdp"
                     android:layout_height="@dimen/_37sdp"
                     android:minWidth="0dp"
@@ -429,6 +434,7 @@ Vile Parle (east),400057"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView
@@ -459,6 +465,7 @@ Vile Parle (east),400057"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <TextView

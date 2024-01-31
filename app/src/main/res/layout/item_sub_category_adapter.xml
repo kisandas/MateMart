@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             android:scaleType="centerInside"
-            android:src="@drawable/sample" />
+            android:src="@drawable/place_holder_image" />
 
 
 

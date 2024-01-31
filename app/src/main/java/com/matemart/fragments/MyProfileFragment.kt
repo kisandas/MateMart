@@ -191,7 +191,7 @@ class MyProfileFragment : Fragment() {
             startActivity(
                 Intent(
                     context,
-                    PolicyDetailsActivity::class.java
+                    ContactUsActivity::class.java
                 )
             )
         }
@@ -234,23 +234,12 @@ class MyProfileFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
 
-                    requireActivity().startActivity(
-                        Intent(
-                            requireContext(),
-                            LoginActivity::class.java
-                        )
-                    )
-                    requireActivity().finishAffinity()
+
 
                     var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
 
-                    pref.write(SharedPrefHelper.ADDRESS_ID, 0)
-                    pref.write(EMAIL, "")
-                    pref.write(SharedPrefHelper.USER_ID, "")
-                    pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
-                    pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
-                    pref.write(SharedPrefHelper.KEY_CCID, "")
-                    pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+                    pref.logoutProfile(requireContext())
+                    requireActivity().finishAffinity()
 
 
                 } else {

@@ -52,7 +52,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-        Glide.with(mContext).load(viewList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(holder.iv_category_image);
+        Glide.with(mContext).load(viewList.get(position).getImage()).placeholder(R.drawable.place_holder_image).into(holder.iv_category_image);
         holder.tv_lable.setText(viewList.get(position).getTitle());
         if (position>= 0 && viewList.get(position).getColor() != null ) {
             Log.e("cvccccccccccc", "onBindViewHolder: "+ viewList.get(position).getColor());

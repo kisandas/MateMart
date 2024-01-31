@@ -225,7 +225,7 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         param.topMargin = 10;
 
                         ((ItemBannerViewHolder) holder).iv_banner.setLayoutParams(param);
-                        Glide.with(mContext).load(cardList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(((ItemBannerViewHolder) holder).iv_banner);
+                        Glide.with(mContext).load(cardList.get(position).getImage()).placeholder(R.drawable.place_holder_image).into(((ItemBannerViewHolder) holder).iv_banner);
                     }
                 });
 
@@ -279,7 +279,7 @@ public class MainStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         int height = ((ItemBanner2ViewHolder) holder).iv_banner.getWidth() * finalWidth_banner2 / finalHeight_banner2;
 
                         ((ItemBanner2ViewHolder) holder).iv_banner.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
-                        Glide.with(mContext).load(cardList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(((ItemBanner2ViewHolder) holder).iv_banner);
+                        Glide.with(mContext).load(cardList.get(position).getImage()).placeholder(R.drawable.place_holder_image).into(((ItemBanner2ViewHolder) holder).iv_banner);
                     }
                 });
 

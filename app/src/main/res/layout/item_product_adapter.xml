@@ -18,7 +18,7 @@
             android:id="@+id/iv_product_image"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:src="@drawable/sample" />
+            android:src="@drawable/place_holder_image" />
 
         <ImageView
             android:id="@+id/iv_remove_whishlist"
@@ -38,49 +38,47 @@
             android:layout_marginEnd="@dimen/_6sdp"
             android:src="@drawable/ic_remove_whish_list" />
 
-      <LinearLayout
-          android:id="@+id/llBrand"
-          android:layout_marginHorizontal="@dimen/_4sdp"
-          android:layout_below="@+id/iv_product_image"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/llBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_product_image"
+            android:layout_marginHorizontal="@dimen/_4sdp">
 
 
+            <TextView
+                android:id="@+id/tvBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_product_image"
+                android:fontFamily="@font/font_inter_medium"
+                android:maxLines="2"
+                android:text="Brand : "
+                android:textColor="@color/dark_gray_4d4d4d"
+                android:textSize="12sp" />
 
-          <TextView
-              android:id="@+id/tvBrand"
+            <TextView
+                android:id="@+id/tvBrandValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:fontFamily="@font/font_inter_semibold"
+                android:includeFontPadding="false"
+                android:text="Brand"
+                android:textColor="@color/theme_blue_38B449"
+                android:textSize="12sp" />
 
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_below="@+id/iv_product_image"
-              android:fontFamily="@font/font_inter_medium"
-              android:maxLines="2"
-              android:text="Brand : "
-              android:textColor="@color/dark_gray_4d4d4d"
-              android:textSize="12sp" />
-
-          <TextView
-              android:id="@+id/tvBrandValue"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:fontFamily="@font/font_inter_semibold"
-              android:includeFontPadding="false"
-              android:text="Brand"
-              android:layout_marginLeft="@dimen/_4sdp"
-              android:textColor="@color/theme_blue_38B449"
-              android:textSize="12sp" />
-
-      </LinearLayout>
+        </LinearLayout>
 
         <TextView
-            android:layout_marginHorizontal="@dimen/_4sdp"
             android:id="@+id/tvProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llBrand"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/font_inter_medium"
             android:maxLines="2"
-            android:layout_marginTop="4dp"
             android:text="Slim panal light 6Watt round"
             android:textColor="@color/dark_gray_4d4d4d"
             android:textSize="12sp" />
@@ -103,11 +101,11 @@
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/view"
+            android:layout_marginLeft="@dimen/_4sdp"
             android:fontFamily="@font/font_inter_extra_bold"
             android:includeFontPadding="false"
             android:text="₹1620"
-            android:layout_above="@id/view"
-            android:layout_marginLeft="@dimen/_4sdp"
             android:textColor="@color/dark_gray_4d4d4d"
             android:textSize="15sp" />
 
@@ -115,15 +113,15 @@
             android:id="@+id/tvRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/tv_original_price"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="4dp"
             android:drawableStart="@drawable/ic_star_fill_yellow"
             android:drawablePadding="@dimen/_2sdp"
-            android:layout_marginBottom="4dp"
             android:fontFamily="@font/font_inter_regular"
-            android:layout_above="@id/tv_original_price"
             android:text="0.0"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/_4sdp"
             android:textColor="@color/dark_gray_4d4d4d"
             android:textSize="12sp" />
 
@@ -131,22 +129,23 @@
             android:id="@+id/tv_original_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_above="@id/view"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:fontFamily="@font/font_inter_regular"
             android:foreground="@drawable/striking_text"
             android:includeFontPadding="false"
             android:paddingHorizontal="2dp"
             android:text="₹1620"
-            android:layout_marginEnd="@dimen/_4sdp"
             android:textColor="@color/dark_gray_b3b3b3"
             android:textSize="13sp" />
+
         <View
             android:id="@+id/view"
             android:layout_width="wrap_content"
             android:layout_height="8dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
 
         <RelativeLayout
             android:id="@+id/qtyLayout"

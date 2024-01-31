@@ -68,7 +68,7 @@ class ReviewListActivity : AppCompatActivity() {
                         binding.rcReviews.adapter = adapterReview
 
                         Glide.with(this@ReviewListActivity).load(data.product?.image)
-                            .placeholder(R.drawable.img_loading_image)
+                            .placeholder(R.drawable.place_holder_image)
                             .into(binding.ivProductImage)
 
 

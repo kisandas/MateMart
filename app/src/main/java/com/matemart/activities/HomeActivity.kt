@@ -106,43 +106,28 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        Log.e("chevkkkkk", "onNavigationItemSelected: " + item.title)
-        Log.e("chevkkkkk", "onNavigationItemSelected: " + id + "    " + R.id.navigation_cart)
+
         if (id == R.id.navigation_cart) {
+            getUserProfile()
             if (SharedPrefHelper.getInstance(MyApplication.getInstance())
                     .read(SharedPrefHelper.IS_USER_GUEST, false)
             ) {
-
-                Toast.makeText(
-                    this@HomeActivity,
-                    LOGIN_MESSAGE,
-                    Toast.LENGTH_LONG
-                ).show()
-
                 var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
-
-                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
-                pref.write(SharedPrefHelper.EMAIL, "")
-                pref.write(SharedPrefHelper.USER_ID, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
-                pref.write(SharedPrefHelper.KEY_CCID, "")
-                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
-
-
-                startActivity(Intent(applicationContext, LoginActivity::class.java))
+                pref.logoutProfile(this@HomeActivity)
                 finishAffinity()
             } else {
                 startActivity(Intent(applicationContext, CartActivity::class.java))
             }
             return false
         } else if (id == R.id.navigation_home) {
+            getUserProfile()
             findNavController(
                 this,
                 R.id.nav_host_fragment_activity_home
             ).navigate(R.id.navigation_home)
             return true
         } else if (id == R.id.navigation_order) {
+            getUserProfile()
             if (SharedPrefHelper.getInstance(MyApplication.getInstance())
                     .read(SharedPrefHelper.IS_USER_GUEST, false)
             ) {
@@ -154,15 +139,9 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
                 var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
 
-                pref.write(SharedPrefHelper.ADDRESS_ID, 0)
-                pref.write(SharedPrefHelper.EMAIL, "")
-                pref.write(SharedPrefHelper.USER_ID, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_NUMBER, "")
-                pref.write(SharedPrefHelper.KEY_LOGIN_TOKEN, "")
-                pref.write(SharedPrefHelper.KEY_CCID, "")
-                pref.write(SharedPrefHelper.KEY_LOGGED_IN, false)
+                pref.logoutProfile(this@HomeActivity)
 
-                startActivity(Intent(applicationContext, LoginActivity::class.java))
+//                startActivity(Intent(applicationContext, LoginActivity::class.java))
                 finishAffinity()
             } else {
                 findNavController(
@@ -229,6 +208,8 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                 }
 
                             } else {
+                                SharedPrefHelper.getInstance(MyApplication.getInstance())
+                                    .write(SharedPrefHelper.BADGE_COUNT,0)
                                 Utils.hideBadge(
                                     navView,
                                     R.id.navigation_cart

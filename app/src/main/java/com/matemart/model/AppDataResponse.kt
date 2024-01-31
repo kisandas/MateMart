@@ -16,7 +16,7 @@ data class AppData(
 
     @SerializedName("app_version_data") var appVersionData: AppVersionData? = AppVersionData(),
     @SerializedName("image_popup") var imagePopup: ImagePopup? = ImagePopup(),
-    @SerializedName("date") var date: String? = null
+    @SerializedName("dat") var date: String? = null
 
 ): Serializable
 

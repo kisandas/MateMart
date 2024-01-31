@@ -321,7 +321,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="140dp"
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center_vertical">
@@ -343,13 +343,14 @@
                         android:fontFamily="@font/font_inter_medium"
                         android:text="0.0"
                         android:textColor="@color/dark_gray_4d4d4d"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvTotalRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginVertical="8dp"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:fontFamily="@font/font_inter_regular"
                         android:gravity="center"

@@ -1,6 +1,7 @@
 package com.matemart.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,9 +12,11 @@ import com.android.volley.toolbox.Volley
 import com.matemart.BuildConfig
 import com.matemart.R
 import com.matemart.api.Constants
+import com.matemart.api.Constants.BASE_URL
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.AppData
 import com.matemart.model.AppDataResponse
+import com.matemart.model.CartResponseModel
 import com.matemart.model.StateAndCityModel
 import com.matemart.utils.MyApplication
 import com.matemart.utils.Service
@@ -25,6 +28,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SplashActivity : AppCompatActivity() {
 
@@ -74,7 +79,6 @@ class SplashActivity : AppCompatActivity() {
                                 for (i in 0 until arrCity.length()) {
                                     val ans = arrCity.optString(i)
                                     cityList.add(ans)
-                                    Log.e("checkKEY", "onResponse: city $ans")
                                 }
                                 Constants.statList.add(StateAndCityModel(key, cityList))
                             }
@@ -118,9 +122,20 @@ class SplashActivity : AppCompatActivity() {
 
     fun getAPPDataAPI() {
 
+
+
         var apiInterface: ApiInterface =
             Service.createService(ApiInterface::class.java, this@SplashActivity)
-        var call: Call<AppDataResponse> = apiInterface.getAppUpdateData()!!
+        val api: ApiInterface by lazy {
+            Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ApiInterface::class.java)
+        }
+        var call: Call<AppDataResponse> = api.getAppUpdateData("Android", "1.0")!!
+
+
 
         call.enqueue(object : Callback<AppDataResponse> {
             override fun onResponse(
@@ -133,7 +148,7 @@ class SplashActivity : AppCompatActivity() {
                     if (response.body()?.data?.appVersionData?.release!! > BuildConfig.VERSION_CODE) {
                         showAppUpdateDialog(response.body()!!)
                     } else {
-                        if (!pref?.read(KEY_ACCESS_TOKEN).isNullOrEmpty()) {
+                        if (!pref?.read(KEY_ACCESS_TOKEN).isNullOrEmpty() && pref?.read(KEY_ACCESS_TOKEN) !="") {
                             startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
                             finish()
                         } else {

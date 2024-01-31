@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
+import com.matemart.R
 import com.matemart.databinding.ActivityArchitecturalProffessionalDetailsBinding
 import com.matemart.interfaces.ApiInterface
 import com.matemart.model.Architect
@@ -22,6 +23,9 @@ import retrofit2.Response
 class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityArchitecturalProffessionalDetailsBinding
+
+    var instagramURL =""
+    var facebookURL =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,28 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
 
         }
 
+        binding.imgFacebook.setOnClickListener {
+
+            if(facebookURL.isNotEmpty()) {
+                startActivity(
+                    Intent(
+                        this@ArchitecturalProfessionalDetailsActivity,
+                        WebViewActivity::class.java
+                    ).putExtra("url", facebookURL)
+                )
+            }
+        }
+
+        binding.imgInstagram.setOnClickListener {
+            if(instagramURL.isNotEmpty()){
+            startActivity(
+                Intent(
+                    this@ArchitecturalProfessionalDetailsActivity,
+                    WebViewActivity::class.java
+                ).putExtra("url", instagramURL))
+            }
+        }
+
     }
 
     private fun getSingleArchitectDetails(pro_id:Int) {
@@ -59,12 +85,13 @@ class ArchitecturalProfessionalDetailsActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
 
+                    facebookURL = response.body()?.data?.facebook.toString()
+                    instagramURL = response.body()?.data?.instagram.toString()
                     binding.tvName.text = response.body()?.data?.name
                     binding.tvFirmName.text = response.body()?.data?.firm_name
                     binding.tvAbout.text = response.body()?.data?.about
-                    Glide.with(this@ArchitecturalProfessionalDetailsActivity).load(response.body()?.data?.profile_image).into(binding.image)
-
-
+                    Glide.with(this@ArchitecturalProfessionalDetailsActivity).load(response.body()?.data?.profile_image).placeholder(
+                        R.drawable.place_holder_image).into(binding.image)
 
                 } else {
                     Toast.makeText(

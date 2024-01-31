@@ -31,6 +31,7 @@ class WebViewActivity : AppCompatActivity() {
                 description: String?,
                 failingUrl: String?
             ) {
+                Log.e("webURLLLLL", "shouldOverrideUrlLoading: errorCode:    " + errorCode)
                 Toast.makeText(this@WebViewActivity, description, Toast.LENGTH_SHORT).show()
             }
 
@@ -39,7 +40,8 @@ class WebViewActivity : AppCompatActivity() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): Boolean {
-                if (request?.url.toString().startsWith("matemart://razorpay/success")) {
+
+                if (request?.url.toString().startsWith("matemart://ccavenue/success")) {
 
                     val uri: Uri = Uri.parse(request?.url.toString())
 
@@ -52,16 +54,21 @@ class WebViewActivity : AppCompatActivity() {
                     val amount: String? = uri.getQueryParameter("amount")
                     val date: String? = uri.getQueryParameter("date")
 
-                    startActivity(Intent(this@WebViewActivity,PaymentSuccessActivity::class.java)
-                        .putExtra("order_number",order_number)
-                        .putExtra("amount",amount)
-                        .putExtra("date",date))
+                    startActivity(
+                        Intent(this@WebViewActivity, PaymentSuccessActivity::class.java)
+                            .putExtra("order_number", order_number)
+                            .putExtra("amount", amount)
+                            .putExtra("date", date)
+                    )
                     finish()
 
-                    Log.e("checkURLLLLL", "shouldOverrideUrlLoading Successss: order_number="+order_number+"     amount="+amount+"      date="+date )
+                    Log.e(
+                        "checkURLLLLL",
+                        "shouldOverrideUrlLoading Successss: order_number=" + order_number + "     amount=" + amount + "      date=" + date
+                    )
 
                     return true
-                } else if (request?.url.toString().startsWith("matemart://razorpay/failed")) {
+                } else if (request?.url.toString().startsWith("matemart://ccavenue/failed")) {
 
                     val uri: Uri = Uri.parse(request?.url.toString())
 
@@ -69,12 +76,30 @@ class WebViewActivity : AppCompatActivity() {
                     val amount: String? = uri.getQueryParameter("amount")
                     val date: String? = uri.getQueryParameter("date")
 
-                    startActivity(Intent(this@WebViewActivity,PaymentFailedActivity::class.java))
+                    startActivity(Intent(this@WebViewActivity, PaymentFailedActivity::class.java))
                     finish()
-                    Log.e("checkURLLLLL", "shouldOverrideUrlLoading  Failed  : order_number="+order_number+"     amount="+amount+"      date="+date )
+                    Log.e(
+                        "checkURLLLLL",
+                        "shouldOverrideUrlLoading  Failed  : order_number=" + order_number + "     amount=" + amount + "      date=" + date
+                    )
 
                     return true
-                } else {
+                } else if (request?.url.toString().startsWith("https://www.facebook.com")) {
+                    binding?.llheaderlay?.title?.text = "Facebook"
+                    return super.shouldOverrideUrlLoading(view, request)
+                } else if (request?.url.toString().startsWith("https://www.instagram.com")) {
+                    binding?.llheaderlay?.title?.text = "Instagram"
+                    return super.shouldOverrideUrlLoading(view, request)
+                } else if (!request?.url.toString().startsWith("http")) {
+                    if(request?.url.toString().contains("fb",true) || request?.url.toString().contains("facebook",true)){
+                        binding?.llheaderlay?.title?.text = "Facebook"
+
+                    }else if(request?.url.toString().contains("instagram",true)){
+                        binding?.llheaderlay?.title?.text = "Facebook"
+                    }
+                    return true
+                } else{
+                    binding?.llheaderlay?.title?.text = view?.title
                     return super.shouldOverrideUrlLoading(view, request)
                 }
 
@@ -87,17 +112,23 @@ class WebViewActivity : AppCompatActivity() {
                 rerr: WebResourceError
             ) {
                 // Redirect to deprecated method, so you can use it in all SDK versions
-                onReceivedError(
-                    view,
-                    rerr.errorCode,
-                    rerr.description.toString(),
-                    req.url.toString()
-                )
+//                onReceivedError(
+//                    view,
+//                    rerr.errorCode,
+//                    rerr.description.toString(),
+//                    req.url.toString()
+//                )
             }
         }
 
 
-        binding?.llheaderlay?.ivBack?.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        binding?.llheaderlay?.ivBack?.setOnClickListener {
+            if (binding?.webView?.canGoBack() == true) {
+                binding?.webView?.goBack()
+            }else{
+                onBackPressedDispatcher.onBackPressed()
+            }
+        }
         url?.let { binding?.webView?.loadUrl(it) }
 
     }

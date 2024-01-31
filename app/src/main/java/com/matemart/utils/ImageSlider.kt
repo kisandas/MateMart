@@ -76,17 +76,15 @@ class ImageSlider @JvmOverloads constructor(
             defStyleAttr,
             defStyleAttr
         )
-
-
-
+        
         cornerRadius = typedArray.getInt(R.styleable.ImageSlider_iss_corner_radius, 1)
         period = typedArray.getInt(R.styleable.ImageSlider_iss_period, 1000).toLong()
         delay = typedArray.getInt(R.styleable.ImageSlider_iss_delay, 1000).toLong()
         autoCycle = typedArray.getBoolean(R.styleable.ImageSlider_iss_auto_cycle, false)
         placeholder =
-            typedArray.getResourceId(R.styleable.ImageSlider_iss_placeholder, R.drawable.img_loading_image)
+            typedArray.getResourceId(R.styleable.ImageSlider_iss_placeholder, R.drawable.place_holder_image)
         errorImage =
-            typedArray.getResourceId(R.styleable.ImageSlider_iss_error_image, R.drawable.image_loading_error)
+            typedArray.getResourceId(R.styleable.ImageSlider_iss_error_image, R.drawable.place_holder_image)
         selectedDot = typedArray.getResourceId(
             R.styleable.ImageSlider_iss_selected_dot,
             R.drawable.bg_round_corner_dot_selected

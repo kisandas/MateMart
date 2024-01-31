@@ -179,22 +179,34 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
                             var total = 0.0
                             var total_gst = 0.0
                             var coupon_discount = 0
-                            var discount_amount = 0
+                            var discount_amount = 0.0
                             var servicecharge = 0
+
+
+
+
 
                             ProductList = cartList
                             for (item in cartList) {
 
-
+                                val discount = item.offer?.discount
+                                discount_amount += (discount?.let { it1 ->
+                                    item.qty?.let { it2 ->
+                                        item.saleprice?.toDoubleOrNull()?.let { it3 ->
+                                            (it2 * it1 * it3) / 100
+                                        }
+                                    }
+                                } ?: 0.0)
                                 total += ((item.qty)?.times((item.saleprice?.toDouble()!!))!!)
-                                total_gst += (item?.qty!!.times(item.saleprice?.toDouble()!!)).times(
-                                    item.gstper?.div(
-                                        100
-                                    )!!
-                                )
+
+//                                total_gst += (item?.qty!!.times(item.saleprice?.toDouble()!!)).times(
+//                                    item.gstper?.div(
+//                                        100
+//                                    )!!
+//                                )
                             }
                             binding!!.llNonEmptyCart.tvCouponDiscount.text = "- ₹$coupon_discount"
-                            binding?.llNonEmptyCart?.tvDiscount?.text = "- ₹$discount_amount"
+                            binding?.llNonEmptyCart?.tvDiscount?.text = "- ₹${String.format("%.2f", discount_amount).toDouble().toString()}"
                             binding?.llNonEmptyCart?.tvServiceCharge?.text = "- ₹$servicecharge"
 
                             binding?.llNonEmptyCart?.tvSubtotal?.text =
@@ -204,15 +216,16 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
                                 "₹"+String.format("%.2f", total_gst).toDouble().toString()
 
 
+//                            here total_gst = 0 in future we can update it
                             binding?.llNonEmptyCart?.tvPayableAmount?.text =
-                                String.format("%.2f", (total_gst + total)).toDouble().toString()
+                                String.format("%.2f", (total_gst + total-discount_amount)).toDouble().toString()
                             cartListItem = cartList.size
                             binding?.llNonEmptyCart?.btnConfirmOrder?.text =
                                 "Buy " + cartList.size + " items for ₹" + String.format(
                                     "%.2f",
-                                    (total_gst + total)
+                                    (total_gst + total -discount_amount)
                                 ).toDouble().toString()
-                            amount = String.format("%.2f", (total_gst + total)).toDouble()
+                            amount = String.format("%.2f", (total_gst + total-discount_amount)).toDouble()
                         }
 
                     }
@@ -464,6 +477,7 @@ class CartActivity : AppCompatActivity(), AddOrRemoveCartListener {
                         Toast.LENGTH_LONG
                     ).show()
                     getCartData()
+
                 } else {
                     Toast.makeText(
                         this@CartActivity,

@@ -43,7 +43,7 @@ class ImagePreviewSliderAdapter(private val context: Context, private val itemLi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         Glide.with(context).load(itemList[position])
-            .placeholder(R.drawable.img_loading_image)
+            .placeholder(R.drawable.place_holder_image)
             .into(holder.ivImage)
 
         if(selectedPosition == position){

@@ -61,7 +61,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-        Glide.with(mContext).load(categoryList.get(position).getImage()).placeholder(R.drawable.img_loading_image).into(holder.iv_category_image);
+        Glide.with(mContext).load(categoryList.get(position).getImage()).placeholder(R.drawable.place_holder_image).into(holder.iv_category_image);
         holder.tv_lable.setText(categoryList.get(position).getTitle());
         if (categoryList.get(position).getColor() != null && !isSubCategory) {
             try {

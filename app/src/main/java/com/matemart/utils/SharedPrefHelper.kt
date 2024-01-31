@@ -133,6 +133,8 @@ class SharedPrefHelper private constructor(application: MyApplication) {
     fun logoutProfile(context: Context) {
         sharedPref.all.clear()
         val prefsEditor: Editor = sharedPref.edit()
+        prefsEditor.clear()
+        prefsEditor.apply()
         prefsEditor.putString(KEY_LOGIN_NUMBER, "")
         prefsEditor.putString(USER_NAME, "")
         prefsEditor.putInt(BADGE_COUNT, 0)

@@ -122,7 +122,7 @@ interface ApiInterface {
     fun createAddress(@Body jsonObject: JsonObject): Call<CommonResponse>?
 
     @GET("app-update-data")
-    fun getAppUpdateData(): Call<AppDataResponse>?
+    fun getAppUpdateData(@Header("matemart-app-platform") android: String,@Header("matemart-app-version") version: String): Call<AppDataResponse>?
 
     @POST("product-details")
     fun getProductDetail(@Body jsonObject: JsonObject): Call<GetProductDetailsResponse>?

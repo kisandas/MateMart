@@ -3,6 +3,7 @@ package com.matemart.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -49,7 +50,7 @@ class ProductItemAdapter(
         @SuppressLint("RecyclerView") position: Int
     ) {
         val item = viewList!![position]
-        Glide.with(mContext).load(item.image).placeholder(R.drawable.img_loading_image)
+        Glide.with(mContext).load(item.image).placeholder(R.drawable.place_holder_image)
             .into(holder.iv_product_image)
         holder.tvProductName.text = item.p_name
         holder.tvRating.text = "${item.average_rating}"
@@ -60,7 +61,21 @@ class ProductItemAdapter(
             holder.tv_text_left_stock.visibility = GONE
         }
 
-        holder.tv_amount.text = "₹" + item.saleprice
+        val discount = item.discount ?: 0
+
+        if (discount != 0) {
+            val mainPrice = (item.price ?: "0").toDoubleOrNull() ?: 0.0
+            val salePrice = (item.saleprice ?: "0").toDoubleOrNull() ?: 0.0
+            val discountPrice = mainPrice - salePrice
+            var discountPercentage = (discountPrice / mainPrice) * 100
+            discountPercentage += discount
+
+            val lastPrice = salePrice - (salePrice * discount / 100)
+            holder.tv_amount.text = String.format("₹%.2f", lastPrice)
+        } else {
+            Log.e("mmmmmmmmmmm", "onBindViewHolder: "+item.saleprice )
+            holder.tv_amount.text = String.format("₹%.2f", item.saleprice?.toDouble() ?: 0)
+        }
         holder.tvBrandValue.text = item.b_name
         holder.tv_original_price.text = "₹" + item.price
 //        val count = intArrayOf(0)

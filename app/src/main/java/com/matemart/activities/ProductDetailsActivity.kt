@@ -27,12 +27,13 @@ import com.matemart.interfaces.SliderItemClickListner
 import com.matemart.interfaces.WishListUpdateListner
 import com.matemart.model.*
 import com.matemart.utils.*
+import com.matemart.utils.Toast.Toaster
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
-    onVariationChangeListener, ImagePreviewSliderAdapter.OnItemClickListener ,
+    onVariationChangeListener, ImagePreviewSliderAdapter.OnItemClickListener,
     WishListUpdateListner {
     var p_id: Int = 0
     var product_detail_id: Int = 0
@@ -60,39 +61,18 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         setContentView(binding.root)
 
 
-        readMoreOption = ReadMoreOption.Builder(this)
-            .textLength(3, ReadMoreOption.TYPE_LINE) // OR
+        readMoreOption = ReadMoreOption.Builder(this).textLength(3, ReadMoreOption.TYPE_LINE) // OR
             //.textLength(300, ReadMoreOption.TYPE_CHARACTER)
-            .moreLabel(getString(R.string.read_more))
-            .lessLabel(getString(R.string.read_less))
+            .moreLabel(getString(R.string.read_more)).lessLabel(getString(R.string.read_less))
             .moreLabelColor(ContextCompat.getColor(this, R.color.dark_gray_4d4d4d))
             .lessLabelColor(ContextCompat.getColor(this, R.color.dark_gray_4d4d4d))
-            .labelUnderLine(false)
-            .expandAnimation(true)
-            .build()
+            .labelUnderLine(false).expandAnimation(true).build()
 
         p_id = intent.getIntExtra("p_id", 0)
         product_detail_id = intent.getIntExtra("product_detail_id", 0)
 
         getProductDetail(p_id, product_detail_id)
-        var badgeCount = "0"
-        if (SharedPrefHelper.getInstance(MyApplication.getInstance())
-                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 0 && SharedPrefHelper.getInstance(
-                MyApplication.getInstance()
-            )
-                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 99
-        ) {
-            badgeCount = "99+"
-
-        } else if (SharedPrefHelper.getInstance(MyApplication.getInstance())
-                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 0
-        ) {
-            badgeCount = SharedPrefHelper.getInstance(MyApplication.getInstance())
-                .read(SharedPrefHelper.BADGE_COUNT, 0).toString()
-        }
-
-
-        binding.tvCartCount.text = badgeCount
+        setBadgeOnCart()
 
         binding.ivBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -108,9 +88,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                     .read(SharedPrefHelper.IS_USER_GUEST, false)
             ) {
                 Toast.makeText(
-                    this@ProductDetailsActivity,
-                    Utils.LOGIN_MESSAGE,
-                    Toast.LENGTH_LONG
+                    this@ProductDetailsActivity, Utils.LOGIN_MESSAGE, Toast.LENGTH_LONG
                 ).show()
 
                 var pref = SharedPrefHelper.getInstance(MyApplication.getInstance())
@@ -168,15 +146,22 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
         }
 
         binding.llAddToCart.setOnClickListener {
-            product?.let { it1 -> addToCart(it1, count[0]) }
+            product?.let { it1 ->
+                if (count[0] > 0) {
+                    addToCart(it1, count[0])
+                } else {
+                    Toaster.Builder(this@ProductDetailsActivity).setTitle("ERROR")
+                        .setDescription("Select Quantity to Add into Cart").setDuration(5000)
+                        .setStatus(Toaster.Status.ERROR).show()
+                }
+            }
         }
 
 
         binding.tvAllReview.setOnClickListener {
             startActivity(
                 Intent(
-                    this@ProductDetailsActivity,
-                    ReviewListActivity::class.java
+                    this@ProductDetailsActivity, ReviewListActivity::class.java
                 ).putExtra("p_id", p_id)
             )
         }
@@ -196,8 +181,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
         call.enqueue(object : Callback<GetProductDetailsResponse> {
             override fun onResponse(
-                call: Call<GetProductDetailsResponse>,
-                response: Response<GetProductDetailsResponse>
+                call: Call<GetProductDetailsResponse>, response: Response<GetProductDetailsResponse>
             ) {
                 if (response.body()?.statusCode == 11) {
 
@@ -207,11 +191,31 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                         binding.tvProductName.text = data.product.p_name
                         binding.tvPrice.text = data.product.price
-                        binding.tvSalePrice.text = data.product.saleprice
+//                        binding.tvSalePrice.text = data.product.saleprice
 
-                        var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
-                        var discountPercentage = (discountPrice/data.product.price.toDouble())*100
-                        binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
+//                        var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
+//                        var discountPercentage = (discountPrice/data.product.price.toDouble())*100
+
+
+                        if (data.product.discount != 0) {
+                            val mainPrice = (data.product.price ?: "0").toDoubleOrNull() ?: 0.0
+                            val salePrice = (data.product.saleprice ?: "0").toDoubleOrNull() ?: 0.0
+                            val discountPrice = mainPrice - salePrice
+                            var discountPercentage = (discountPrice / mainPrice) * 100
+                            discountPercentage += data.product.discount
+
+                            val lastPrice = salePrice - (salePrice * data.product.discount / 100)
+                            binding.tvSalePrice.text = String.format("₹%.2f", lastPrice)
+
+                            binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
+                            binding.tvPercentageOff.visibility = VISIBLE
+                        } else {
+                            Log.e("mmmmmmmmmmm", "onBindViewHolder: " + data.product.saleprice)
+                            binding.tvPercentageOff.visibility = GONE
+                            binding.tvSalePrice.text =
+                                String.format("₹%.2f", data.product.saleprice.toDouble() ?: 0)
+                        }
+
 
                         product = data.product
 
@@ -239,29 +243,23 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         for (item in data.product.images) {
                             imageList.add(
                                 SlideModel(
-                                    item,
-                                    ScaleTypes.FIT
+                                    item, ScaleTypes.FIT
                                 )
                             )
                         }
 
                         binding.imageSlider.setImageList(
-                            0,
-                            imageList,
-                            ScaleTypes.CENTER_INSIDE,
-                            this@ProductDetailsActivity
+                            0, imageList, ScaleTypes.CENTER_INSIDE, this@ProductDetailsActivity
                         )
 
                         binding.imageSlider.setItemClickListener(object : SliderItemClickListner {
                             override fun ItemClick(cardPosition: Int, position: Int) {
 
                                 val intent = Intent(
-                                    this@ProductDetailsActivity,
-                                    ImagePreviewActivity::class.java
+                                    this@ProductDetailsActivity, ImagePreviewActivity::class.java
                                 )
                                 intent.putStringArrayListExtra(
-                                    "imageUrl",
-                                    ArrayList(data.product.images)
+                                    "imageUrl", ArrayList(data.product.images)
                                 )
                                 intent.putExtra("position", position)
                                 startActivity(intent)
@@ -301,9 +299,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             )
 
                             binding.rcVariationMain.layoutManager = LinearLayoutManager(
-                                this@ProductDetailsActivity,
-                                RecyclerView.VERTICAL,
-                                false
+                                this@ProductDetailsActivity, RecyclerView.VERTICAL, false
                             )
                             binding.rcVariationMain.adapter = adapterVariationOuter
 
@@ -323,9 +319,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                         adapterReview = ReviewListAdapter(this@ProductDetailsActivity, data.review)
                         binding.rcReviews.layoutManager = LinearLayoutManager(
-                            this@ProductDetailsActivity,
-                            RecyclerView.VERTICAL,
-                            false
+                            this@ProductDetailsActivity, RecyclerView.VERTICAL, false
                         )
                         binding.rcReviews.adapter = adapterReview
 
@@ -342,29 +336,23 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         }
 
                         adapterRating = RatingBarListAdapter(
-                            this@ProductDetailsActivity,
-                            data.ratings,
-                            data.rating
+                            this@ProductDetailsActivity, data.ratings, data.rating
                         )
                         binding.rcRating.layoutManager = LinearLayoutManager(
-                            this@ProductDetailsActivity,
-                            RecyclerView.VERTICAL,
-                            false
+                            this@ProductDetailsActivity, RecyclerView.VERTICAL, false
                         )
                         binding.rcRating.adapter = adapterRating
 
                         binding.tvTitle.text = data.product.p_name
                         binding.tvTotalRating.text =
-                            "${data.rating}  Ratings And ${data.review_total} Reviews"
+                            "${data.rating}  Ratings And\n ${data.review_total} Reviews"
 
                     }
 
 
                 } else {
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, response.body()?.message, Toast.LENGTH_LONG
                     ).show()
                 }
             }
@@ -373,11 +361,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                 t.printStackTrace()
                 Log.e("lllllllllll", "onFailure: " + t.message)
                 Toast.makeText(
-                    this@ProductDetailsActivity,
-                    t.toString(),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                    this@ProductDetailsActivity, t.toString(), Toast.LENGTH_LONG
+                ).show()
             }
         })
     }
@@ -394,31 +379,94 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
         call.enqueue(object : Callback<AddCartResponse> {
             override fun onResponse(
-                call: Call<AddCartResponse>,
-                response: Response<AddCartResponse>
+                call: Call<AddCartResponse>, response: Response<AddCartResponse>
             ) {
                 if (response.body()?.statuscode == 11) {
+                    getUserProfile()
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, response.body()?.message, Toast.LENGTH_LONG
                     ).show()
                 } else {
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, response.body()?.message, Toast.LENGTH_LONG
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<AddCartResponse>, t: Throwable) {
                 Toast.makeText(
+                    this@ProductDetailsActivity, "Something went wrong", Toast.LENGTH_LONG
+                ).show()
+            }
+
+        })
+
+    }
+
+    private fun setBadgeOnCart(){
+        var badgeCount = "0"
+        if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 0 && SharedPrefHelper.getInstance(
+                MyApplication.getInstance()
+            ).read(SharedPrefHelper.BADGE_COUNT, 0)!! > 99
+        ) {
+            binding.tvCartCount.visibility = VISIBLE
+            badgeCount = "99+"
+
+        } else if (SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.BADGE_COUNT, 0)!! > 0
+        ) {
+            binding.tvCartCount.visibility = VISIBLE
+            badgeCount = SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.BADGE_COUNT, 0).toString()
+        } else {
+            binding.tvCartCount.visibility = GONE
+        }
+
+
+
+        binding.tvCartCount.text = badgeCount
+    }
+    private fun getUserProfile() {
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@ProductDetailsActivity)
+        var call: Call<ResGetProfileDetails> = apiInterface.getUserProfile()!!
+
+        call.enqueue(object : Callback<ResGetProfileDetails> {
+            override fun onResponse(
+                call: Call<ResGetProfileDetails>, response: Response<ResGetProfileDetails>
+            ) {
+
+                if (response.isSuccessful) {
+                    if (response.body()?.statuscode == 11) {
+                        response.body()?.data?.let {
+                            if (it.cart_badge_count !== null && it.cart_badge_count!! > 0) {
+                                SharedPrefHelper.getInstance(MyApplication.getInstance())
+                                    .write(SharedPrefHelper.BADGE_COUNT, it.cart_badge_count!!)
+                            } else {
+                                SharedPrefHelper.getInstance(MyApplication.getInstance())
+                                    .write(SharedPrefHelper.BADGE_COUNT, 0)
+                            }
+
+                            setBadgeOnCart()
+                        }
+                    }
+
+
+                } else {
+                    Toast.makeText(
+                        this@ProductDetailsActivity, "Something went wrong", Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResGetProfileDetails>, t: Throwable) {
+                Log.e("jjjjjjjjjjj", "onFailure: " + t.message)
+                Toast.makeText(
                     this@ProductDetailsActivity,
                     "Something went wrong",
                     Toast.LENGTH_LONG
-                )
-                    .show()
+                ).show()
             }
 
         })
@@ -436,31 +484,23 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
         call.enqueue(object : Callback<RemoveCartResponse> {
             override fun onResponse(
-                call: Call<RemoveCartResponse>,
-                response: Response<RemoveCartResponse>
+                call: Call<RemoveCartResponse>, response: Response<RemoveCartResponse>
             ) {
                 if (response.body()?.statuscode == 11) {
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        "Item Removed from Cart",
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, "Item Removed from Cart", Toast.LENGTH_LONG
                     ).show()
                 } else {
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        "Something went wrong",
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, "Something went wrong", Toast.LENGTH_LONG
                     ).show()
                 }
             }
 
             override fun onFailure(call: Call<RemoveCartResponse>, t: Throwable) {
                 Toast.makeText(
-                    this@ProductDetailsActivity,
-                    "Something went wrong",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                    this@ProductDetailsActivity, "Something went wrong", Toast.LENGTH_LONG
+                ).show()
             }
 
         })
@@ -469,9 +509,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
 
     private fun getFilteredProductDetail(
-        p_id: Int,
-        product_detail_id: Int,
-        variation: HashMap<String, String>
+        p_id: Int, product_detail_id: Int, variation: HashMap<String, String>
     ) {
         var jsonObject = JsonObject()
         jsonObject.addProperty("product_detail_id", product_detail_id)
@@ -491,8 +529,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
         call.enqueue(object : Callback<GetProductDetailsResponse> {
             override fun onResponse(
-                call: Call<GetProductDetailsResponse>,
-                response: Response<GetProductDetailsResponse>
+                call: Call<GetProductDetailsResponse>, response: Response<GetProductDetailsResponse>
             ) {
                 if (response.body()?.statusCode == 11) {
 
@@ -504,11 +541,32 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                         binding.tvProductName.text = data.product.p_name
                         binding.tvPrice.text = data.product.price
-                        binding.tvSalePrice.text = data.product.saleprice
+//                        binding.tvSalePrice.text = data.product.saleprice
+//
+//                        var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
+//                        var discountPercentage = (discountPrice/data.product.price.toDouble())*100
+//                        binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
 
-                        var discountPrice = data.product.price.toDouble() - data.product.saleprice.toDouble()
-                        var discountPercentage = (discountPrice/data.product.price.toDouble())*100
-                        binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
+                        if (data.product.discount != 0) {
+                            val mainPrice = (data.product.price ?: "0").toDoubleOrNull() ?: 0.0
+                            val salePrice = (data.product.saleprice ?: "0").toDoubleOrNull() ?: 0.0
+                            val discountPrice = mainPrice - salePrice
+                            var discountPercentage = (discountPrice / mainPrice) * 100
+                            discountPercentage += data.product.discount
+
+                            val lastPrice = salePrice - (salePrice * data.product.discount / 100)
+                            binding.tvSalePrice.text = String.format("₹%.2f", lastPrice)
+
+                            binding.tvPercentageOff.text = "${Math.round(discountPercentage)}% OFF"
+                            binding.tvPercentageOff.visibility = VISIBLE
+                        } else {
+                            Log.e("mmmmmmmmmmm", "onBindViewHolder: " + data.product.saleprice)
+                            binding.tvPercentageOff.visibility = GONE
+                            binding.tvSalePrice.text =
+                                String.format("₹%.2f", data.product.saleprice.toDouble() ?: 0)
+                        }
+
+
                         product = data.product
 
                         if (data.product.cart != null) {
@@ -519,17 +577,13 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                         for (item in data.product.images) {
                             imageList.add(
                                 SlideModel(
-                                    item,
-                                    ScaleTypes.FIT
+                                    item, ScaleTypes.FIT
                                 )
                             )
                         }
 
                         binding.imageSlider.setImageList(
-                            0,
-                            imageList,
-                            ScaleTypes.CENTER_INSIDE,
-                            this@ProductDetailsActivity
+                            0, imageList, ScaleTypes.CENTER_INSIDE, this@ProductDetailsActivity
                         )
 
 
@@ -541,9 +595,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                             this@ProductDetailsActivity
                         )
                         binding.rcVariationMain.layoutManager = LinearLayoutManager(
-                            this@ProductDetailsActivity,
-                            RecyclerView.VERTICAL,
-                            false
+                            this@ProductDetailsActivity, RecyclerView.VERTICAL, false
                         )
                         binding.rcVariationMain.adapter = adapterVariationOuter
 
@@ -563,21 +615,15 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
                         adapterReview = ReviewListAdapter(this@ProductDetailsActivity, data.review)
                         binding.rcReviews.layoutManager = LinearLayoutManager(
-                            this@ProductDetailsActivity,
-                            RecyclerView.VERTICAL,
-                            false
+                            this@ProductDetailsActivity, RecyclerView.VERTICAL, false
                         )
                         binding.rcReviews.adapter = adapterReview
 
                         adapterRating = RatingBarListAdapter(
-                            this@ProductDetailsActivity,
-                            data.ratings,
-                            data.rating
+                            this@ProductDetailsActivity, data.ratings, data.rating
                         )
                         binding.rcRating.layoutManager = LinearLayoutManager(
-                            this@ProductDetailsActivity,
-                            RecyclerView.VERTICAL,
-                            false
+                            this@ProductDetailsActivity, RecyclerView.VERTICAL, false
                         )
                         binding.rcRating.adapter = adapterRating
 
@@ -588,9 +634,7 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
                     }
                 } else {
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, response.body()?.message, Toast.LENGTH_LONG
                     ).show()
                 }
             }
@@ -598,11 +642,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
             override fun onFailure(call: Call<GetProductDetailsResponse>, t: Throwable) {
                 t.printStackTrace()
                 Toast.makeText(
-                    this@ProductDetailsActivity,
-                    t.toString(),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                    this@ProductDetailsActivity, t.toString(), Toast.LENGTH_LONG
+                ).show()
             }
 
         })
@@ -633,36 +674,30 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
 
 
         var apiInterface: ApiInterface = Service.createService(ApiInterface::class.java, this)
-        var call: Call<ResponseProductList> =
-            apiInterface.getSimilarProduct(jsonObject)!!
+        var call: Call<ResponseProductList> = apiInterface.getSimilarProduct(jsonObject)!!
 
         call.enqueue(object : Callback<ResponseProductList> {
             override fun onResponse(
-                call: Call<ResponseProductList>,
-                response: Response<ResponseProductList>
+                call: Call<ResponseProductList>, response: Response<ResponseProductList>
             ) {
                 if (response.body()?.statuscode == 11) {
 
                     val data = response.body()?.data
 
                     if (data != null) {
-                        val layoutManager =
-                            LinearLayoutManager(this@ProductDetailsActivity, LinearLayoutManager.HORIZONTAL, false)
-                        binding.rcSimilarProducts.layoutManager =
-                            layoutManager
+                        val layoutManager = LinearLayoutManager(
+                            this@ProductDetailsActivity, LinearLayoutManager.HORIZONTAL, false
+                        )
+                        binding.rcSimilarProducts.layoutManager = layoutManager
                         val adapter = ProductItemAdapter(
-                            data,
-                            this@ProductDetailsActivity,
-                            this@ProductDetailsActivity
+                            data, this@ProductDetailsActivity, this@ProductDetailsActivity
                         )
                         binding.rcSimilarProducts.adapter = adapter
 
                     }
                 } else {
                     Toast.makeText(
-                        this@ProductDetailsActivity,
-                        response.body()?.message,
-                        Toast.LENGTH_LONG
+                        this@ProductDetailsActivity, response.body()?.message, Toast.LENGTH_LONG
                     ).show()
                 }
             }
@@ -670,11 +705,8 @@ class ProductDetailsActivity : AppCompatActivity(), SliderItemClickListner,
             override fun onFailure(call: Call<ResponseProductList>, t: Throwable) {
                 t.printStackTrace()
                 Toast.makeText(
-                    this@ProductDetailsActivity,
-                    t.toString(),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                    this@ProductDetailsActivity, t.toString(), Toast.LENGTH_LONG
+                ).show()
             }
 
         })
