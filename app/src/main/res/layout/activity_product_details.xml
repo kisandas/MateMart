@@ -41,6 +41,7 @@
 
 
             <ImageView
+                android:id="@+id/ivShare"
                 android:layout_width="@dimen/_24sdp"
                 android:padding="4dp"
                 android:layout_height="@dimen/_24sdp"
@@ -83,6 +84,7 @@
         android:layout_below="@+id/llHeader"
         android:layout_width="match_parent"
         android:fillViewport="true"
+        android:scrollbars="none"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -90,15 +92,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.matemart.utils.ImageSlider
-                android:id="@+id/image_slider"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_160sdp"
-                app:iss_auto_cycle="true"
-                app:iss_delay="10"
-                app:iss_period="2000"
-                app:iss_selected_dot="@drawable/bg_round_corner_dot_selected"
-                app:iss_unselected_dot="@drawable/bg_round_corner_dot_unselected" />
+                android:layout_height="wrap_content">
+
+                <matemart.material.Interior.utils.ImageSlider
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    app:iss_auto_cycle="true"
+                    app:iss_delay="10"
+                    app:iss_period="2000"
+                    app:iss_selected_dot="@drawable/bg_round_corner_dot_selected"
+                    app:iss_unselected_dot="@drawable/bg_round_corner_dot_unselected" />
+
+                <ImageView
+                    android:id="@+id/iv_remove_whishlist"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:src="@drawable/ic_like_product" />
+
+                <ImageView
+                    android:id="@+id/iv_like_unlike_product"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:src="@drawable/ic_remove_whish_list" />
+
+            </RelativeLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcImageList"

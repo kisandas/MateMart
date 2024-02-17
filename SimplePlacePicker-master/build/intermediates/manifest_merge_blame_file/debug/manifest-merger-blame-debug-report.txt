@@ -29,16 +29,16 @@
 16-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:12:9-35
 17        <activity
 17-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:9-16:20
-18            android:name="com.essam.simpleplacepicker.MapActivity"
-18-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:19-46
+18            android:name="matemart.essam.simpleplacepicker.MapActivity"
+18-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:14:19-78
 19            android:windowSoftInputMode="adjustPan" >
 19-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:15:13-52
 20        </activity>
 21
 22        <service
 22-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:18:9-20:40
-23            android:name="com.essam.simpleplacepicker.utils.FetchAddressIntentService"
-23-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:19:13-60
+23            android:name="matemart.essam.simpleplacepicker.utils.FetchAddressIntentService"
+23-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:19:13-92
 24            android:exported="false" />
 24-->E:\MateMart\SimplePlacePicker-master\src\main\AndroidManifest.xml:20:13-37
 25    </application>

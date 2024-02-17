@@ -84,7 +84,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_mobile_text" />
 
-            <com.matemart.utils.OTPView
+            <matemart.material.Interior.utils.OTPView
                 android:id="@+id/otp_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                 android:fontFamily="@font/font_inter_bold"
                 android:gravity="center"
                 android:text="@string/resend_otp"
-                android:textColor="@color/theme_blue_38B449"
+                android:textColor="@color/dark_gray_4d4d4d"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_not_recieve" />

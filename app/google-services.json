@@ -21,6 +21,48 @@
       "api_key": [
         {
           "current_key": "AIzaSyDSzQrXcpmdV5O931BaWwaatIH7J5OhZ34"
+        },
+        {
+          "current_key": "AIzaSyBrltB16Nu8iaeUGAMRSZ6nw9CQYNqe5a0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429329599957-7e79tc1far9gfangmf9e1rmql1qt2bv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "429329599957-9lvn11nei8mhh2netna064r1vubbl7jr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.matemart"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429329599957:android:f59c2f109373543b7e015c",
+        "android_client_info": {
+          "package_name": "matemart.material.Interior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429329599957-7e79tc1far9gfangmf9e1rmql1qt2bv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSzQrXcpmdV5O931BaWwaatIH7J5OhZ34"
+        },
+        {
+          "current_key": "AIzaSyBrltB16Nu8iaeUGAMRSZ6nw9CQYNqe5a0"
         }
       ],
       "services": {

@@ -15,12 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true" >
         <activity
-            android:name="com.essam.simpleplacepicker.MapActivity"
+            android:name="matemart.essam.simpleplacepicker.MapActivity"
             android:windowSoftInputMode="adjustPan" >
         </activity>
 
         <service
-            android:name="com.essam.simpleplacepicker.utils.FetchAddressIntentService"
+            android:name="matemart.essam.simpleplacepicker.utils.FetchAddressIntentService"
             android:exported="false" />
     </application>
 

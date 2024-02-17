@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapActivity"
+    tools:context="matemart.essam.simpleplacepicker.MapActivity"
     tools:showIn="@layout/activity_map">
 
     <fragment
@@ -100,7 +100,7 @@
                 android:textColor="@color/theme_blue_38B449"
                 android:textSize="16sp" />
 
-            <com.essam.simpleplacepicker.utils.CustomTextView
+            <matemart.essam.simpleplacepicker.utils.CustomTextView
                 android:id="@+id/tv_display_marker_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
         </LinearLayout>
 
 
-        <com.essam.simpleplacepicker.utils.CustomButton
+        <matemart.essam.simpleplacepicker.utils.CustomButton
             android:id="@+id/submit_location_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

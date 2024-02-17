@@ -10,7 +10,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.matemart"
+        applicationId "matemart.material.Interior"
         minSdk 26
         targetSdk 33
         versionCode 1
@@ -40,7 +40,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.matemart'
+    namespace 'matemart.material.Interior'
 }
 
 dependencies {
