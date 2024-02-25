@@ -4,7 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 public interface SimplePlacePicker {
 
-    String PACKAGE_NAME = "com.essam.simpleplacepicker";
+    String PACKAGE_NAME = "matemart.material.interior";
     String RECEIVER = PACKAGE_NAME + ".RECEIVER";
     String RESULT_DATA_KEY = PACKAGE_NAME + ".RESULT_DATA_KEY";
     String LOCATION_LAT_EXTRA = PACKAGE_NAME + ".LOCATION_lAT_EXTRA";

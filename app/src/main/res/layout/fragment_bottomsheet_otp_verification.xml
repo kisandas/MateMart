@@ -23,7 +23,7 @@ to complete verification."
 
 
 
-    <matemart.material.Interior.utils.OTPView
+    <matemart.material.interior.utils.OTPView
         android:id="@+id/otp_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -86,6 +86,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private RippleBackground rippleBg;
     private CustomTextView mDisplayAddressTextView;
     private ProgressBar mProgressBar;
+    private ImageView iv_back;
 
 
     //variables
@@ -95,7 +96,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LatLng currentMarkerPosition;
 
     //receiving
-    private String mApiKey = "AIzaSyBDVtM9UN7tg5TJ4BOYK6bNGYVEWC0k_l4" ;
+    private String mApiKey = "AIzaSyDSzQrXcpmdV5O931BaWwaatIH7J5OhZ34" ;
     private String[] mSupportedArea = new String[]{};
     private String mCountry = "";
     private String mLanguage = "en";
@@ -118,6 +119,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         rippleBg = findViewById(R.id.ripple_bg);
         mDisplayAddressTextView = findViewById(R.id.tv_display_marker_location);
         mProgressBar = findViewById(R.id.progress_bar);
+        iv_back = findViewById(R.id.iv_back);
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getOnBackPressedDispatcher().onBackPressed();
+            }
+        });
 
 
         final View icPin = findViewById(R.id.ic_pin);

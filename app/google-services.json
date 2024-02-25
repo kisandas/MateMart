@@ -46,9 +46,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:429329599957:android:f59c2f109373543b7e015c",
+        "mobilesdk_app_id": "1:429329599957:android:98f260762a0562237e015c",
         "android_client_info": {
-          "package_name": "matemart.material.Interior"
+          "package_name": "matemart.material.interior"
         }
       },
       "oauth_client": [

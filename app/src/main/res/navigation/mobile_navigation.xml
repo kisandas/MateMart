@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="matemart.material.Interior.fragments.HomeFragment"
+        android:name="matemart.material.interior.fragments.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_order"
-        android:name="matemart.material.Interior.fragments.MyOrderFragment"
+        android:name="matemart.material.interior.fragments.MyOrderFragment"
         android:label=""
         tools:layout="@layout/fragment_my_order" />
 
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="matemart.material.Interior.fragments.MyCartFragment"
+        android:name="matemart.material.interior.fragments.MyCartFragment"
         android:label=""
         tools:layout="@layout/fragment_my_cart" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="matemart.material.Interior.fragments.MyProfileFragment"
+        android:name="matemart.material.interior.fragments.MyProfileFragment"
         android:label=""
         tools:layout="@layout/fragment_my_profile" />
 </navigation>

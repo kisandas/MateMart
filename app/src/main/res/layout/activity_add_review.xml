@@ -77,7 +77,7 @@
             android:textFontWeight="800"
             android:textSize="13sp" />
 
-        <matemart.material.Interior.utils.FlexibleRatingBar
+        <matemart.material.interior.utils.FlexibleRatingBar
             android:id="@+id/Ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="36dp"

@@ -1,0 +1,331 @@
+package matemart.material.interior.activities
+
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.example.ResponseSearch
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
+import com.google.gson.JsonObject
+import matemart.material.interior.R
+import matemart.material.interior.adapter.ProductItemAdapter
+import matemart.material.interior.adapter.SearchRecentAdapter
+import matemart.material.interior.adapter.SearchTrendingAdapter
+import matemart.material.interior.interfaces.ApiInterface
+import matemart.material.interior.model.ResponseProductList
+import matemart.material.interior.model.ResponseRecentSearch
+import matemart.material.interior.model.ViewListModel
+import matemart.material.interior.utils.MyApplication
+import matemart.material.interior.utils.Service
+import matemart.material.interior.utils.SharedPrefHelper
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class SearchActivity : AppCompatActivity(), ItemClickListener,
+    matemart.material.interior.interfaces.WishListUpdateListner {
+    lateinit var adapter: matemart.material.interior.adapter.SearchResultListAdapter
+    lateinit var recentAdapter: SearchRecentAdapter
+    lateinit var trendingAdapter: SearchTrendingAdapter
+    var listSearchHint: ArrayList<String> = arrayListOf()
+    lateinit var etSearch: AutoCompleteTextView
+    lateinit var iv_back: ImageView
+    lateinit var rvSearchResult: RecyclerView
+    lateinit var rvRecentSearch: RecyclerView
+    lateinit var rvTrendingSearch: RecyclerView
+    lateinit var rvProductList: RecyclerView
+    lateinit var ll_emptyLayout: LinearLayout
+    lateinit var ll_trendingSearch: LinearLayout
+    lateinit var ll_RecentSearch: LinearLayout
+    lateinit var cardView: CardView
+    var recentItemList: ArrayList<String> = arrayListOf()
+    var trendingItemList: ArrayList<String> = arrayListOf()
+    lateinit var productListAdapter: ProductItemAdapter
+    var list: ArrayList<ViewListModel> = arrayListOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_search)
+
+        iv_back = findViewById(R.id.iv_back)
+        etSearch = findViewById(R.id.etSearch)
+        rvSearchResult = findViewById(R.id.rvSearchResult)
+        rvProductList = findViewById(R.id.rvProductList)
+        cardView = findViewById(R.id.cardView)
+        rvRecentSearch = findViewById(R.id.rvRecentSearch)
+        rvTrendingSearch = findViewById(R.id.rvTrendingSearch)
+        ll_emptyLayout = findViewById(R.id.ll_emptyLayout)
+        ll_trendingSearch = findViewById(R.id.ll_trendingSearch)
+        ll_RecentSearch = findViewById(R.id.ll_RecentSearch)
+
+        iv_back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        recentAdapter = SearchRecentAdapter(this, recentItemList, this)
+        trendingAdapter = SearchTrendingAdapter(this, trendingItemList, this)
+        productListAdapter = ProductItemAdapter(list, this, this)
+
+        val productLayoutManager = GridLayoutManager(this, 2)
+        rvProductList.layoutManager = productLayoutManager
+        rvProductList.adapter = productListAdapter
+
+        rvRecentSearch.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        val flexLayoutManager = FlexboxLayoutManager(this)
+        flexLayoutManager.flexDirection = FlexDirection.ROW
+        flexLayoutManager.justifyContent =
+            JustifyContent.FLEX_START // Align items to the start of the flex container
+
+
+        rvTrendingSearch.layoutManager = flexLayoutManager
+
+
+
+        rvRecentSearch.adapter = recentAdapter
+        rvTrendingSearch.adapter = trendingAdapter
+
+        getRecentAndTrendingSearchData()
+
+        cardView.visibility = GONE
+
+        adapter =
+            matemart.material.interior.adapter.SearchResultListAdapter(listSearchHint, this, this)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvSearchResult.layoutManager = layoutManager
+        rvSearchResult.adapter = adapter
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                s?.length?.let {
+                    if (it >= 3) {
+                        getProductFromSearch(s.toString())
+                    } else {
+                        rvProductList.visibility = GONE
+                        if(recentItemList.isNotEmpty() || trendingItemList.isNotEmpty()) {
+                            ll_RecentSearch.visibility = VISIBLE
+                            ll_trendingSearch.visibility = VISIBLE
+                            ll_emptyLayout.visibility = GONE
+                        }else{
+                            ll_emptyLayout.visibility = VISIBLE
+                            ll_RecentSearch.visibility = GONE
+                            ll_trendingSearch.visibility = GONE
+                        }
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
+
+    }
+
+    private fun SearchAPI(word: String) {
+        var jsonObject: JsonObject = JsonObject()
+        jsonObject.addProperty("words", word)
+
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchActivity)
+        var call: Call<ResponseSearch> = apiInterface.getSearch(jsonObject)!!
+
+        call.enqueue(object : Callback<ResponseSearch> {
+            override fun onResponse(
+                call: Call<ResponseSearch>,
+                response: Response<ResponseSearch>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    listSearchHint.clear()
+                    response.body()?.data?.words?.let {
+                        listSearchHint.addAll(it)
+
+                        if (listSearchHint.size > 0) {
+                            cardView.visibility = VISIBLE
+                            rvSearchResult.visibility = VISIBLE
+                        } else {
+                            rvSearchResult.visibility = GONE
+                            cardView.visibility = GONE
+                        }
+                    }
+                    adapter.notifyDataSetChanged()
+                } else {
+                    rvSearchResult.visibility = GONE
+                    cardView.visibility = GONE
+                    Toast.makeText(
+                        this@SearchActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseSearch>, t: Throwable) {
+                rvSearchResult.visibility = GONE
+                cardView.visibility = GONE
+                Toast.makeText(
+                    this@SearchActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+
+        })
+
+    }
+
+
+    fun getRecentAndTrendingSearchData() {
+
+        var jsonObject = JsonObject()
+        jsonObject.addProperty(
+            "u_id", SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.USER_ID, 0)
+        )
+
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchActivity)
+        var call: Call<ResponseRecentSearch> = apiInterface.getRecentSearch(jsonObject)!!
+
+        call.enqueue(object : Callback<ResponseRecentSearch> {
+            override fun onResponse(
+                call: Call<ResponseRecentSearch>,
+                response: Response<ResponseRecentSearch>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    response.body()?.data?.let {
+
+                        trendingItemList.clear()
+                        recentItemList.clear()
+                        it.trendingSearch?.words?.let { it1 -> trendingItemList.addAll(it1) }
+                        it.recentlySearch?.words?.let { it1 -> recentItemList.addAll(it1) }
+
+                        if (recentItemList.isNotEmpty() || trendingItemList.isNotEmpty()) {
+                            ll_emptyLayout.visibility = GONE
+                            ll_RecentSearch.visibility = VISIBLE
+                            ll_trendingSearch.visibility = VISIBLE
+                        } else {
+                            ll_emptyLayout.visibility = VISIBLE
+                            ll_RecentSearch.visibility = GONE
+                            ll_trendingSearch.visibility = GONE
+
+                        }
+                        recentAdapter.notifyDataSetChanged()
+                        trendingAdapter.notifyDataSetChanged()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@SearchActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseRecentSearch>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("checkkFailed", "onFailure: " + t.message)
+                Toast.makeText(
+                    this@SearchActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+        })
+
+    }
+
+
+    fun getProductFromSearch(word: String) {
+
+        var jsonObject = JsonObject()
+        jsonObject.addProperty(
+            "u_id", SharedPrefHelper.getInstance(MyApplication.getInstance())
+                .read(SharedPrefHelper.USER_ID, 0)
+        )
+        jsonObject.addProperty("word", word)
+
+
+        var apiInterface: ApiInterface =
+            Service.createService(ApiInterface::class.java, this@SearchActivity)
+        var call: Call<ResponseProductList> = apiInterface.getProductFromSearch(jsonObject)!!
+
+        call.enqueue(object : Callback<ResponseProductList> {
+            override fun onResponse(
+                call: Call<ResponseProductList>,
+                response: Response<ResponseProductList>
+            ) {
+                if (response.body()?.statuscode == 11) {
+                    response.body()?.data?.let {
+
+                        list.clear()
+                        list.addAll(it)
+                        productListAdapter.notifyDataSetChanged()
+
+                        if(list.isNotEmpty()){
+                            rvProductList.visibility = VISIBLE
+                            ll_RecentSearch.visibility = GONE
+                            ll_trendingSearch.visibility = GONE
+                            ll_emptyLayout.visibility = GONE
+                        }else{
+                            rvProductList.visibility = GONE
+                        }
+
+                    }
+                } else {
+                    Toast.makeText(
+                        this@SearchActivity,
+                        "Something went wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseProductList>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("checkkFailed", "onFailure: " + t.message)
+                Toast.makeText(
+                    this@SearchActivity,
+                    "Something went wrong",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+        })
+    }
+
+    //    From Recent or Trending Seach Item Click
+    override fun onSearchItemClick(word: String) {
+        getProductFromSearch(word = word)
+    }
+
+    override fun onUpdate() {
+//        updateList()
+    }
+
+
+}
+
+interface ItemClickListener {
+    fun onSearchItemClick(word: String)
+}
